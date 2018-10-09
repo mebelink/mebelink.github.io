@@ -1,4 +1,4 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="mebelink.github.io" resolutions="1x" timestamp="1539128718326">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="https://mebelink.ml" resolutions="1x" timestamp="1539128901355">
   <folder name="css">
     <file name="site_global.css" crc="72726176"/>
     <file name="index.css" crc="51041455" ref="index"/>
