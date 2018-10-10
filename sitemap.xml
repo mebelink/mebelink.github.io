@@ -14,5 +14,14 @@
     <image:image>
       <image:loc>https://mebelink.ml/images/81.jpg</image:loc>
     </image:image>
+    <image:image>
+      <image:loc>https://mebelink.ml/images/intersection-4.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.ml/images/intersection-3.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.ml/images/intersection-1.svg</image:loc>
+    </image:image>
   </url>
 </urlset>
