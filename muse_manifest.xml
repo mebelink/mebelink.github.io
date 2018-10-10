@@ -1,4 +1,4 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="https://mebelink.ml" resolutions="1x" timestamp="1539134176873">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="https://mebelink.ml" resolutions="1x" timestamp="1539135511317">
   <folder name="fonts">
     <file name="ptsansnarrow.woff" crc="3909085451"/>
     <file name="ptsansnarrow.eot" crc="3889177114"/>
@@ -42,5 +42,5 @@
     </file>
     <file name="домашняя-favicon.ico" crc="255272870" ref="index"/>
   </folder>
-  <file name="index.html" crc="4226851773" seo="true" mt="1539134161961" redirect="true"/>
+  <file name="index.html" crc="283395581" seo="true" mt="1539135466660" redirect="true"/>
 </manifest>
