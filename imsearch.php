@@ -20,7 +20,7 @@
 		<link rel="stylesheet" href="style/print.css?16-2-1-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?16-2-1-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?16-2-1-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636748790650214895" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636748802482481714" media="screen,print" />
 		<script src="res/jquery.js?16-2-1-0"></script>
 		<script src="res/x5engine.js?16-2-1-0" data-files-version="16-2-1-0"></script>
 		<script>
@@ -28,7 +28,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?16-2-1-0-636748790650058649" type="image/png" />
+		<link rel="icon" href="favicon.png?16-2-1-0-636748802482481714" type="image/png" />
 	</head>
 	<body>
 		<div id="imPageExtContainer">
@@ -44,36 +44,14 @@
 	</div>
 </div>
 <ul class="menu-mobile-animated hidden">
-	<li class="imMnMnFirst imPage" data-link-paths=",/index.html,/">
+	<li class=" imPage" data-link-paths=",/index.html,/">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
 		<a class="label" href="index.html">
 Главная		</a>
 </div>
 </div>
-	</li><li class="imMnMnMiddle imPage" data-link-paths=",/---------1.html">
-<div class="label-wrapper">
-<div class="label-inner-wrapper">
-		<a class="label" href="---------1.html">
-Страница 1		</a>
-</div>
-</div>
-	</li><li class="imMnMnLast imLevel"><div class="label-wrapper"><div class="label-inner-wrapper"><span class="label">Уровень 1</span></div></div><ul data-original-position="bottom" class="bottom">
-	<li class="imMnMnFirst imPage" data-link-paths=",/---------2.html">
-<div class="label-wrapper">
-<div class="label-inner-wrapper">
-		<a class="label" href="---------2.html">
-Страница 2		</a>
-</div>
-</div>
-	</li><li class="imMnMnLast imPage" data-link-paths=",/---------3.html">
-<div class="label-wrapper">
-<div class="label-inner-wrapper">
-		<a class="label" href="---------3.html">
-Страница 3		</a>
-</div>
-</div>
-	</li></ul></li></ul></div><script>
+	</li></ul></div><script>
 x5engine.boot.push(function(){x5engine.initMenu('imHeader_imMenuObject_07',1000)});
 $(function () {$('#imHeader_imMenuObject_07 ul li').not('.imMnMnSeparator').each(function () {    var $this = $(this), timeout = 0;    $this.on('mouseenter', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         clearTimeout(timeout);        setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeIn(); }, 250);    }).on('mouseleave', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         timeout = setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeOut(); }, 250);    });});});
 
@@ -89,36 +67,14 @@ $(function () {$('#imHeader_imMenuObject_07 ul li').not('.imMnMnSeparator').each
 	</div>
 </div>
 <ul class="menu-mobile-animated hidden">
-	<li class="imMnMnFirst imPage" data-link-paths=",/index.html,/">
+	<li class=" imPage" data-link-paths=",/index.html,/">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
 		<a class="label" href="index.html">
 Главная		</a>
 </div>
 </div>
-	</li><li class="imMnMnMiddle imPage" data-link-paths=",/---------1.html">
-<div class="label-wrapper">
-<div class="label-inner-wrapper">
-		<a class="label" href="---------1.html">
-Страница 1		</a>
-</div>
-</div>
-	</li><li class="imMnMnLast imLevel"><div class="label-wrapper"><div class="label-inner-wrapper"><span class="label">Уровень 1</span></div></div><ul data-original-position="bottom" class="bottom">
-	<li class="imMnMnFirst imPage" data-link-paths=",/---------2.html">
-<div class="label-wrapper">
-<div class="label-inner-wrapper">
-		<a class="label" href="---------2.html">
-Страница 2		</a>
-</div>
-</div>
-	</li><li class="imMnMnLast imPage" data-link-paths=",/---------3.html">
-<div class="label-wrapper">
-<div class="label-inner-wrapper">
-		<a class="label" href="---------3.html">
-Страница 3		</a>
-</div>
-</div>
-	</li></ul></li></ul></div><script>
+	</li></ul></div><script>
 x5engine.boot.push(function(){x5engine.initMenu('imStickyBar_imMenuObject_01',1000)});
 $(function () {$('#imStickyBar_imMenuObject_01 ul li').not('.imMnMnSeparator').each(function () {    var $this = $(this), timeout = 0;    $this.on('mouseenter', function () {        if($(this).parents('#imStickyBar_imMenuObject_01-menu-opened').length > 0) return;         clearTimeout(timeout);        setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeIn(); }, 250);    }).on('mouseleave', function () {        if($(this).parents('#imStickyBar_imMenuObject_01-menu-opened').length > 0) return;         timeout = setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeOut(); }, 250);    });});});
 
