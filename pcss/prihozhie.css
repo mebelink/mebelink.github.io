@@ -185,11 +185,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 @media (min-width: 1150px) {
 	.imContentDataContainer { width: 1145px; margin-left: auto; margin-right: auto; padding: 0 0px 0 0px; }
 	#imGroup_1 { width: 100%; }
-	#imCell_1 { width: 1145px; min-height: 356px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
-	#imCellStyle_1 { width: 1145px; min-height: 356px; padding: 20px 20px 20px 20px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCell_1 { width: 1145px; min-height: 404px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
+	#imCellStyle_1 { width: 1145px; min-height: 404px; padding: 20px 20px 20px 20px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imCellStyleGraphics_1 { left: 0px; right: 0px; }
 	#imTextObject_3_01 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
-	#imTextObject_3_01 .text-container { height: 316px;}
+	#imTextObject_3_01 .text-container { height: 364px;}
 	#imGroup_2 { width: 1145px; }
 	#imCell_2 { width: 673px; min-height: 587px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
 	#imCellStyle_2 { width: 673px; min-height: 587px; padding: 112px 15px 113px 15px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
@@ -206,11 +206,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 @media (max-width: 1149px) and (min-width: 720px) {
 	.imContentDataContainer { width: 717px; margin-left: auto; margin-right: auto; padding: 0 0px 0 0px; }
 	#imGroup_1 { width: 100%; }
-	#imCell_1 { width: 717px; min-height: 428px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
-	#imCellStyle_1 { width: 717px; min-height: 428px; padding: 20px 20px 20px 20px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCell_1 { width: 717px; min-height: 476px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
+	#imCellStyle_1 { width: 717px; min-height: 476px; padding: 20px 20px 20px 20px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imCellStyleGraphics_1 { left: 0px; right: 0px; }
 	#imTextObject_3_01 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
-	#imTextObject_3_01 .text-container { height: 388px;}
+	#imTextObject_3_01 .text-container { height: 436px;}
 	#imGroup_2 { width: 717px; }
 	#imCell_2 { width: 422px; min-height: 899px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
 	#imCellStyle_2 { width: 422px; min-height: 899px; padding: 339px 15px 340px 15px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
@@ -227,11 +227,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 @media (max-width: 719px) and (min-width: 480px) {
 	.imContentDataContainer { width: 476px; margin-left: auto; margin-right: auto; padding: 0 0px 0 0px; }
 	#imGroup_1 { width: 100%; }
-	#imCell_1 { width: 476px; min-height: 524px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
-	#imCellStyle_1 { width: 476px; min-height: 524px; padding: 20px 20px 20px 20px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCell_1 { width: 476px; min-height: 572px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
+	#imCellStyle_1 { width: 476px; min-height: 572px; padding: 20px 20px 20px 20px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imCellStyleGraphics_1 { left: 0px; right: 0px; }
 	#imTextObject_3_01 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
-	#imTextObject_3_01 .text-container { height: 484px;}
+	#imTextObject_3_01 .text-container { height: 532px;}
 	#imGroup_2 { width: 476px; }
 	#imCell_2 { width: 279px; min-height: 1307px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
 	#imCellStyle_2 { width: 279px; min-height: 1307px; padding: 583px 15px 584px 15px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
