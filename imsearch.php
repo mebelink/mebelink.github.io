@@ -20,7 +20,7 @@
 		<link rel="stylesheet" href="style/print.css?16-2-1-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?16-2-1-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?16-2-1-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636749388687723422" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636749441807483984" media="screen,print" />
 		<script src="res/jquery.js?16-2-1-0"></script>
 		<script src="res/x5engine.js?16-2-1-0" data-files-version="16-2-1-0"></script>
 		<script>
@@ -28,7 +28,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?16-2-1-0-636749388687673340" type="image/png" />
+		<link rel="icon" href="favicon.png?16-2-1-0-636749441807327717" type="image/png" />
 	</head>
 	<body>
 		<div id="imPageExtContainer">
@@ -63,7 +63,7 @@ x5engine.boot.push(function(){x5engine.initMenu('imHeader_imMenuObject_07',1000)
 $(function () {$('#imHeader_imMenuObject_07 ul li').not('.imMnMnSeparator').each(function () {    var $this = $(this), timeout = 0;    $this.on('mouseenter', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         clearTimeout(timeout);        setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeIn(); }, 250);    }).on('mouseleave', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         timeout = setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeOut(); }, 250);    });});});
 
 </script>
-</div></div></div><div id="imHeader_imObjectTitle_10_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_10" class="" > <div id="imHeader_imCellStyleGraphics_10"></div><div id="imHeader_imCellStyle_10" ><div id="imHeader_imObjectTitle_10"><span id ="imHeader_imObjectTitle_10_text" >(097) 527-02-00 Киевстар (095) 106-00-00  Vodafone</span > </div></div></div></div><div id="imHeader_imObjectTitle_11_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_11" class="" > <div id="imHeader_imCellStyleGraphics_11"></div><div id="imHeader_imCellStyle_11" ><div id="imHeader_imObjectTitle_11"><span id ="imHeader_imObjectTitle_11_text" >(097) 527-02-00 Киевстар (095) 106-00-00  Vodafone</span > </div></div></div></div></div>
+</div></div></div><div id="imHeader_imObjectTitle_10_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_10" class="" > <div id="imHeader_imCellStyleGraphics_10"></div><div id="imHeader_imCellStyle_10" ><div id="imHeader_imObjectTitle_10"><span id ="imHeader_imObjectTitle_10_text" >(097) 527-02-00 Киевстар</span > </div></div></div></div><div id="imHeader_imObjectTitle_12_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_12" class="" > <div id="imHeader_imCellStyleGraphics_12"></div><div id="imHeader_imCellStyle_12" ><div id="imHeader_imObjectTitle_12"><span id ="imHeader_imObjectTitle_12_text" ><a href="index.html" onclick="return x5engine.utils.location('index.html', null, false)">Студия дизайнерской мебели "Mebelink"</a></span > </div></div></div></div><div id="imHeader_imObjectTitle_13_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_13" class="" > <div id="imHeader_imCellStyleGraphics_13"></div><div id="imHeader_imCellStyle_13" ><div id="imHeader_imObjectTitle_13"><span id ="imHeader_imObjectTitle_13_text" >(095) 106-00-00 Vodafone</span > </div></div></div></div></div>
 					</header>
 					<div id="imStickyBarContainer">
 						<div id="imStickyBarGraphics"></div>
