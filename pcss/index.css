@@ -1,6 +1,6 @@
 @import 'https://fonts.googleapis.com/css?family=Raleway';
 @import 'https://fonts.googleapis.com/css?family=PT+Sans+Narrow:700,regular';
-#imPageExtContainer {background: transparent url('../images/1.jpg') repeat-x center top; background-attachment: scroll;}
+#imPageExtContainer {background: transparent url('../images/3_905fyi6x.jpg') repeat-x center top; background-attachment: scroll;}
 #imContentGraphics { background-color: rgba(255, 255, 255, 1);}
 #imHeader_imCell_7 { display: block; position: relative; }
 #imHeader_imCellStyle_7 { position: relative; box-sizing: border-box; text-align: center; z-index: 102;}
@@ -85,8 +85,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 }
 .im-menu-opened #imStickyBarContainer, .im-menu-opened #imPageToTop { display: none !important; }
 #imGroup_1 { float: left; }
-#imPageRowGraphics_1 { position: absolute; top: 0; bottom: 0; left: 0; right: 0; opacity: 0.5; }
-#imPageRowGraphics_1 { background: transparent url('../images/10528127b6e34d4a955ea8b570c6f4b5.jpg') repeat center top; }
+#imPageRowGraphics_1 { position: absolute; top: 0; bottom: 0; left: 0; right: 0; opacity: 1; }
+#imPageRowGraphics_1 { background: transparent url('../images/---.jpg') repeat center top; }
 #imCell_1 { display: block; position: relative; }
 #imCellStyle_1 { position: relative; box-sizing: border-box; text-align: center; z-index: 2;}
 #imCellStyleGraphics_1 { position: absolute; top: 3px; bottom: 3px; background-color: transparent; }
