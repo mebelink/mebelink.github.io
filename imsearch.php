@@ -20,7 +20,7 @@
 		<link rel="stylesheet" href="style/print.css?16-2-1-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?16-2-1-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?16-2-1-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636748978791436924" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636749370355857537" media="screen,print" />
 		<script src="res/jquery.js?16-2-1-0"></script>
 		<script src="res/x5engine.js?16-2-1-0" data-files-version="16-2-1-0"></script>
 		<script>
@@ -28,7 +28,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?16-2-1-0-636748978791436924" type="image/png" />
+		<link rel="icon" href="favicon.png?16-2-1-0-636749370355857537" type="image/png" />
 	</head>
 	<body>
 		<div id="imPageExtContainer">
@@ -51,11 +51,11 @@
 Главная		</a>
 </div>
 </div>
-	</li><li class="imMnMnLast imPage" data-link-paths=",/prihozhie.html">
+	</li><li class="imMnMnLast imPage" data-link-paths=",/dizajnerskaya-mebel.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
-		<a class="label" href="prihozhie.html">
-Прихожие		</a>
+		<a class="label" href="dizajnerskaya-mebel.html">
+Дизайнерская мебель		</a>
 </div>
 </div>
 	</li></ul></div><script>
@@ -81,11 +81,11 @@ $(function () {$('#imHeader_imMenuObject_07 ul li').not('.imMnMnSeparator').each
 Главная		</a>
 </div>
 </div>
-	</li><li class="imMnMnLast imPage" data-link-paths=",/prihozhie.html">
+	</li><li class="imMnMnLast imPage" data-link-paths=",/dizajnerskaya-mebel.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
-		<a class="label" href="prihozhie.html">
-Прихожие		</a>
+		<a class="label" href="dizajnerskaya-mebel.html">
+Дизайнерская мебель		</a>
 </div>
 </div>
 	</li></ul></div><script>
