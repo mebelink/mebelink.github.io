@@ -5,6 +5,7 @@
 		<title>Поиск - Студия мебели «Mebelink»</title>
 		<meta charset="utf-8" />
 		<!--[if IE]><meta http-equiv="ImageToolbar" content="False" /><![endif]-->
+		<meta name="author" content="Студия мебели «Mebelink»" />
 		<meta property="og:locale" content="ru" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://mebelink.ml/imsearch.php" />
@@ -20,7 +21,7 @@
 		<link rel="stylesheet" href="style/print.css?16-2-1-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?16-2-1-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?16-2-1-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636749643001753276" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636750779220979886" media="screen,print" />
 		<script src="res/jquery.js?16-2-1-0"></script>
 		<script src="res/x5engine.js?16-2-1-0" data-files-version="16-2-1-0"></script>
 		<script>
@@ -28,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?16-2-1-0-636749643001753276" type="image/png" />
+		<link rel="icon" href="favicon.png?16-2-1-0-636750779220979886" type="image/png" />
 	</head>
 	<body>
 		<div id="imPageExtContainer">
@@ -37,7 +38,7 @@
 				<div id="imFooterBg"></div>
 				<div id="imPage">
 					<header id="imHeader">
-						
+						<h1 class="imHidden">Поиск - Студия мебели «Mebelink»</h1>
 						<div id="imHeaderObjects"><div id="imHeader_imMenuObject_07_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_7" class="" > <div id="imHeader_imCellStyleGraphics_7"></div><div id="imHeader_imCellStyle_7" ><div id="imHeader_imMenuObject_07"><div class="hamburger-button hamburger-component"><div><div><div class="hamburger-bar"></div><div class="hamburger-bar"></div><div class="hamburger-bar"></div></div></div></div><div class="hamburger-menu-background-container hamburger-component">
 	<div class="hamburger-menu-background menu-mobile menu-mobile-animated hidden">
 		<div class="hamburger-menu-close-button"><span>&times;</span></div>
@@ -63,7 +64,7 @@ x5engine.boot.push(function(){x5engine.initMenu('imHeader_imMenuObject_07',1000)
 $(function () {$('#imHeader_imMenuObject_07 ul li').not('.imMnMnSeparator').each(function () {    var $this = $(this), timeout = 0;    $this.on('mouseenter', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         clearTimeout(timeout);        setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeIn(); }, 250);    }).on('mouseleave', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         timeout = setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeOut(); }, 250);    });});});
 
 </script>
-</div></div></div><div id="imHeader_imObjectTitle_10_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_10" class="" > <div id="imHeader_imCellStyleGraphics_10"></div><div id="imHeader_imCellStyle_10" ><div id="imHeader_imObjectTitle_10"><span id ="imHeader_imObjectTitle_10_text" >(097) 527-02-00 Киевстар</span > </div></div></div></div><div id="imHeader_imObjectTitle_12_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_12" class="" > <div id="imHeader_imCellStyleGraphics_12"></div><div id="imHeader_imCellStyle_12" ><div id="imHeader_imObjectTitle_12"><span id ="imHeader_imObjectTitle_12_text" ><a href="index.html" onclick="return x5engine.utils.location('index.html', null, false)">Студия дизайнерской мебели "Mebelink"</a></span > </div></div></div></div><div id="imHeader_imObjectTitle_13_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_13" class="" > <div id="imHeader_imCellStyleGraphics_13"></div><div id="imHeader_imCellStyle_13" ><div id="imHeader_imObjectTitle_13"><span id ="imHeader_imObjectTitle_13_text" >(095) 106-00-00 Vodafone</span > </div></div></div></div></div>
+</div></div></div><div id="imHeader_imObjectTitle_08_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_8" class="" > <div id="imHeader_imCellStyleGraphics_8"></div><div id="imHeader_imCellStyle_8" ><div id="imHeader_imObjectTitle_08"><span id ="imHeader_imObjectTitle_08_text" >(097) 527-02-00 Киевстар</span > </div></div></div></div><div id="imHeader_imObjectTitle_09_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_9" class="" > <div id="imHeader_imCellStyleGraphics_9"></div><div id="imHeader_imCellStyle_9" ><div id="imHeader_imObjectTitle_09"><span id ="imHeader_imObjectTitle_09_text" >Студия дизайнерской мебели "Mebelink"</span > </div></div></div></div></div>
 					</header>
 					<div id="imStickyBarContainer">
 						<div id="imStickyBarGraphics"></div>
@@ -108,7 +109,7 @@ $(function () {$('#imStickyBar_imMenuObject_01 ul li').not('.imMnMnSeparator').e
 						<main id="imContent">
 							<a id="imGoToCont"></a>
 				<div id="imSearchPage">
-				<h1 id="imPgTitle">Результаты поиска</h1>
+				<h2 id="imPgTitle">Результаты поиска</h2>
 				<?php
 				$search = new imSearch();
 				$keys = isset($_GET['search']) ? @htmlspecialchars($_GET['search']) : "";
@@ -123,15 +124,7 @@ $(function () {$('#imStickyBar_imMenuObject_01 ul li').not('.imMnMnSeparator').e
 						</main>
 					</div>
 					<footer id="imFooter">
-						<div id="imFooterObjects"><div id="imFooter_imObjectTitle_18_wrapper" class="template-object-wrapper"><div id="imFooter_imCell_18" class="" > <div id="imFooter_imCellStyleGraphics_18"></div><div id="imFooter_imCellStyle_18" ><div id="imFooter_imObjectTitle_18"><span id ="imFooter_imObjectTitle_18_text" >"Mebelink"</span > </div></div></div></div><div id="imFooter_imTextObject_19_wrapper" class="template-object-wrapper"><div id="imFooter_imCell_19" class="" > <div id="imFooter_imCellStyleGraphics_19"></div><div id="imFooter_imCellStyle_19" ><div id="imFooter_imTextObject_19">
-	<div class="text-tab-content"  id="imFooter_imTextObject_19_tab0" style="">
-		<div class="text-inner">
-			<div class="imTACenter"><span class="fs10lh1-5 cf1">© «Mebelink» 2006 - 2018</span></div>
-		</div>
-	</div>
-
-</div>
-</div></div></div></div>
+						<div id="imFooterObjects"><div id="imFooter_imObjectTitle_01_wrapper" class="template-object-wrapper"><div id="imFooter_imCell_1" class="" > <div id="imFooter_imCellStyleGraphics_1"></div><div id="imFooter_imCellStyle_1" ><div id="imFooter_imObjectTitle_01"><span id ="imFooter_imObjectTitle_01_text" >"Mebelink"</span > </div></div></div></div><div id="imFooter_imObjectTitle_02_wrapper" class="template-object-wrapper"><div id="imFooter_imCell_2" class="" > <div id="imFooter_imCellStyleGraphics_2"></div><div id="imFooter_imCellStyle_2" ><div id="imFooter_imObjectTitle_02"><span id ="imFooter_imObjectTitle_02_text" >© «Mebelink» 2006 - 2018</span > </div></div></div></div></div>
 					</footer>
 				</div>
 				<span class="imHidden"><a href="#imGoToCont" title="Прочесть эту страницу заново">Назад к содержимому</a></span>

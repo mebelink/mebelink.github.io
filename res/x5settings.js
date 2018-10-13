@@ -4,7 +4,7 @@
 		p = s.currentPath,
 		b = x.boot;
 
-	s.siteId = '0A0782EF609D3068B87726474BB6DECB';
+	s.siteId = '9CA37B2E8731B83E6047A055D08DDC71';
 	s.version = '16-2-1-0';
 	b.push(function () {
 		x.setupDateTime();
@@ -42,9 +42,9 @@
 		'buttonZoomIn': '<svg class=\"im-common-zoom-in-button\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 50 50\"><defs><style>.a{fill:#3e3d40;opacity:0.5;}.b{fill:#f6f6f6;}<\/style><\/defs><rect class=\"a\" x=\"5.02\" y=\"5\" width=\"39.94\" height=\"39.94\" rx=\"3.54\" ry=\"3.54\"/><path class=\"b\" d=\"M40.87,39.34l-9.68-9.68a12.84,12.84,0,1,0-1.64,1.64L39.23,41a1.16,1.16,0,1,0,1.64-1.64Zm-9-17.82a10.45,10.45,0,1,1-3.06-7.38A10.39,10.39,0,0,1,31.86,21.51Z\"/><path class=\"b\" d=\"M27.39,20.2H22.6V15.9a1.16,1.16,0,0,0-1.16-1.16h-.28A1.16,1.16,0,0,0,20,15.9v4.3H15.21a1.12,1.12,0,0,0-1.12,1.11v.27a1.12,1.12,0,0,0,1.12,1.12H20V27a1.16,1.16,0,0,0,1.16,1.16h.28A1.16,1.16,0,0,0,22.6,27v-4.3h4.79a1.12,1.12,0,0,0,1.12-1.12v-.27A1.12,1.12,0,0,0,27.39,20.2Z\"/><\/svg>',
 		'buttonZoomOut': '<svg class=\"im-common-zoom-out-button\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 50 50\"><defs><style>.a{fill:#3e3d40;opacity:0.5;}.b{fill:#f6f6f6;}<\/style><\/defs><rect class=\"a\" x=\"5.02\" y=\"4.57\" width=\"39.94\" height=\"39.94\" rx=\"3.54\" ry=\"3.54\"/><path class=\"b\" d=\"M40.87,38.91l-9.68-9.68a12.84,12.84,0,1,0-1.64,1.64l9.68,9.67a1.16,1.16,0,1,0,1.64-1.64Zm-9-17.82A10.45,10.45,0,1,1,28.8,13.7,10.39,10.39,0,0,1,31.86,21.08Z\"/><path class=\"b\" d=\"M15.21,19.77H27.39a1.12,1.12,0,0,1,1.12,1.12v.27a1.12,1.12,0,0,1-1.12,1.12H15.21a1.12,1.12,0,0,1-1.12-1.12v-.27A1.11,1.11,0,0,1,15.21,19.77Z\"/><\/svg>',
 		'buttonZoomRestore': '<svg class=\"im-common-zoom-restore-button\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 50 50\"><defs><style>.a{fill:#3e3d40;opacity:0.5;}.b{fill:#f6f6f6;}<\/style><\/defs><rect class=\"a\" x=\"5.02\" y=\"4.57\" width=\"39.94\" height=\"39.94\" rx=\"3.54\" ry=\"3.54\"/><path class=\"b\" d=\"M41,38.89,29.68,27.8l-.44.48-.15.16A10.57,10.57,0,1,1,32.19,21,10.36,10.36,0,0,1,32,22.88l-4.79-3.46a.9.9,0,0,0-1.06,1.46l6.09,4.4a1.3,1.3,0,0,0,.76.23h0a1.32,1.32,0,0,0,.78-.25l6-4.52a.9.9,0,1,0-1.09-1.44L34.1,22.78A12.18,12.18,0,0,0,34.26,21a12.74,12.74,0,1,0-4.5,9.62l9.76,9.76A1,1,0,1,0,41,38.89ZM40.66,40h0Z\"/><\/svg>',
-		'borderRadius' : '3px 3px 3px 3px',
+		'borderRadius' : '0px 0px 0px 0px',
 		'borderColor' : 'rgba(0, 0, 0, 1) rgba(0, 0, 0, 1) rgba(0, 0, 0, 1) rgba(0, 0, 0, 1)',
-		'textColor' : 'rgba(0, 0, 0, 1)',
+		'textColor' : 'rgba(63, 62, 62, 1)',
 		'fontFamily' : 'Raleway',
 		'fontStyle' : 'normal',
 		'fontWeight' : 'normal',
@@ -62,7 +62,7 @@
 		'shadow' : '',
 		'background' : 'rgba(0, 0, 0, 1)',
 		'borderRadius' : 10,
-		'textColor' : 'rgba(0, 0, 0, 1)',
+		'textColor' : 'rgba(63, 62, 62, 1)',
 		'boxColor' : 'rgba(255, 255, 255, 1)',
 		'opacity' : 0.7
 	});

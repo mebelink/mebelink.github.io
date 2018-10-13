@@ -14,7 +14,7 @@ $imSettings['general'] = array(
 	'sitename' => 'Студия мебели «Mebelink»',
 	'lang_code' => 'ru-RU',
 	'public_folder' => '',
-	'salt' => '15i49dzmwq8pjcg84ssn024sqqqo7lwq86jiw6k',
+	'salt' => 'bs2jmd7dky7jiyf8pdx8z15q9y65j1lndgib5iwws75jaq2vojpdl7uanc',
 	'use_common_email_sender_address' => false,
 	'common_email_sender_addres' => ''
 );
@@ -43,8 +43,8 @@ $imSettings['password_policy'] = array(
 
 
 $imSettings['admin'] = array(
-	'notification_public_key' => '7a14805bbd843950',
-	'notification_private_key' => '6feb02ced0fde975',
+	'notification_public_key' => '28b1fcfcb3a98b6a',
+	'notification_private_key' => '89673f3f6d7aa20f',
 	'enable_manager_notifications' => false,
 	'theme' => 'orange',
 	'extra-dashboard' => array(),
@@ -116,7 +116,7 @@ $imSettings['dynamicobjects'] = array(
 
 $ImMailer->emailType = 'phpmailer';
 $ImMailer->exposeWsx5 = false;
-$ImMailer->header = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' . "\n" . '<html>' . "\n" . '<head>' . "\n" . '<meta http-equiv="content-type" content="text/html; charset=utf-8">' . "\n" . '</head>' . "\n" . '<body bgcolor="#29ACBE" style="background-color: #29ACBE;">' . "\n\t" . '<table border="0" cellpadding="0" align="center" cellspacing="0" style="padding: 0; margin: 0 auto; width: 700px;">' . "\n\t" . '<tr><td id="imEmailContent" style="min-height: 300px; padding: 10px; font: normal normal normal 9pt \'Raleway\'; color: #000000; background-color: #FFFFFF; text-align: left; text-decoration: none;  width: 700px;border-style: solid; border-color: transparent; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px;background-color: #FFFFFF" width="700px">' . "\n\t\t";
+$ImMailer->header = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' . "\n" . '<html>' . "\n" . '<head>' . "\n" . '<meta http-equiv="content-type" content="text/html; charset=utf-8">' . "\n" . '</head>' . "\n" . '<body bgcolor="#3F3E3E" style="background-color: #3F3E3E;">' . "\n\t" . '<table border="0" cellpadding="0" align="center" cellspacing="0" style="padding: 0; margin: 0 auto; width: 700px;">' . "\n\t" . '<tr><td id="imEmailContent" style="min-height: 300px; padding: 10px; font: normal normal normal 9pt \'Raleway\'; color: #000000; background-color: #FFFFFF; text-align: left; text-decoration: none;  width: 700px;border-style: solid; border-color: #808080; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px;background-color: #FFFFFF" width="700px">' . "\n\t\t";
 $ImMailer->footer = "\n\t" . '</td></tr>' . "\n\t" . '</table>' . "\n" . '<table width="100%"><tr><td id="imEmailFooter" style="font: normal normal normal 7pt \'Raleway\'; color: #FFFFFF; background-color: transparent; text-align: center; text-decoration: none;  padding: 10px; margin-top: 5px;background-color: transparent">' . "\n\t\t" . 'Это письмо-подтверждение предназначено для исключения несанкционированного использования вашего адреса электронной почты.<br>Если вы получили это сообщение по ошибке, пожалуйста, сообщите об этом отправителю и удалите это письмо, не делая копий.' . "\n\t" . '</td></tr></table>' . "\n\t" . '</body>' . "\n" . '</html>';
 $ImMailer->bodyBackground = '#FFFFFF';
 $ImMailer->bodyBackgroundEven = '#FFFFFF';
@@ -124,7 +124,7 @@ $ImMailer->bodyBackgroundOdd = '#F0F0F0';
 $ImMailer->bodyBackgroundBorder = '#CDCDCD';
 $ImMailer->bodyTextColorOdd = '#000000';
 $ImMailer->bodySeparatorBorderColor = '#000000';
-$ImMailer->emailBackground = '#29ACBE';
+$ImMailer->emailBackground = '#3F3E3E';
 $ImMailer->emailContentStyle = 'font: normal normal normal 9pt \'Raleway\'; color: #000000; background-color: #FFFFFF; text-align: left; text-decoration: none; ';
 $ImMailer->emailContentFontFamily = 'font-family: Raleway;';
 
