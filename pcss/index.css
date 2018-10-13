@@ -562,10 +562,11 @@ html:not(.no-cssanimations) #imCell_14.animated {   -webkit-animation-duration: 
 #imTextObject_16_tab0 .imVb { vertical-align: bottom; }
 #imTextObject_16_tab0 hr { border-width: 1px 0 0 0; border-style: solid; }
 #imTextObject_16_tab0 .fs22lh1-5 { vertical-align: baseline; font-size: 22pt; line-height: 44px; }
-#imTextObject_16_tab0 .cf1 { color: rgb(0, 0, 0); }
+#imTextObject_16_tab0 .cf1 { color: rgb(128, 96, 0); }
 #imTextObject_16_tab0 .ff1 { font-family: 'PT Sans Narrow'; }
 #imTextObject_16_tab0 .cf2 { color: rgb(192, 0, 0); }
 #imTextObject_16_tab0 .fs12lh1-5 { vertical-align: baseline; font-size: 12pt; line-height: 24px; }
+#imTextObject_16_tab0 .cf3 { color: rgb(0, 0, 0); }
 #imTextObject_16 .text-container {margin: 0 auto; position: relative; overflow: hidden;  background-color: rgba(255, 255, 255, 1);  }
 #imCell_17 { display: block; position: relative; }
 #imCellStyle_17 { position: relative; box-sizing: border-box; text-align: center; z-index: 2;}
@@ -609,10 +610,11 @@ html:not(.no-cssanimations) #imCell_14.animated {   -webkit-animation-duration: 
 #imTextObject_17_tab0 .imVb { vertical-align: bottom; }
 #imTextObject_17_tab0 hr { border-width: 1px 0 0 0; border-style: solid; }
 #imTextObject_17_tab0 .fs22lh1-5 { vertical-align: baseline; font-size: 22pt; line-height: 44px; }
-#imTextObject_17_tab0 .cf1 { color: rgb(0, 0, 0); }
+#imTextObject_17_tab0 .cf1 { color: rgb(128, 96, 0); }
 #imTextObject_17_tab0 .ff1 { font-family: 'PT Sans Narrow'; }
 #imTextObject_17_tab0 .cf2 { color: rgb(192, 0, 0); }
 #imTextObject_17_tab0 .fs12lh1-5 { vertical-align: baseline; font-size: 12pt; line-height: 24px; }
+#imTextObject_17_tab0 .cf3 { color: rgb(0, 0, 0); }
 #imTextObject_17 .text-container {margin: 0 auto; position: relative; overflow: hidden;  background-color: rgba(255, 255, 255, 1);  }
 #imCell_18 { display: block; position: relative; }
 #imCellStyle_18 { position: relative; box-sizing: border-box; text-align: center; z-index: 2;}
