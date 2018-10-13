@@ -141,11 +141,12 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 #imTextObject_3_03_tab0 .imVb { vertical-align: bottom; }
 #imTextObject_3_03_tab0 hr { border-width: 1px 0 0 0; border-style: solid; }
 #imTextObject_3_03_tab0 .fs22lh1-5 { vertical-align: baseline; font-size: 22pt; line-height: 44px; }
+#imTextObject_3_03_tab0 .cf1 { color: rgb(128, 96, 0); }
 #imTextObject_3_03_tab0 .ff1 { font-family: 'PT Sans Narrow'; }
 #imTextObject_3_03_tab0 .fs12lh1-5 { vertical-align: baseline; font-size: 12pt; line-height: 24px; }
-#imTextObject_3_03_tab0 .cf1 { color: rgb(0, 0, 0); }
+#imTextObject_3_03_tab0 .cf2 { color: rgb(0, 0, 0); }
 #imTextObject_3_03_tab0 .fs16lh1-5 { vertical-align: baseline; font-size: 16pt; line-height: 32px; }
-#imTextObject_3_03_tab0 .cf2 { color: rgb(192, 0, 0); }
+#imTextObject_3_03_tab0 .cf3 { color: rgb(192, 0, 0); }
 #imTextObject_3_03 .text-container {margin: 0 auto; position: relative; overflow: hidden;  background-color: rgba(255, 255, 255, 1);  }
 #imCell_4 { display: block; position: relative; }
 #imCellStyle_4 { position: relative; box-sizing: border-box; text-align: center; z-index: 2;}
