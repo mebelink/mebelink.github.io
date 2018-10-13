@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="style/print.css?16-2-1-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?16-2-1-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?16-2-1-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636750779220979886" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636750813597007288" media="screen,print" />
 		<script src="res/jquery.js?16-2-1-0"></script>
 		<script src="res/x5engine.js?16-2-1-0" data-files-version="16-2-1-0"></script>
 		<script>
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?16-2-1-0-636750779220979886" type="image/png" />
+		<link rel="icon" href="favicon.png?16-2-1-0-636750813596977270" type="image/png" />
 	</head>
 	<body>
 		<div id="imPageExtContainer">
@@ -38,7 +38,7 @@
 				<div id="imFooterBg"></div>
 				<div id="imPage">
 					<header id="imHeader">
-						<h1 class="imHidden">Поиск - Студия мебели «Mebelink»</h1>
+						
 						<div id="imHeaderObjects"><div id="imHeader_imMenuObject_07_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_7" class="" > <div id="imHeader_imCellStyleGraphics_7"></div><div id="imHeader_imCellStyle_7" ><div id="imHeader_imMenuObject_07"><div class="hamburger-button hamburger-component"><div><div><div class="hamburger-bar"></div><div class="hamburger-bar"></div><div class="hamburger-bar"></div></div></div></div><div class="hamburger-menu-background-container hamburger-component">
 	<div class="hamburger-menu-background menu-mobile menu-mobile-animated hidden">
 		<div class="hamburger-menu-close-button"><span>&times;</span></div>
@@ -109,7 +109,7 @@ $(function () {$('#imStickyBar_imMenuObject_01 ul li').not('.imMnMnSeparator').e
 						<main id="imContent">
 							<a id="imGoToCont"></a>
 				<div id="imSearchPage">
-				<h2 id="imPgTitle">Результаты поиска</h2>
+				<div id="imPgTitle">Результаты поиска</div>
 				<?php
 				$search = new imSearch();
 				$keys = isset($_GET['search']) ? @htmlspecialchars($_GET['search']) : "";
