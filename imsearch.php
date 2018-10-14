@@ -2,7 +2,7 @@
 <!DOCTYPE html><!-- HTML5 -->
 <html prefix="og: http://ogp.me/ns#" lang="ru-RU" dir="ltr">
 	<head>
-		<title>Поиск</title>
+		<title>Поиск - Студия мебели «Mebelink»</title>
 		<meta charset="utf-8" />
 		<!--[if IE]><meta http-equiv="ImageToolbar" content="False" /><![endif]-->
 		<meta name="author" content="Студия мебели «Mebelink»" />
@@ -10,7 +10,7 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://mebelink.ml/imsearch.php" />
 		<meta property="og:title" content="Поиск" />
-		<meta property="og:site_name" content="" />
+		<meta property="og:site_name" content="Студия мебели «Mebelink»" />
 		<meta property="og:image" content="https://mebelink.ml/favImage.png" />
 		<meta property="og:image:type" content="image/png">
 		<meta property="og:image:width" content="744">
@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="style/print.css?16-2-1-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?16-2-1-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?16-2-1-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636751320282800261" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636751324553535381" media="screen,print" />
 		<script src="res/jquery.js?16-2-1-0"></script>
 		<script src="res/x5engine.js?16-2-1-0" data-files-version="16-2-1-0"></script>
 		<script>
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?16-2-1-0-636751320282800261" type="image/png" />
+		<link rel="icon" href="favicon.png?16-2-1-0-636751324553535381" type="image/png" />
 	</head>
 	<body>
 		<div id="imPageExtContainer">
