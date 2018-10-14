@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="style/print.css?16-2-1-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?16-2-1-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?16-2-1-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636750842010043506" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?16-2-1-0-636751317526327102" media="screen,print" />
 		<script src="res/jquery.js?16-2-1-0"></script>
 		<script src="res/x5engine.js?16-2-1-0" data-files-version="16-2-1-0"></script>
 		<script>
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?16-2-1-0-636750842010043506" type="image/png" />
+		<link rel="icon" href="favicon.png?16-2-1-0-636751317526327102" type="image/png" />
 	</head>
 	<body>
 		<div id="imPageExtContainer">
@@ -64,7 +64,7 @@ x5engine.boot.push(function(){x5engine.initMenu('imHeader_imMenuObject_07',1000)
 $(function () {$('#imHeader_imMenuObject_07 ul li').not('.imMnMnSeparator').each(function () {    var $this = $(this), timeout = 0;    $this.on('mouseenter', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         clearTimeout(timeout);        setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeIn(); }, 250);    }).on('mouseleave', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         timeout = setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeOut(); }, 250);    });});});
 
 </script>
-</div></div></div><div id="imHeader_imObjectTitle_08_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_8" class="" > <div id="imHeader_imCellStyleGraphics_8"></div><div id="imHeader_imCellStyle_8" ><div id="imHeader_imObjectTitle_08"><span id ="imHeader_imObjectTitle_08_text" >(097) 527-00-00</span > </div></div></div></div><div id="imHeader_imObjectTitle_09_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_9" class="" > <div id="imHeader_imCellStyleGraphics_9"></div><div id="imHeader_imCellStyle_9" ><div id="imHeader_imObjectTitle_09"><span id ="imHeader_imObjectTitle_09_text" >Студия дизайнерской мебели "Mebelink"</span > </div></div></div></div><div id="imHeader_imObjectImage_10_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_10"></div></div><div id="imHeader_imObjectImage_11_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_11" class="" > <div id="imHeader_imCellStyleGraphics_11"></div><div id="imHeader_imCellStyle_11" ><img id="imHeader_imObjectImage_11" src="images/21.jpg" title="телефон" alt="телефон" /></div></div></div></div>
+</div></div></div><div id="imHeader_imObjectTitle_08_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_8" class="" > <div id="imHeader_imCellStyleGraphics_8"></div><div id="imHeader_imCellStyle_8" ><div id="imHeader_imObjectTitle_08"><span id ="imHeader_imObjectTitle_08_text" >(097) 527-00-00</span > </div></div></div></div><div id="imHeader_imObjectTitle_09_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_9" class="" > <div id="imHeader_imCellStyleGraphics_9"></div><div id="imHeader_imCellStyle_9" ><div id="imHeader_imObjectTitle_09"><span id ="imHeader_imObjectTitle_09_text" >Студия дизайнерской мебели "Mebelink"</span > </div></div></div></div><div id="imHeader_imObjectImage_10_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_10"></div></div><div id="imHeader_imObjectImage_11_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_11" class="" > <div id="imHeader_imCellStyleGraphics_11"></div><div id="imHeader_imCellStyle_11" ><img id="imHeader_imObjectImage_11" src="images/metroui1.png" title="телефон" alt="телефон" /></div></div></div><div id="imHeader_imObjectTitle_12_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_12" class="" > <div id="imHeader_imCellStyleGraphics_12"></div><div id="imHeader_imCellStyle_12" ><div id="imHeader_imObjectTitle_12"><span id ="imHeader_imObjectTitle_12_text" >(097) 527-00-00</span > </div></div></div></div></div>
 					</header>
 					<div id="imStickyBarContainer">
 						<div id="imStickyBarGraphics"></div>
@@ -94,7 +94,7 @@ x5engine.boot.push(function(){x5engine.initMenu('imStickyBar_imMenuObject_01',10
 $(function () {$('#imStickyBar_imMenuObject_01 ul li').not('.imMnMnSeparator').each(function () {    var $this = $(this), timeout = 0;    $this.on('mouseenter', function () {        if($(this).parents('#imStickyBar_imMenuObject_01-menu-opened').length > 0) return;         clearTimeout(timeout);        setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeIn(); }, 250);    }).on('mouseleave', function () {        if($(this).parents('#imStickyBar_imMenuObject_01-menu-opened').length > 0) return;         timeout = setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeOut(); }, 250);    });});});
 
 </script>
-</div></div></div></div>
+</div></div></div><div id="imStickyBar_imObjectImage_02_wrapper" class="template-object-wrapper"><div id="imStickyBar_imCell_2" class="" > <div id="imStickyBar_imCellStyleGraphics_2"></div><div id="imStickyBar_imCellStyle_2" ><img id="imStickyBar_imObjectImage_02" src="images/metroui1.png" title="телефон" alt="телефон" /></div></div></div><div id="imStickyBar_imObjectTitle_03_wrapper" class="template-object-wrapper"><div id="imStickyBar_imCell_3" class="" > <div id="imStickyBar_imCellStyleGraphics_3"></div><div id="imStickyBar_imCellStyle_3" ><div id="imStickyBar_imObjectTitle_03"><span id ="imStickyBar_imObjectTitle_03_text" >(097) 527-00-00</span > </div></div></div></div><div id="imStickyBar_imObjectTitle_04_wrapper" class="template-object-wrapper"><div id="imStickyBar_imCell_4" class="" > <div id="imStickyBar_imCellStyleGraphics_4"></div><div id="imStickyBar_imCellStyle_4" ><div id="imStickyBar_imObjectTitle_04"><span id ="imStickyBar_imObjectTitle_04_text" >(097) 527-00-00</span > </div></div></div></div></div>
 						</div>
 					</div>
 					<a class="imHidden" href="#imGoToCont" title="Заголовок главного меню">Перейти к контенту</a>
