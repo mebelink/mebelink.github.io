@@ -511,9 +511,7 @@ html:not(.no-cssanimations) #imCell_14.animated {   -webkit-animation-duration: 
 #imCell_14.animated.fadeInRight {  -webkit-animation-name: imCell_14-anim-fadeInRight;  animation-name: imCell_14-anim-fadeInRight; }
 #imObjectImage_14 { width: 100%; vertical-align: top; max-width: 235px; }
 #imPageRowGraphics_3 { position: absolute; top: 0; bottom: 0; left: 0; right: 0; opacity: 1; }
-#imPageRowGraphicsVideo_3_wrapper { box-sizing: border-box; width: 100%; min-height: 100%; }
-#imPageRowGraphicsVideo_3 { min-width: 100%; min-height: 100%; }
-#imPageRowGraphicsVideoPoster_3 { position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: transparent url('../video/---.jpg') no-repeat center center; background-size: cover; transition: opacity .5s; }
+#imPageRowGraphics_3 { background: transparent url('../images/---.jpg') repeat center center; }
 #imCell_15 { display: block; position: relative; }
 #imCellStyle_15 { position: relative; box-sizing: border-box; text-align: center; z-index: 2;}
 #imCellStyleGraphics_15 { position: absolute; top: 25px; bottom: 0px; background-color: transparent; }
