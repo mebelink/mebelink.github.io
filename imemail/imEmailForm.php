@@ -8,7 +8,7 @@ if(substr(basename($_SERVER['PHP_SELF']), 0, 11) == "imEmailForm") {
 	if(@$_POST['action'] != 'check_answer') {
 		if(!isset($_POST['imJsCheck']) || $_POST['imJsCheck'] != 'DDD02B1145D70D769B1A4B36F1466BE3' || (isset($_POST['imSpProt']) && $_POST['imSpProt'] != ""))
 			die(imPrintJsError());
-		$form->mailToOwner('vannavam2015@gmail.com', 'vannavam2015@gmail.com', '', '', false);
+		$form->mailToOwner('vannavam2015@gmail.com', 'vannavam2015@gmail.com', '', '', true);
 		@header('Location: ../index.html');
 		exit();
 	} else {
