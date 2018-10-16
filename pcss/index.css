@@ -576,11 +576,11 @@ html:not(.no-cssanimations) #imCell_14.animated {   -webkit-animation-duration: 
 @media (min-width: 1150px) {
 	.imContentDataContainer { width: 1145px; margin-left: auto; margin-right: auto; padding: 0 0px 0 0px; }
 	#imGroup_1 { width: 100%; }
-	#imCell_1 { width: 1105px; min-height: 126px;  padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px; }
-	#imCellStyle_1 { width: 1105px; min-height: 126px; padding: 20px 20px 20px 20px; border-top: 1px solid rgba(128, 128, 128, 1); border-bottom: 1px solid rgba(128, 128, 128, 1); border-left: 1px solid rgba(128, 128, 128, 1); border-right: 1px solid rgba(128, 128, 128, 1); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
+	#imCell_1 { width: 1105px; min-height: 160px;  padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px; }
+	#imCellStyle_1 { width: 1105px; min-height: 160px; padding: 20px 20px 20px 20px; border-top: 1px solid rgba(128, 128, 128, 1); border-bottom: 1px solid rgba(128, 128, 128, 1); border-left: 1px solid rgba(128, 128, 128, 1); border-right: 1px solid rgba(128, 128, 128, 1); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
 	#imCellStyleGraphics_1 { left: 20px; right: 20px; }
 	#imTextObject_01 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
-	#imTextObject_01 .text-container { height: 84px;}
+	#imTextObject_01 .text-container { height: 118px;}
 	#imGroup_2 { width: 1145px; }
 	#imCell_2 { width: 258px; min-height: 329px;  padding-top: 15px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; }
 	#imCellStyle_2 { width: 258px; min-height: 329px; padding: 0px 0px 27px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
@@ -665,11 +665,11 @@ html:not(.no-cssanimations) #imCell_14.animated {   -webkit-animation-duration: 
 @media (max-width: 1149px) and (min-width: 720px) {
 	.imContentDataContainer { width: 717px; margin-left: auto; margin-right: auto; padding: 0 0px 0 0px; }
 	#imGroup_1 { width: 100%; }
-	#imCell_1 { width: 691px; min-height: 160px;  padding-top: 20px; padding-bottom: 20px; padding-left: 13px; padding-right: 13px; }
-	#imCellStyle_1 { width: 691px; min-height: 160px; padding: 20px 20px 20px 20px; border-top: 1px solid rgba(128, 128, 128, 1); border-bottom: 1px solid rgba(128, 128, 128, 1); border-left: 1px solid rgba(128, 128, 128, 1); border-right: 1px solid rgba(128, 128, 128, 1); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
+	#imCell_1 { width: 691px; min-height: 194px;  padding-top: 20px; padding-bottom: 20px; padding-left: 13px; padding-right: 13px; }
+	#imCellStyle_1 { width: 691px; min-height: 194px; padding: 20px 20px 20px 20px; border-top: 1px solid rgba(128, 128, 128, 1); border-bottom: 1px solid rgba(128, 128, 128, 1); border-left: 1px solid rgba(128, 128, 128, 1); border-right: 1px solid rgba(128, 128, 128, 1); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
 	#imCellStyleGraphics_1 { left: 13px; right: 13px; }
 	#imTextObject_01 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
-	#imTextObject_01 .text-container { height: 118px;}
+	#imTextObject_01 .text-container { height: 152px;}
 	#imGroup_2 { width: 717px; }
 	#imCell_2 { width: 163px; min-height: 446px;  padding-top: 15px; padding-bottom: 15px; padding-left: 9px; padding-right: 9px; }
 	#imCellStyle_2 { width: 163px; min-height: 446px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
