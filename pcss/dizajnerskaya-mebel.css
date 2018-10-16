@@ -503,7 +503,7 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 	/* Responsive menu separation line style */
 	#imHeader_imMenuObject_07-menu-opened {  transform: translate3d(-160px, 0 ,0);  transition: transform 1s;  -webkit-transition: transform 1s;}
 	#imHeader_imMenuObject_07-menu-opened.animated {  transform: translate3d(0, 0, 0);}
-	#imHeader_imObjectTitle_08_wrapper { position: absolute; top: 120px; left: 41px; width: 400px; height: 170px; z-index: 1003;  }
+	#imHeader_imObjectTitle_08_wrapper { position: absolute; top: 150px; left: 41px; width: 400px; height: 170px; z-index: 1003;  }
 	#imHeader_imCell_8 { width: 400px; min-height: 170px;  padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; }
 	#imHeader_imCellStyle_8 { width: 400px; min-height: 170px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imHeader_imCellStyleGraphics_8 { left: 0px; right: 0px; }
