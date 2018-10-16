@@ -21,7 +21,7 @@
 		<link rel="stylesheet" type="text/css" href="style/print.css?14-0-2-1" media="print" />
 		<link rel="stylesheet" type="text/css" href="style/style.css?14-0-2-1" media="screen,print" />
 		<link rel="stylesheet" type="text/css" href="style/template.css?14-0-2-1" media="screen" />
-		<link rel="stylesheet" type="text/css" href="pcss/imsearch.css?14-0-2-1-636753384830185459" media="screen,print" />
+		<link rel="stylesheet" type="text/css" href="pcss/imsearch.css?14-0-2-1-636753402628683531" media="screen,print" />
 		<script type="text/javascript" src="res/jquery.js?14-0-2-1"></script>
 		<script type="text/javascript" src="res/x5engine.js?14-0-2-1" data-files-version="14-0-2-1"></script>
 		<script type="text/javascript">
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?14-0-2-1-636753384830029236" type="image/png" />
+		<link rel="icon" href="favicon.png?14-0-2-1-636753402628583546" type="image/png" />
 		<style>
     #imHeaderObjects {
     z-index: 1;
@@ -71,24 +71,24 @@ VIP мебель		</a>
 Кухни		</a>
 </div>
 </div>
-	</li><li class="imMnMnMiddle imPage" data-link-paths="/page-5.html">
+	</li><li class="imMnMnMiddle imPage" data-link-paths="/shkaf-kupe.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
-		<a class="label" href="page-5.html">
+		<a class="label" href="shkaf-kupe.html">
 Шкафы-купе		</a>
 </div>
 </div>
-	</li><li class="imMnMnMiddle imPage" data-link-paths="/page-6.html">
+	</li><li class="imMnMnMiddle imPage" data-link-paths="/prihozhie.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
-		<a class="label" href="page-6.html">
+		<a class="label" href="prihozhie.html">
 Прихожие		</a>
 </div>
 </div>
-	</li><li class="imMnMnLast imPage" data-link-paths="/page-7.html">
+	</li><li class="imMnMnLast imPage" data-link-paths="/mebel-dlya-detskoj.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
-		<a class="label" href="page-7.html">
+		<a class="label" href="mebel-dlya-detskoj.html">
 Мебель для детской		</a>
 </div>
 </div>
@@ -135,24 +135,24 @@ VIP мебель		</a>
 Кухни		</a>
 </div>
 </div>
-	</li><li class="imMnMnMiddle imPage" data-link-paths="/page-5.html">
+	</li><li class="imMnMnMiddle imPage" data-link-paths="/shkaf-kupe.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
-		<a class="label" href="page-5.html">
+		<a class="label" href="shkaf-kupe.html">
 Шкафы-купе		</a>
 </div>
 </div>
-	</li><li class="imMnMnMiddle imPage" data-link-paths="/page-6.html">
+	</li><li class="imMnMnMiddle imPage" data-link-paths="/prihozhie.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
-		<a class="label" href="page-6.html">
+		<a class="label" href="prihozhie.html">
 Прихожие		</a>
 </div>
 </div>
-	</li><li class="imMnMnLast imPage" data-link-paths="/page-7.html">
+	</li><li class="imMnMnLast imPage" data-link-paths="/mebel-dlya-detskoj.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
-		<a class="label" href="page-7.html">
+		<a class="label" href="mebel-dlya-detskoj.html">
 Мебель для детской		</a>
 </div>
 </div>
