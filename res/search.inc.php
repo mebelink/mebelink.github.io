@@ -7,7 +7,10 @@ $imSettings['search']['general'] = array(
 	'menu_position' => 'left',
 	'defaultScope' => array(
 		'0' => 'index.html',
-		'3' => 'dizajnerskaya-mebel.html'
+		'3' => 'dizajnerskaya-mebel.html',
+		'4' => 'kuhni.html',
+		'5' => 'page-5.html',
+		'6' => 'page-6.html'
 	),
 	'extendedScope' => array(
 	)
