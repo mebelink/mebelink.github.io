@@ -9,9 +9,9 @@ $imSettings['search']['general'] = array(
 		'0' => 'index.html',
 		'3' => 'dizajnerskaya-mebel.html',
 		'4' => 'kuhni.html',
-		'5' => 'page-5.html',
-		'6' => 'page-6.html',
-		'7' => 'page-7.html'
+		'5' => 'shkaf-kupe.html',
+		'6' => 'prihozhie.html',
+		'7' => 'mebel-dlya-detskoj.html'
 	),
 	'extendedScope' => array(
 	)
