@@ -21,7 +21,7 @@
 		<link rel="stylesheet" type="text/css" href="style/print.css?14-0-2-1" media="print" />
 		<link rel="stylesheet" type="text/css" href="style/style.css?14-0-2-1" media="screen,print" />
 		<link rel="stylesheet" type="text/css" href="style/template.css?14-0-2-1" media="screen" />
-		<link rel="stylesheet" type="text/css" href="pcss/imsearch.css?14-0-2-1-636753368893780835" media="screen,print" />
+		<link rel="stylesheet" type="text/css" href="pcss/imsearch.css?14-0-2-1-636753384830185459" media="screen,print" />
 		<script type="text/javascript" src="res/jquery.js?14-0-2-1"></script>
 		<script type="text/javascript" src="res/x5engine.js?14-0-2-1" data-files-version="14-0-2-1"></script>
 		<script type="text/javascript">
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?14-0-2-1-636753368893624542" type="image/png" />
+		<link rel="icon" href="favicon.png?14-0-2-1-636753384830029236" type="image/png" />
 		<style>
     #imHeaderObjects {
     z-index: 1;
@@ -78,11 +78,18 @@ VIP мебель		</a>
 Шкафы-купе		</a>
 </div>
 </div>
-	</li><li class="imMnMnLast imPage" data-link-paths="/page-6.html">
+	</li><li class="imMnMnMiddle imPage" data-link-paths="/page-6.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
 		<a class="label" href="page-6.html">
 Прихожие		</a>
+</div>
+</div>
+	</li><li class="imMnMnLast imPage" data-link-paths="/page-7.html">
+<div class="label-wrapper">
+<div class="label-inner-wrapper">
+		<a class="label" href="page-7.html">
+Мебель для детской		</a>
 </div>
 </div>
 	</li></ul></div><script type="text/javascript">
@@ -135,11 +142,18 @@ VIP мебель		</a>
 Шкафы-купе		</a>
 </div>
 </div>
-	</li><li class="imMnMnLast imPage" data-link-paths="/page-6.html">
+	</li><li class="imMnMnMiddle imPage" data-link-paths="/page-6.html">
 <div class="label-wrapper">
 <div class="label-inner-wrapper">
 		<a class="label" href="page-6.html">
 Прихожие		</a>
+</div>
+</div>
+	</li><li class="imMnMnLast imPage" data-link-paths="/page-7.html">
+<div class="label-wrapper">
+<div class="label-inner-wrapper">
+		<a class="label" href="page-7.html">
+Мебель для детской		</a>
 </div>
 </div>
 	</li></ul></div><script type="text/javascript">
