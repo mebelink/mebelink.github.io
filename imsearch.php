@@ -21,7 +21,7 @@
 		<link rel="stylesheet" type="text/css" href="style/print.css?14-0-2-1" media="print" />
 		<link rel="stylesheet" type="text/css" href="style/style.css?14-0-2-1" media="screen,print" />
 		<link rel="stylesheet" type="text/css" href="style/template.css?14-0-2-1" media="screen" />
-		<link rel="stylesheet" type="text/css" href="pcss/imsearch.css?14-0-2-1-636753157916505237" media="screen,print" />
+		<link rel="stylesheet" type="text/css" href="pcss/imsearch.css?14-0-2-1-636753189748765214" media="screen,print" />
 		<script type="text/javascript" src="res/jquery.js?14-0-2-1"></script>
 		<script type="text/javascript" src="res/x5engine.js?14-0-2-1" data-files-version="14-0-2-1"></script>
 		<script type="text/javascript">
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?14-0-2-1-636753157916348973" type="image/png" />
+		<link rel="icon" href="favicon.png?14-0-2-1-636753189748608957" type="image/png" />
 		<style>
     #imHeaderObjects {
     z-index: 1;
@@ -69,7 +69,13 @@ x5engine.boot.push(function(){x5engine.initMenu('imHeader_imMenuObject_07',1000)
 $(function () {$('#imHeader_imMenuObject_07 ul li').each(function () {    var $this = $(this), timeout = 0;    $this.on('mouseenter', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         clearTimeout(timeout);        setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeIn(); }, 250);    }).on('mouseleave', function () {        if($(this).parents('#imHeader_imMenuObject_07-menu-opened').length > 0) return;         timeout = setTimeout(function () { $this.children('ul, .multiple-column').stop(false, false).fadeOut(); }, 250);    });});});
 
 </script>
-</div></div></div><div id="imHeader_imObjectTitle_08_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_8" class="" > <div id="imHeader_imCellStyleGraphics_8"></div><div id="imHeader_imCellStyle_8" ><div id="imHeader_imObjectTitle_08"><span id ="imHeader_imObjectTitle_08_text" >Студия дизайнерской мебели "Mebelink"</span > </div></div></div></div><div id="imHeader_imObjectTitle_09_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_9" class="" > <div id="imHeader_imCellStyleGraphics_9"></div><div id="imHeader_imCellStyle_9" ><div id="imHeader_imObjectTitle_09"><span id ="imHeader_imObjectTitle_09_text" >(097) 527-00-00</span > </div></div></div></div><div id="imHeader_imObjectTitle_11_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_11" class="" > <div id="imHeader_imCellStyleGraphics_11"></div><div id="imHeader_imCellStyle_11" ><div id="imHeader_imObjectTitle_11"><span id ="imHeader_imObjectTitle_11_text" >(097) 527-00-00</span > </div></div></div></div><div id="imHeader_imObjectImage_12_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_12" class="" > <div id="imHeader_imCellStyleGraphics_12"></div><div id="imHeader_imCellStyle_12" ><img id="imHeader_imObjectImage_12" src="images/metroui1.png" title="Телефон" alt="Телефон" /></div></div></div><div id="imHeader_imObjectImage_13_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_13" class="" > <div id="imHeader_imCellStyleGraphics_13"></div><div id="imHeader_imCellStyle_13" ><img id="imHeader_imObjectImage_13" src="images/22.png" title="&quot;Mebelink&quot;" alt="&quot;Mebelink&quot;" /></div></div></div></div>
+</div></div></div><div id="imHeader_imObjectTitle_08_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_8" class="" > <div id="imHeader_imCellStyleGraphics_8"></div><div id="imHeader_imCellStyle_8" ><div id="imHeader_imObjectTitle_08"><span id ="imHeader_imObjectTitle_08_text" >Студия дизайнерской мебели "Mebelink"</span > </div></div></div></div><div id="imHeader_imObjectTitle_09_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_9" class="" > <div id="imHeader_imCellStyleGraphics_9"></div><div id="imHeader_imCellStyle_9" ><div id="imHeader_imObjectTitle_09"><span id ="imHeader_imObjectTitle_09_text" >(097) 527-00-00</span > </div></div></div></div><div id="imHeader_imObjectTitle_11_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_11" class="" > <div id="imHeader_imCellStyleGraphics_11"></div><div id="imHeader_imCellStyle_11" ><div id="imHeader_imObjectTitle_11"><span id ="imHeader_imObjectTitle_11_text" >(097) 527-00-00</span > </div></div></div></div><div id="imHeader_imObjectImage_12_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_12" class="" > <div id="imHeader_imCellStyleGraphics_12"></div><div id="imHeader_imCellStyle_12" ><img id="imHeader_imObjectImage_12" src="images/metroui1.png" title="Телефон" alt="Телефон" /></div></div></div><div id="imHeader_imObjectImage_13_wrapper" class="template-object-wrapper"><div id="imHeader_imCell_13" class="" > <div id="imHeader_imCellStyleGraphics_13"></div><div id="imHeader_imCellStyle_13" ><a href="index.html" onclick="return x5engine.utils.location('index.html', null, false)"><img id="imHeader_imObjectImage_13" src="images/22.png" title="&quot;Mebelink&quot;" alt="&quot;Mebelink&quot;" /></a>
+<script type="text/javascript">
+	x5engine.boot.push(function () {
+		 x5engine.imagefx.glow('#imHeader_imObjectImage_13', 10, 'rgba(0, 0, 0, 1)'); 
+	});
+</script>
+</div></div></div></div>
 					</div>
 					<div id="imStickyBarContainer">
 						<div id="imStickyBarGraphics"></div>
