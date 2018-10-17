@@ -1,5 +1,5 @@
 @import 'https://fonts.googleapis.com/css?family=Raleway';
-#imPageExtContainer {background: transparent url('../images/24.jpg') repeat-x center top; background-attachment: scroll;}
+#imPageExtContainer {background: transparent url('../images/24.jpg') no-repeat center top; background-size: cover; background-attachment: fixed;}
 #imHeader_imCell_7 { display: block; position: relative; }
 #imHeader_imCellStyle_7 { position: relative; box-sizing: border-box; text-align: center; z-index: 102;}
 #imHeader_imCellStyleGraphics_7 { position: absolute; top: 0px; bottom: 0px; background-color: transparent; }
@@ -83,8 +83,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 #imStickyBar_imCellStyleGraphics_4 { position: absolute; top: 0px; bottom: 0px; background-color: transparent; }
 #imStickyBar_imObjectImage_04 { width: 100%; vertical-align: top; }
 #imGroup_1 { float: left; }
-#imPageRowGraphics_1 { position: absolute; top: 0; bottom: 0; left: 0; right: 0; opacity: 1; }
-#imPageRowGraphics_1 { background: transparent url('../images/---.jpg') repeat center top; }
+#imPageRowGraphics_1 { position: absolute; top: 0; bottom: 0; left: 0; right: 0; opacity: 0.7; }
+#imPageRowGraphics_1 { background: transparent url('../images/---.jpg') no-repeat center center; background-size: cover; }
 #imCell_1 { display: block; position: relative; }
 #imCellStyle_1 { position: relative; box-sizing: border-box; text-align: center; z-index: 2;}
 #imCellStyleGraphics_1 { position: absolute; top: 3px; bottom: 3px; background-color: transparent; }
