@@ -6052,14 +6052,14 @@ class imPrivateArea
             $keys = array($keys);
 
         if ($login && count($keys) == 1) {
-            $user = $this->db->query("SELECT `username`, `password` FROM `" . $this->db_table . "` WHERE `key`='" . $this->db->escapeString($keys[0]) . "'");
+            $user = $this->db->query("SELECT `email`, `password` FROM `" . $this->db_table . "` WHERE `key`='" . $this->db->escapeString($keys[0]) . "'");
             if (is_bool($user))
                 return false;
             $user = $user[0];
         }
         $this->db->query("UPDATE `" . $this->db_table . "` SET `validated`=1, `ts`=NOW(), `ip`='" . $this->db->escapeString($_SERVER['REMOTE_ADDR']) . "' WHERE `validated`=0 AND `key` IN ('" . implode("','", $this->db->escapeString($keys)) . "')");
         if ($user && $this->db->affectedRows())
-            return $this->login($user['username'], $user['password']) == 0;
+            return $this->login($user['email'], $user['password']) == 0;
         return $this->db->affectedRows() > 0;
     }
 
@@ -6272,8 +6272,8 @@ class imPrivateArea
 
         $subject = str_replace("[FIELD]", $imSettings['general']['url'], l10n("private_area_validation_subject", "Validate your account on [FIELD]"));
         $html .= l10n("private_area_validation_body", "Click here to validate your account:") . " ";
-        $html .= "<a href=\"" . $imSettings['general']['url'] . "/imlogin.php?validate=" . $user['key'] . "\">";
-        $html .= $imSettings['general']['url'] . "/imlogin.php?validate=" . $user['key'];
+        $html .= "<a href=\"" . $imSettings['general']['url'] . "imlogin.php?validate=" . $user['key'] . "\">";
+        $html .= $imSettings['general']['url'] . "imlogin.php?validate=" . $user['key'];
         $html .= "</a>";
 
         $ImMailer->send($from, $user['email'], $subject, strip_tags($html), $html);
@@ -6560,6 +6560,22 @@ class imSearch {
                 while (stristr($file_content, "<script") !== false) {
                     $style_start = imstripos($file_content, "<script");
                     $style_end = imstripos($file_content, "</script", $style_start);
+                    $style = substr($file_content, $style_start, $style_end - $style_start);
+                    $file_content = str_replace($style, "", $file_content);
+                }
+
+                // Remove noscript tag
+                while (stristr($file_content, "<noscript") !== false) {
+                    $style_start = imstripos($file_content, "<noscript");
+                    $style_end = imstripos($file_content, "</noscript", $style_start);
+                    $style = substr($file_content, $style_start, $style_end - $style_start);
+                    $file_content = str_replace($style, "", $file_content);
+                }
+
+                // Remove the links for accessibility
+                while (stristr($file_content, "<span class=\"imHidden\"") !== false) {
+                    $style_start = imstripos($file_content, "<span class=\"imHidden\"");
+                    $style_end = imstripos($file_content, "</span", $style_start);
                     $style = substr($file_content, $style_start, $style_end - $style_start);
                     $file_content = str_replace($style, "", $file_content);
                 }

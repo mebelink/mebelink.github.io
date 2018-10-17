@@ -3,4 +3,4 @@ Disallow: /admin
 Disallow: /captcha
 Disallow: /menu
 Disallow: /imemail
-Sitemap: http://sitemap.xml
+Sitemap: https://mebelink.ml/sitemap.xml

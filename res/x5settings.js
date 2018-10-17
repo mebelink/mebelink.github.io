@@ -5,7 +5,7 @@
 		b = x.boot;
 
 	s.siteId = '5D3577D988B0D72D0748A66598971AC0';
-	s.version = '14-0-2-1';
+	s.version = '14-0-3-1';
 	b.push(function () {
 		x.setupDateTime();
 		x.imAccess.showLogout();
@@ -52,7 +52,7 @@
 		'textAlignment' : 'left',
 		'boxColor' : 'rgba(255, 255, 255, 1)',
 		'opacity' : 0.7,
-		'radialBg' : true // Works only in Mozilla Firefox and Google Chrome
+		'radialBg' : false // Works only in Mozilla Firefox and Google Chrome
 	});
 
 	// PopUp
