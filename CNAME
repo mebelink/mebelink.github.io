@@ -1,1 +1,4 @@
 mebelink.ml
+RewriteEngine On
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTPS/
+RewriteRule ^index\.html$ https://mebelink.ml/ [R=301,L]
