@@ -1,4 +1,4 @@
-#imPageExtContainer {background: transparent url('../images/24.jpg') no-repeat center top; background-size: cover; background-attachment: fixed;}
+#imPageExtContainer {background: transparent url('../images/24.jpg') repeat right bottom; background-attachment: scroll;}
 #imBreadcrumb { position: relative; float: left; }
 #imHeader_imCell_7 { display: block; position: relative; }
 #imHeader_imCellStyle_7 { position: relative; box-sizing: border-box; text-align: center; z-index: 102;}
