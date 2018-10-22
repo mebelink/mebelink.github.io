@@ -48,4 +48,10 @@
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 	</url>
+	<url>
+		<loc>https://mebelink.ml/---------27.html</loc>
+		<lastmod>2018-10-22</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.5</priority>
+	</url>
 </urlset>
