@@ -422,11 +422,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 	#imCellStyleGraphics_4 { left: 13px; right: 13px; }
 	#imTextObject_4_04 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
 	#imTextObject_4_04 .text-container { height: 648px;}
-	#imCell_9 { width: 694px; min-height: 187px;  padding-top: 20px; padding-bottom: 20px; padding-left: 13px; padding-right: 13px; }
-	#imCellStyle_9 { width: 694px; min-height: 187px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCell_9 { width: 694px; min-height: 230px;  padding-top: 20px; padding-bottom: 20px; padding-left: 13px; padding-right: 13px; }
+	#imCellStyle_9 { width: 694px; min-height: 230px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imCellStyleGraphics_9 { left: 13px; right: 13px; }
 	#imTextObject_4_09 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
-	#imTextObject_4_09 .text-container { height: 187px;}
+	#imTextObject_4_09 .text-container { height: 230px;}
 	#imGroup_3 { width: 720px; }
 	#imCell_10 { width: 334px; min-height: 195px;  padding-top: 20px; padding-bottom: 20px; padding-left: 13px; padding-right: 13px; }
 	#imCellStyle_10 { width: 334px; min-height: 195px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
