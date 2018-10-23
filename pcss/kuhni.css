@@ -470,11 +470,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; left: 3px; margin: auto
 	#imTextObject_4_08_tab0 .image-0 { width: 232px; height: 131px; }
 	#imTextObject_4_08 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
 	#imTextObject_4_08 .text-container { height: 135px;}
-	#imCell_4 { width: 464px; min-height: 864px;  padding-top: 20px; padding-bottom: 20px; padding-left: 8px; padding-right: 8px; }
-	#imCellStyle_4 { width: 464px; min-height: 864px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCell_4 { width: 464px; min-height: 912px;  padding-top: 20px; padding-bottom: 20px; padding-left: 8px; padding-right: 8px; }
+	#imCellStyle_4 { width: 464px; min-height: 912px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imCellStyleGraphics_4 { left: 8px; right: 8px; }
 	#imTextObject_4_04 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
-	#imTextObject_4_04 .text-container { height: 864px;}
+	#imTextObject_4_04 .text-container { height: 912px;}
 	#imCell_9 { width: 464px; min-height: 254px;  padding-top: 20px; padding-bottom: 20px; padding-left: 8px; padding-right: 8px; }
 	#imCellStyle_9 { width: 464px; min-height: 254px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imCellStyleGraphics_9 { left: 8px; right: 8px; }
