@@ -580,10 +580,10 @@ html:not(.no-cssanimations) #imCell_14.animated {   -webkit-animation-duration: 
 	#imTextObject_20 .text-container { height: 99px;}
 	#imGroup_2 { width: 1145px; }
 	#imCell_2 { width: 258px; min-height: 329px;  padding-top: 15px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; }
-	#imCellStyle_2 { width: 258px; min-height: 329px; padding: 0px 0px 27px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCellStyle_2 { width: 258px; min-height: 329px; padding: 0px 0px 70px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imCellStyleGraphics_2 { left: 15px; right: 15px; }
 	#imTextObject_02 .text-container {border-style: solid; border-color: rgba(169, 169, 169, 1); border-width: 0 1px 1px 1px;width: 100%; box-sizing: border-box;}
-	#imTextObject_02 .text-container { height: 302px;}
+	#imTextObject_02 .text-container { height: 259px;}
 	#imCell_3 { width: 259px; min-height: 329px;  padding-top: 15px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; }
 	#imCellStyle_3 { width: 259px; min-height: 329px; padding: 0px 0px 0px 0px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
 	#imCellStyleGraphics_3 { left: 15px; right: 15px; }
