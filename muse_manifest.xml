@@ -1,10 +1,10 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.ml" resolutions="1x" timestamp="1541373950945">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.ml" resolutions="1x" timestamp="1541374290488">
   <folder name="css">
     <file name="site_global.css" crc="347579958"/>
     <file name="master______.css" crc="4231275697" ref="dizajnerskaya-mebel:ceny"/>
     <file name="nomq_preview_master______.css" crc="84311898" ref="dizajnerskaya-mebel:ceny"/>
-    <file name="master_______-a.css" crc="4235321340" ref="mebel-dlya-detskoj:kuhni:shkaf-kupe:index:prihozhie:mebel-na-zakaz"/>
-    <file name="nomq_preview_master_______-a.css" crc="515364428" ref="mebel-dlya-detskoj:kuhni:shkaf-kupe:index:prihozhie:mebel-na-zakaz"/>
+    <file name="master_______-a.css" crc="131418256" ref="mebel-dlya-detskoj:kuhni:shkaf-kupe:index:prihozhie:mebel-na-zakaz"/>
+    <file name="nomq_preview_master_______-a.css" crc="4016600419" ref="mebel-dlya-detskoj:kuhni:shkaf-kupe:index:prihozhie:mebel-na-zakaz"/>
     <file name="mebel-dlya-detskoj.css" crc="3767425306" ref="mebel-dlya-detskoj"/>
     <file name="nomq_mebel-dlya-detskoj.css" crc="519674175" ref="mebel-dlya-detskoj"/>
     <file name="kuhni.css" crc="246599652" ref="kuhni"/>
@@ -13,8 +13,8 @@
     <file name="nomq_dizajnerskaya-mebel.css" crc="44003539" ref="dizajnerskaya-mebel"/>
     <file name="shkaf-kupe.css" crc="4059689640" ref="shkaf-kupe"/>
     <file name="nomq_shkaf-kupe.css" crc="348390963" ref="shkaf-kupe"/>
-    <file name="index.css" crc="3772346262" ref="index"/>
-    <file name="nomq_index.css" crc="344685980" ref="index"/>
+    <file name="index.css" crc="93512276" ref="index"/>
+    <file name="nomq_index.css" crc="3817167411" ref="index"/>
     <file name="ceny.css" crc="4171305157" ref="ceny"/>
     <file name="nomq_ceny.css" crc="44003539" ref="ceny"/>
     <file name="prihozhie.css" crc="194237481" ref="prihozhie"/>
@@ -47,7 +47,6 @@
     <file name="require.js" crc="7928878" ref="index:mebel-na-zakaz:kuhni:shkaf-kupe:prihozhie:dizajnerskaya-mebel:ceny:mebel-dlya-detskoj"/>
   </folder>
   <folder name="images">
-    <file name="главная-favicon.ico" crc="255272870" ref="index"/>
     <file name="arrowmenudown.png" crc="262559161" ref="index:dizajnerskaya-mebel">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
@@ -350,7 +349,7 @@
       <caption webpage="index" alt="Преимущества работы со Студией дизайнерской Мебели &quot;Mebelink&quot;"/>
     </file>
     <file name="blank.gif" crc="4208392903" ref="index:mebel-na-zakaz:kuhni:shkaf-kupe:prihozhie:dizajnerskaya-mebel:ceny:mebel-dlya-detskoj"/>
-    <file name="шаблон-a-favicon.ico" crc="171609906" ref="mebel-na-zakaz"/>
+    <file name="шаблон-a-favicon.ico" crc="171609906" ref="mebel-na-zakaz:index"/>
     <file name="25.jpg" crc="448427482" seo="true" ref="mebel-na-zakaz">
       <caption webpage="mebel-na-zakaz" alt="Мебель на заказ"/>
       <caption webpage="mebel-na-zakaz" alt="Мебель на заказ"/>
@@ -733,7 +732,7 @@
       <caption webpage="mebel-dlya-detskoj" alt=""/>
     </file>
   </folder>
-  <file name="index.html" crc="126956294" seo="true" mt="1541348958004" redirect="true"/>
+  <file name="index.html" crc="4071188174" seo="true" mt="1541374190042" redirect="true"/>
   <file name="mebel-na-zakaz.html" crc="4209909229" seo="true" mt="1541348568108" redirect="true"/>
   <file name="kuhni.html" crc="2154129" seo="true" mt="1541348568108" redirect="true"/>
   <file name="shkaf-kupe.html" crc="3928999264" seo="true" mt="1541365967437" redirect="true"/>
