@@ -1,4 +1,4 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.ml" resolutions="1x" timestamp="1541373495853">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.ml" resolutions="1x" timestamp="1541373950945">
   <folder name="css">
     <file name="site_global.css" crc="347579958"/>
     <file name="master______.css" crc="4231275697" ref="dizajnerskaya-mebel:ceny"/>
