@@ -13,7 +13,8 @@ $imSettings['search']['general'] = array(
 		'6' => 'prihozhie.html',
 		'7' => 'mebel-dlya-detskoj.html',
 		'9' => 'mebel-na-zakaz.html',
-		'10' => 'ceny.html'
+		'10' => 'ceny.html',
+		'12' => 'forma.html'
 	),
 	'extendedScope' => array(
 	)
