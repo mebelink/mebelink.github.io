@@ -46,7 +46,7 @@
     "sitemapSwitcher": false,
     "siteUrl": false,
     "sitemapSwitcherAuto": "on",
-    "favicon": false,
+    "favicon": "@PROJECT_PATH@/assets/images/cvetok48-48x48-1.png",
     "cookiesAlert": false,
     "gdpr": false
   },
