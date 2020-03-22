@@ -1046,7 +1046,10 @@ section.lazy-placeholder:after {
   background-color: #ffffff;
 }
 .cid-rTYE31LTsn .mbr-text {
-  color: #232323;
+  color: #b1a374;
+}
+.cid-rTYE31LTsn .mbr-text P {
+  text-align: left;
 }
 .cid-rTYE62EhRl {
   padding-top: 60px;
