@@ -1,4 +1,4 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1586131827476">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1586132280272">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
     <file name="master_______-a.css" crc="4047676737" ref="index:3:2"/>
@@ -68,7 +68,7 @@
     <file name="background3-u3416-fr2.jpg" crc="3957087524" ref="index"/>
     <file name="background1-u3422-fr2.jpg" crc="4138912770" ref="index"/>
   </folder>
-  <file name="index.html" crc="4027576306" seo="true" mt="1586131815631" redirect="true"/>
+  <file name="index.html" crc="4099378605" seo="true" mt="1586132268411" redirect="true"/>
   <file name="2.html" crc="4140090557" seo="true" mt="1586131815631" redirect="true"/>
   <file name="3.html" crc="414499887" seo="true" mt="1586131815672" redirect="true"/>
 </manifest>
