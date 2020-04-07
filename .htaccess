@@ -1,0 +1,13 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteRule ^index.html$ / [QSA,R]
+
+RewriteCond %{THE_REQUEST} /index\.php(/(.*?))? [NC]
+RewriteRule ^(.*?)index\.php(/(.*?))?$ /$1$2 [L,R=301,NC,NE]
+
+RewriteCond %{HTTP_HOST} ^mebelink\-ml\.vannavam\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.mebelink\-ml\.vannavam\.com$
+RewriteRule ^/?$ "https\:\/\/mebelink\.ml\/" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
