@@ -1,12 +1,12 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1586378112752">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1586378236999">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
     <file name="master_______-a.css" crc="267057236" ref="index:2:3"/>
     <file name="nomq_preview_master_______-a.css" crc="3860911610" ref="index:2:3"/>
     <file name="index.css" crc="4250454315" ref="index"/>
     <file name="nomq_index.css" crc="254943947" ref="index"/>
-    <file name="2.css" crc="4229773734" ref="2"/>
-    <file name="nomq_2.css" crc="292226440" ref="2"/>
+    <file name="2.css" crc="450147836" ref="2"/>
+    <file name="nomq_2.css" crc="3991292214" ref="2"/>
     <file name="3.css" crc="113604437" ref="3"/>
     <file name="nomq_3.css" crc="508804545" ref="3"/>
   </folder>
@@ -84,6 +84,6 @@
     <file name="blank.gif" crc="4208392903" ref="2"/>
   </folder>
   <file name="index.html" crc="3892585031" seo="true" mt="1586134305261" redirect="true"/>
-  <file name="2.html" crc="3987446394" seo="true" mt="1586378093913" redirect="true"/>
+  <file name="2.html" crc="3998486226" seo="true" mt="1586378215638" redirect="true"/>
   <file name="3.html" crc="236449726" seo="true" mt="1586133549511" redirect="true"/>
 </manifest>
