@@ -1,12 +1,12 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1586378236999">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1586400909860">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
-    <file name="master_______-a.css" crc="267057236" ref="index:2:3"/>
+    <file name="master_______-a.css" crc="409195917" ref="index:2:3"/>
     <file name="nomq_preview_master_______-a.css" crc="3860911610" ref="index:2:3"/>
     <file name="index.css" crc="4250454315" ref="index"/>
     <file name="nomq_index.css" crc="254943947" ref="index"/>
-    <file name="2.css" crc="450147836" ref="2"/>
-    <file name="nomq_2.css" crc="3991292214" ref="2"/>
+    <file name="2.css" crc="309863573" ref="2"/>
+    <file name="nomq_2.css" crc="3936384862" ref="2"/>
     <file name="3.css" crc="113604437" ref="3"/>
     <file name="nomq_3.css" crc="508804545" ref="3"/>
   </folder>
@@ -62,7 +62,7 @@
     <file name="background3-u3416-fr2.jpg" crc="3957087524" ref="index"/>
     <file name="background1-u3422-fr2.jpg" crc="4138912770" ref="index"/>
     <file name="icon-10-u3883-fr.png" crc="4027720567" ref="2"/>
-    <file name="about.jpg" crc="502449172" seo="true" ref="2">
+    <file name="about.jpg" crc="4206485675" seo="true" ref="2">
       <caption webpage="2" alt=""/>
       <caption webpage="2" alt=""/>
     </file>
@@ -75,15 +75,30 @@
     <file name="small_group_27.jpg" crc="264151137" ref="2">
       <caption webpage="2" alt=""/>
     </file>
-    <file name="about373x347.jpg" crc="3758336448" seo="true" ref="2">
+    <file name="about373x347.jpg" crc="321683085" seo="true" ref="2">
       <caption webpage="2" alt=""/>
     </file>
     <file name="small_group_25-u4054-fr.jpg" crc="4252436163" ref="2"/>
     <file name="small_group_26-u4295-fr.jpg" crc="3924758901" ref="2"/>
     <file name="small_group_27-u4325-fr.jpg" crc="413026386" ref="2"/>
     <file name="blank.gif" crc="4208392903" ref="2"/>
+    <file name="small_item_376.jpg" crc="4146052047" seo="true" ref="2">
+      <caption webpage="2" alt=""/>
+      <caption webpage="2" alt=""/>
+      <caption webpage="2" alt=""/>
+    </file>
+    <file name="small_item_375.jpg" crc="367973607" seo="true" ref="2">
+      <caption webpage="2" alt=""/>
+      <caption webpage="2" alt=""/>
+      <caption webpage="2" alt=""/>
+    </file>
+    <file name="small_item_374.jpg" crc="3765351989" seo="true" ref="2">
+      <caption webpage="2" alt=""/>
+      <caption webpage="2" alt=""/>
+      <caption webpage="2" alt=""/>
+    </file>
   </folder>
   <file name="index.html" crc="3892585031" seo="true" mt="1586134305261" redirect="true"/>
-  <file name="2.html" crc="3998486226" seo="true" mt="1586378215638" redirect="true"/>
+  <file name="2.html" crc="378569503" seo="true" mt="1586400555425" redirect="true"/>
   <file name="3.html" crc="236449726" seo="true" mt="1586133549511" redirect="true"/>
 </manifest>
