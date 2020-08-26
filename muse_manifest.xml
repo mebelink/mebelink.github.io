@@ -1,10 +1,10 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1598480629393">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1598481248083">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
     <file name="master_______-a.css" crc="432126607" ref="3:2:index"/>
     <file name="nomq_preview_master_______-a.css" crc="207983582" ref="3:2:index"/>
-    <file name="3.css" crc="3800821664" ref="3"/>
-    <file name="nomq_3.css" crc="348346055" ref="3"/>
+    <file name="3.css" crc="3982575285" ref="3"/>
+    <file name="nomq_3.css" crc="3964149065" ref="3"/>
     <file name="2.css" crc="212172707" ref="2"/>
     <file name="nomq_2.css" crc="150070908" ref="2"/>
     <file name="index.css" crc="263146073" ref="index"/>
@@ -31,7 +31,7 @@
     <file name="require.js" crc="7928878" ref="index:2:3"/>
   </folder>
   <folder name="images">
-    <file name="favicon.ico" crc="3874248244" ref="index"/>
+    <file name="favicon.ico" crc="3874248244" ref="index:3"/>
     <file name="background4.jpg" crc="245625390" ref="index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
@@ -139,5 +139,5 @@
   </folder>
   <file name="index.html" crc="179826609" seo="true" mt="1598480386219" redirect="true"/>
   <file name="2.html" crc="284032537" seo="true" mt="1598480386219" redirect="true"/>
-  <file name="3.html" crc="3872882720" seo="true" mt="1598480386219" redirect="true"/>
+  <file name="3.html" crc="335503518" seo="true" mt="1598481234123" redirect="true"/>
 </manifest>
