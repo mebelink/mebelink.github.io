@@ -1,13 +1,13 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1598477165128">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1598480227790">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
     <file name="master_______-a.css" crc="432126607" ref="3:2:index"/>
     <file name="nomq_preview_master_______-a.css" crc="207983582" ref="3:2:index"/>
-    <file name="3.css" crc="79984873" ref="3"/>
-    <file name="nomq_3.css" crc="3811571933" ref="3"/>
-    <file name="2.css" crc="4164405868" ref="2"/>
+    <file name="3.css" crc="3800821664" ref="3"/>
+    <file name="nomq_3.css" crc="348346055" ref="3"/>
+    <file name="2.css" crc="212172707" ref="2"/>
     <file name="nomq_2.css" crc="150070908" ref="2"/>
-    <file name="index.css" crc="4218301702" ref="index"/>
+    <file name="index.css" crc="263146073" ref="index"/>
     <file name="nomq_index.css" crc="58020834" ref="index"/>
   </folder>
   <folder name="assets">
@@ -20,7 +20,7 @@
     <file name="whatinput.js" crc="86476730" ref="index:2:3"/>
     <file name="museconfig.js" crc="4286661555" ref="index:2:3"/>
     <file name="jquery.musemenu.js" crc="510910590" ref="index:2:3"/>
-    <file name="jquery.musepolyfill.bgsize.js" crc="4260645839" ref="index:2"/>
+    <file name="jquery.musepolyfill.bgsize.js" crc="4260645839" ref="index:2:3"/>
     <file name="jquery.watch.js" crc="51536988" ref="index:2:3"/>
     <file name="webpro.js" crc="4059564322" ref="index:2:3"/>
     <file name="musewpslideshow.js" crc="3862962738" ref="index:2:3"/>
@@ -101,8 +101,43 @@
       <caption webpage="2" alt=""/>
     </file>
     <file name="blank.gif" crc="4208392903" ref="2:3"/>
+    <file name="девочка.jpg" crc="4254011556" ref="3">
+      <caption webpage="3" alt=""/>
+    </file>
+    <file name="1.png" crc="4286569938" seo="true" ref="3">
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+    </file>
+    <file name="2.png" crc="296989145" seo="true" ref="3">
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+    </file>
+    <file name="3.png" crc="3953499743" seo="true" ref="3">
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+    </file>
+    <file name="4.png" crc="3824679326" seo="true" ref="3">
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+    </file>
+    <file name="6.png" crc="20438098" seo="true" ref="3">
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+    </file>
+    <file name="5.png" crc="1320110" seo="true" ref="3">
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+      <caption webpage="3" alt="Интернет магазин мебели в Одессе"/>
+    </file>
+    <file name="девочка-u6165-fr.jpg" crc="506412437" ref="3"/>
+    <file name="девочка-u6165-fr2.jpg" crc="480307139" ref="3"/>
   </folder>
-  <file name="index.html" crc="3957835115" seo="true" mt="1591372890518" redirect="true"/>
-  <file name="2.html" crc="4135260893" seo="true" mt="1591378182972" redirect="true"/>
-  <file name="3.html" crc="4068023117" seo="true" mt="1591372890518" redirect="true"/>
+  <file name="index.html" crc="318951836" seo="true" mt="1598477539393" redirect="true"/>
+  <file name="2.html" crc="3780935415" seo="true" mt="1598477539393" redirect="true"/>
+  <file name="3.html" crc="297309932" seo="true" mt="1598480102253" redirect="true"/>
 </manifest>

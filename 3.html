@@ -11,7 +11,7 @@
 document.documentElement.className = document.documentElement.className.replace(/\bnojs\b/g, 'js');
 
 // Check that all required assets are uploaded and up-to-date
-if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["museutils.js", "museconfig.js", "jquery.musemenu.js", "jquery.watch.js", "webpro.js", "musewpslideshow.js", "jquery.museoverlay.js", "touchswipe.js", "jquery.museresponsive.js", "require.js", "3.css"], "outOfDate":[]};
+if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["museutils.js", "museconfig.js", "jquery.musemenu.js", "jquery.musepolyfill.bgsize.js", "jquery.watch.js", "webpro.js", "musewpslideshow.js", "jquery.museoverlay.js", "touchswipe.js", "jquery.museresponsive.js", "require.js", "3.css"], "outOfDate":[]};
 </script>
   
   <link rel="shortcut icon" href="images/favicon.ico?crc=3874248244"/>
@@ -19,11 +19,11 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="css/site_global.css?crc=444006867"/>
   <link rel="stylesheet" type="text/css" href="css/master_______-a.css?crc=432126607"/>
-  <link rel="stylesheet" type="text/css" href="css/3.css?crc=79984873" id="pagesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/3.css?crc=3800821664" id="pagesheet"/>
   <!-- IE-only CSS -->
   <!--[if lt IE 9]>
   <link rel="stylesheet" type="text/css" href="css/nomq_preview_master_______-a.css?crc=207983582"/>
-  <link rel="stylesheet" type="text/css" href="css/nomq_3.css?crc=3811571933" id="nomq_pagesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/nomq_3.css?crc=348346055" id="nomq_pagesheet"/>
   <![endif]-->
   <!-- JS includes -->
   <!--[if lt IE 9]>
@@ -133,46 +133,120 @@ false
 
      </div>
     </div>
-    <nav class="MenuBar clearfix grpelem" id="menuu3246"><!-- horizontal box -->
-     <div class="MenuItemContainer clearfix grpelem" id="u3261"><!-- vertical box -->
-      <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem" id="u3262" href="index.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u3265-4"><!-- content --><p>Домашняя</p></div></a>
+    <div class="clearfix grpelem" id="pmenuu3246"><!-- column -->
+     <nav class="MenuBar clearfix colelem" id="menuu3246"><!-- horizontal box -->
+      <div class="MenuItemContainer clearfix grpelem" id="u3261"><!-- vertical box -->
+       <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem" id="u3262" href="index.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u3265-4"><!-- content --><p>Домашняя</p></div></a>
+      </div>
+      <div class="MenuItemContainer clearfix grpelem" id="u5744"><!-- vertical box -->
+       <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem" id="u5745" href="2.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u5746-4"><!-- content --><p>Без имени 2</p></div></a>
+      </div>
+      <div class="MenuItemContainer clearfix grpelem" id="u5625"><!-- vertical box -->
+       <a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive borderbox clearfix colelem" id="u5626" href="3.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u5627-4"><!-- content --><p>Без имени 3</p></div></a>
+      </div>
+     </nav>
+     <div class="browser_width colelem shared_content" id="u6165-bw" data-content-guid="u6165-bw_content">
+      <div class="museBGSize" id="u6165"><!-- simple frame --></div>
      </div>
-     <div class="MenuItemContainer clearfix grpelem" id="u5744"><!-- vertical box -->
-      <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem" id="u5745" href="2.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u5746-4"><!-- content --><p>Без имени 2</p></div></a>
+     <div class="clearfix colelem" id="pu6191"><!-- group -->
+      <div class="clip_frame grpelem shared_content" id="u6191" data-sizePolicy="fixed" data-pintopage="page_fluidx" data-content-guid="u6191_content"><!-- image -->
+       <img class="block temp_no_img_src" id="u6191_img" data-orig-src="images/1.png?crc=4286569938" alt="Интернет магазин мебели в Одессе" title="Интернет магазин мебели в Одессе" width="90" height="90" src="images/blank.gif?crc=4208392903"/>
+      </div>
+      <div class="clip_frame grpelem shared_content" id="u6199" data-sizePolicy="fixed" data-pintopage="page_fluidx" data-content-guid="u6199_content"><!-- image -->
+       <img class="block temp_no_img_src" id="u6199_img" data-orig-src="images/2.png?crc=296989145" alt="Интернет магазин мебели в Одессе" title="Интернет магазин мебели в Одессе" width="90" height="90" src="images/blank.gif?crc=4208392903"/>
+      </div>
+      <div class="clip_frame grpelem shared_content" id="u6206" data-sizePolicy="fixed" data-pintopage="page_fluidx" data-content-guid="u6206_content"><!-- image -->
+       <img class="block temp_no_img_src" id="u6206_img" data-orig-src="images/3.png?crc=3953499743" alt="Интернет магазин мебели в Одессе" title="Интернет магазин мебели в Одессе" width="90" height="90" src="images/blank.gif?crc=4208392903"/>
+      </div>
+      <div class="clip_frame grpelem shared_content" id="u6213" data-sizePolicy="fixed" data-pintopage="page_fluidx" data-content-guid="u6213_content"><!-- image -->
+       <img class="block temp_no_img_src" id="u6213_img" data-orig-src="images/4.png?crc=3824679326" alt="Интернет магазин мебели в Одессе" title="Интернет магазин мебели в Одессе" width="90" height="90" src="images/blank.gif?crc=4208392903"/>
+      </div>
      </div>
-     <div class="MenuItemContainer clearfix grpelem" id="u5625"><!-- vertical box -->
-      <a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive borderbox clearfix colelem" id="u5626" href="3.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u5627-4"><!-- content --><p>Без имени 3</p></div></a>
+     <div class="clearfix colelem" id="pu6179-6"><!-- group -->
+      <div class="clearfix grpelem shared_content" id="u6179-6" data-content-guid="u6179-6_content"><!-- content -->
+       <p>Самый Большой Выбор Изделий</p>
+       <p>ассортимент товаров насчитывает более 5000 изделий</p>
+      </div>
+      <div class="clearfix grpelem shared_content" id="u6182-6" data-content-guid="u6182-6_content"><!-- content -->
+       <p>Высокое Качество И Гарантия</p>
+       <p>мы на 100% уверенны в качестве наших изделий, поэтому даем гарантию от 12 месяцев</p>
+      </div>
+      <div class="clearfix grpelem shared_content" id="u6185-6" data-content-guid="u6185-6_content"><!-- content -->
+       <p>На Рынке Больше 15 Лет</p>
+       <p>мы готовы своим профессионализмом помочь Вам на каждом этапе</p>
+      </div>
+      <div class="clearfix grpelem shared_content" id="u6188-6" data-content-guid="u6188-6_content"><!-- content -->
+       <p>На Рынке Больше 15 Лет</p>
+       <p>мы готовы своим профессионализмом помочь Вам на каждом этапе</p>
+      </div>
      </div>
-    </nav>
-    <div class="verticalspacer shared_content" data-offset-top="0" data-content-above-spacer="339" data-content-below-spacer="1500" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-content-guid="page_2_content"></div>
+     <div class="clearfix colelem" id="pu6227"><!-- group -->
+      <div class="clip_frame grpelem shared_content" id="u6227" data-sizePolicy="fixed" data-pintopage="page_fluidx" data-content-guid="u6227_content"><!-- image -->
+       <img class="block temp_no_img_src" id="u6227_img" data-orig-src="images/6.png?crc=20438098" alt="Интернет магазин мебели в Одессе" title="Интернет магазин мебели в Одессе" width="90" height="90" src="images/blank.gif?crc=4208392903"/>
+      </div>
+      <div class="clearfix grpelem shared_content" id="u6254-6" data-content-guid="u6254-6_content"><!-- content -->
+       <div id="u6254-5">
+        <h1 id="u6254-2">Интернет магазин мебели в Одессе</h1>
+        <p id="u6254-4">На сайте одесского Производственно-торгового предприятия «Мебель ПРОСТО» посетителям предлагается самая разнообразная мебель! Богатейший ассортимент гарантирован каждому благодаря тому, что компания растет и продолжает свое развитие вот уже более 15 лет. Используя передовые технологии, а также принимая своевременные решения, наша компания производит и продает классическую, а также соответствующую духу современности мебель. Если Вы хотите купить мебель в Одессе, Вам необязательно бегать по всему городу, выискивая то, что понравится больше всего, и тратить драгоценное время на суету. Вам необязательно даже выходить из своего дома. Наш интернет-магазин позволяет каждому выбирать самое лучшее на складе по доступной цене просто сидя за компьютером и имея доступ к интернету. Это позволяет экономить и время, и деньги, ведь купить можно мебель в Одессе недорого.</p>
+       </div>
+      </div>
+      <div class="clip_frame grpelem shared_content" id="u6220" data-sizePolicy="fixed" data-pintopage="page_fluidx" data-content-guid="u6220_content"><!-- image -->
+       <img class="block temp_no_img_src" id="u6220_img" data-orig-src="images/5.png?crc=1320110" alt="Интернет магазин мебели в Одессе" title="Интернет магазин мебели в Одессе" width="90" height="90" src="images/blank.gif?crc=4208392903"/>
+      </div>
+     </div>
+     <div class="rgba-background clearfix colelem shared_content" id="u6257-35" data-content-guid="u6257-35_content"><!-- content -->
+      <div id="u6257-34">
+       <p id="u6257-2">У нас большой ассортимент мебели</p>
+       <p id="u6257-4">На сайте есть все необходимое как для родного дома, так и для офиса. Главный критерий здесь – простота, ведь недаром давно известно, что именно в простоте кроется гениальность. Тем не менее это не означает, что в мебели, предлагаемой интернет-магазином, нет стиля и шарма. Напротив, она создана просто, но еще и со вкусом, над мебелью работают лучшие дизайнеры. Благодаря местному предприятию купить мебель в Одессе недорого можно легко. Предлагаются такие Вещи с большой буквы, как:</p>
+       <ul class="list0 nls-None" id="u6257-31">
+        <li id="u6257-6">фабричные шкафы-купе на заказ;</li>
+        <li id="u6257-8">фабричные кухни;</li>
+        <li id="u6257-10">модульные системы;</li>
+        <li id="u6257-12">стенки для гостиной;</li>
+        <li id="u6257-14">мебель для спальни;</li>
+        <li id="u6257-16">матрасы;</li>
+        <li id="u6257-18">кровати;</li>
+        <li id="u6257-20">мебель для прихожей;</li>
+        <li id="u6257-22">детская мебель;</li>
+        <li id="u6257-24">пеналы, шкафы;</li>
+        <li id="u6257-26">тумбы, комоды;</li>
+        <li id="u6257-28">столы;</li>
+        <li id="u6257-30">мебель из стекла.</li>
+       </ul>
+       <p id="u6257-33">Кроме того, мебель можно заказать для себя, чтобы подчеркнуть индивидуальность, неповторимость помещения и его владельца. Кроме фабричной мебели, мы предлагаем Вам мебель под заказ в Одессе, изготовленную на нашем производстве. Также предлагаются аукционные товары. Все это предлагает один интернет-магазин мебели в Одессе.</p>
+      </div>
+     </div>
+    </div>
+    <div class="verticalspacer" data-offset-top="1897" data-content-above-spacer="1897" data-content-below-spacer="61" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"></div>
    </div>
   </div>
   <div class="breakpoint" id="bp_768" data-min-width="481" data-max-width="768"><!-- responsive breakpoint node -->
    <div class="clearfix borderbox temp_no_id" data-orig-id="page"><!-- group -->
     <span class="clearfix grpelem placeholder" data-placeholder-for="pu2334_content"><!-- placeholder node --></span>
-    <div class="PamphletWidget clearfix grpelem" id="pamphletu2850" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- none box -->
-     <div class="popup_anchor" id="u2853popup">
-      <div class="ContainerGroup clearfix" id="u2853" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- stack box -->
-       <div class="Container invi clearfix grpelem" id="u2854" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- group -->
-        <nav class="MenuBar clearfix grpelem" id="menuu2855" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- vertical box -->
-         <div class="MenuItemContainer clearfix colelem" id="u2863"><!-- horizontal box -->
-          <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem" id="u2866" href="index.html"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem" id="u2869-4" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- content --><p class="shared_content" data-content-guid="u2869-4_0_content">Домашняя</p></div></a>
-         </div>
-         <div class="MenuItemContainer clearfix colelem" id="u5688"><!-- horizontal box -->
-          <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem" id="u5691" href="2.html"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem" id="u5693-4" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- content --><p class="shared_content" data-content-guid="u5693-4_0_content">Без имени 2</p></div></a>
-         </div>
-         <div class="MenuItemContainer clearfix colelem" id="u2856"><!-- horizontal box -->
-          <a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem" id="u2859" href="3.html"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem" id="u2861-4" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- content --><p class="shared_content" data-content-guid="u2861-4_0_content">Без имени 3</p></div></a>
-         </div>
-        </nav>
+    <div class="clearfix grpelem" id="ppamphletu2850"><!-- column -->
+     <div class="PamphletWidget clearfix colelem" id="pamphletu2850" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- none box -->
+      <div class="popup_anchor" id="u2853popup">
+       <div class="ContainerGroup clearfix" id="u2853" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- stack box -->
+        <div class="Container invi clearfix grpelem" id="u2854" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- group -->
+         <nav class="MenuBar clearfix grpelem" id="menuu2855" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- vertical box -->
+          <div class="MenuItemContainer clearfix colelem" id="u2863"><!-- horizontal box -->
+           <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem" id="u2866" href="index.html"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem" id="u2869-4" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- content --><p class="shared_content" data-content-guid="u2869-4_0_content">Домашняя</p></div></a>
+          </div>
+          <div class="MenuItemContainer clearfix colelem" id="u5688"><!-- horizontal box -->
+           <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem" id="u5691" href="2.html"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem" id="u5693-4" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- content --><p class="shared_content" data-content-guid="u5693-4_0_content">Без имени 2</p></div></a>
+          </div>
+          <div class="MenuItemContainer clearfix colelem" id="u2856"><!-- horizontal box -->
+           <a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem" id="u2859" href="3.html"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem" id="u2861-4" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- content --><p class="shared_content" data-content-guid="u2861-4_0_content">Без имени 3</p></div></a>
+          </div>
+         </nav>
+        </div>
        </div>
       </div>
-     </div>
-     <div class="ThumbGroup clearfix grpelem" id="u2878" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- none box -->
-      <div class="popup_anchor" id="u2879popup">
-       <div class="Thumb popup_element clearfix" id="u2879" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- group -->
-        <div class="size_fixed grpelem shared_content" id="u2880" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-content-guid="u2880_content"><!-- custom html -->
-         
+      <div class="ThumbGroup clearfix grpelem" id="u2878" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- none box -->
+       <div class="popup_anchor" id="u2879popup">
+        <div class="Thumb popup_element clearfix" id="u2879" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"><!-- group -->
+         <div class="size_fixed grpelem shared_content" id="u2880" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-content-guid="u2880_content"><!-- custom html -->
+          
   <div class="menu-toggle">
 	<div class="hamburger">
 		<span></span>
@@ -185,44 +259,93 @@ false
 	</div>
 </div>
 
+         </div>
         </div>
        </div>
       </div>
      </div>
+     <span class="browser_width colelem placeholder" data-placeholder-for="u6165-bw_content"><!-- placeholder node --></span>
+     <div class="clearfix colelem temp_no_id" data-orig-id="pu6191"><!-- group -->
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6191_content"><!-- placeholder node --></span>
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6199_content"><!-- placeholder node --></span>
+     </div>
+     <div class="clearfix colelem temp_no_id" data-orig-id="pu6179-6"><!-- group -->
+      <span class="clearfix grpelem placeholder" data-placeholder-for="u6179-6_content"><!-- placeholder node --></span>
+      <span class="clearfix grpelem placeholder" data-placeholder-for="u6182-6_content"><!-- placeholder node --></span>
+     </div>
+     <div class="clearfix colelem" id="pu6206"><!-- group -->
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6206_content"><!-- placeholder node --></span>
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6213_content"><!-- placeholder node --></span>
+     </div>
+     <div class="clearfix colelem" id="pu6185-6"><!-- group -->
+      <span class="clearfix grpelem placeholder" data-placeholder-for="u6185-6_content"><!-- placeholder node --></span>
+      <span class="clearfix grpelem placeholder" data-placeholder-for="u6188-6_content"><!-- placeholder node --></span>
+     </div>
+     <span class="clearfix colelem placeholder" data-placeholder-for="u6254-6_content"><!-- placeholder node --></span>
+     <div class="clearfix colelem temp_no_id" data-orig-id="pu6227"><!-- group -->
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6227_content"><!-- placeholder node --></span>
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6220_content"><!-- placeholder node --></span>
+     </div>
+     <span class="rgba-background clearfix colelem placeholder" data-placeholder-for="u6257-35_content"><!-- placeholder node --></span>
     </div>
-    <span class="verticalspacer placeholder" data-placeholder-for="page_2_content"><!-- placeholder node --></span>
+    <div class="verticalspacer" data-offset-top="2130" data-content-above-spacer="2129" data-content-below-spacer="61" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"></div>
    </div>
   </div>
   <div class="breakpoint" id="bp_480" data-max-width="480"><!-- responsive breakpoint node -->
    <div class="clearfix borderbox temp_no_id" data-orig-id="page"><!-- group -->
     <span class="clearfix grpelem placeholder" data-placeholder-for="pu2334_content"><!-- placeholder node --></span>
-    <div class="PamphletWidget clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="pamphletu2850"><!-- none box -->
-     <div class="popup_anchor temp_no_id" data-orig-id="u2853popup">
-      <div class="ContainerGroup clearfix temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2853"><!-- stack box -->
-       <div class="Container invi clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2854"><!-- group -->
-        <nav class="MenuBar clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="menuu2855"><!-- vertical box -->
-         <div class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2863"><!-- horizontal box -->
-          <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="index.html" data-orig-id="u2866"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2869-4"><!-- content --><span class="placeholder" data-placeholder-for="u2869-4_0_content"><!-- placeholder node --></span></div></a>
-         </div>
-         <div class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u5688"><!-- horizontal box -->
-          <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="2.html" data-orig-id="u5691"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u5693-4"><!-- content --><span class="placeholder" data-placeholder-for="u5693-4_0_content"><!-- placeholder node --></span></div></a>
-         </div>
-         <div class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2856"><!-- horizontal box -->
-          <a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="3.html" data-orig-id="u2859"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2861-4"><!-- content --><span class="placeholder" data-placeholder-for="u2861-4_0_content"><!-- placeholder node --></span></div></a>
-         </div>
-        </nav>
+    <div class="clearfix grpelem temp_no_id" data-orig-id="ppamphletu2850"><!-- column -->
+     <div class="PamphletWidget clearfix colelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="pamphletu2850"><!-- none box -->
+      <div class="popup_anchor temp_no_id" data-orig-id="u2853popup">
+       <div class="ContainerGroup clearfix temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2853"><!-- stack box -->
+        <div class="Container invi clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2854"><!-- group -->
+         <nav class="MenuBar clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="menuu2855"><!-- vertical box -->
+          <div class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2863"><!-- horizontal box -->
+           <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="index.html" data-orig-id="u2866"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2869-4"><!-- content --><span class="placeholder" data-placeholder-for="u2869-4_0_content"><!-- placeholder node --></span></div></a>
+          </div>
+          <div class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u5688"><!-- horizontal box -->
+           <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="2.html" data-orig-id="u5691"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u5693-4"><!-- content --><span class="placeholder" data-placeholder-for="u5693-4_0_content"><!-- placeholder node --></span></div></a>
+          </div>
+          <div class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2856"><!-- horizontal box -->
+           <a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="3.html" data-orig-id="u2859"><!-- horizontal box --><div class="MenuItemLabel clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2861-4"><!-- content --><span class="placeholder" data-placeholder-for="u2861-4_0_content"><!-- placeholder node --></span></div></a>
+          </div>
+         </nav>
+        </div>
+       </div>
+      </div>
+      <div class="ThumbGroup clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2878"><!-- none box -->
+       <div class="popup_anchor temp_no_id" data-orig-id="u2879popup">
+        <div class="Thumb popup_element clearfix temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2879"><!-- group -->
+         <span class="size_fixed grpelem placeholder" data-placeholder-for="u2880_content"><!-- placeholder node --></span>
+        </div>
        </div>
       </div>
      </div>
-     <div class="ThumbGroup clearfix grpelem temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2878"><!-- none box -->
-      <div class="popup_anchor temp_no_id" data-orig-id="u2879popup">
-       <div class="Thumb popup_element clearfix temp_no_id" data-sizePolicy="fixed" data-pintopage="page_fixedLeft" data-orig-id="u2879"><!-- group -->
-        <span class="size_fixed grpelem placeholder" data-placeholder-for="u2880_content"><!-- placeholder node --></span>
-       </div>
-      </div>
+     <span class="browser_width colelem placeholder" data-placeholder-for="u6165-bw_content"><!-- placeholder node --></span>
+     <div class="clearfix colelem temp_no_id" data-orig-id="pu6191"><!-- group -->
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6191_content"><!-- placeholder node --></span>
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6199_content"><!-- placeholder node --></span>
      </div>
+     <div class="clearfix colelem temp_no_id" data-orig-id="pu6179-6"><!-- group -->
+      <span class="clearfix grpelem placeholder" data-placeholder-for="u6179-6_content"><!-- placeholder node --></span>
+      <span class="clearfix grpelem placeholder" data-placeholder-for="u6182-6_content"><!-- placeholder node --></span>
+     </div>
+     <div class="clearfix colelem temp_no_id" data-orig-id="pu6206"><!-- group -->
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6206_content"><!-- placeholder node --></span>
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6213_content"><!-- placeholder node --></span>
+     </div>
+     <div class="clearfix colelem temp_no_id" data-orig-id="pu6185-6"><!-- group -->
+      <span class="clearfix grpelem placeholder" data-placeholder-for="u6185-6_content"><!-- placeholder node --></span>
+      <span class="clearfix grpelem placeholder" data-placeholder-for="u6188-6_content"><!-- placeholder node --></span>
+     </div>
+     <span class="clearfix colelem placeholder" data-placeholder-for="u6254-6_content"><!-- placeholder node --></span>
+     <div class="clearfix colelem temp_no_id" data-orig-id="pu6227"><!-- group -->
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6227_content"><!-- placeholder node --></span>
+      <span class="clip_frame grpelem placeholder" data-placeholder-for="u6220_content"><!-- placeholder node --></span>
+     </div>
+     <span class="rgba-background clearfix colelem placeholder" data-placeholder-for="u6257-35_content"><!-- placeholder node --></span>
     </div>
-    <span class="verticalspacer placeholder" data-placeholder-for="page_2_content"><!-- placeholder node --></span>
+    <div class="verticalspacer" data-offset-top="2453" data-content-above-spacer="2453" data-content-below-spacer="62" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"></div>
    </div>
   </div>
   <!-- JS includes -->
@@ -243,7 +366,7 @@ var suppressMissingFileError = false
 k[1]:null,k=k&&k[2]?k[2]:null;switch(k.toLowerCase()){case "css":i=i.replace(/\W/gi,"_").replace(/^([^a-z])/gi,"_$1");g.className+=" "+i;i=a(d(g,"color"));k=a(d(g,"backgroundColor"));i!=0||k!=0?(Muse.assets.required.splice(j,1),"undefined"!=typeof b[l]&&(i!=b[l]>>>24||k!=(b[l]&16777215))&&Muse.assets.outOfDate.push(l)):j++;g.className="version";break;case "js":j++;break;default:throw Error("Unsupported file type: "+k);}}c?c().jquery!="1.8.3"&&Muse.assets.outOfDate.push("jquery-1.8.3.min.js"):Muse.assets.required.push("jquery-1.8.3.min.js");
 g.parentNode.removeChild(g);if(Muse.assets.outOfDate.length||Muse.assets.required.length)g="Некоторые файлы на сервере могут отсутствовать или быть некорректными. Очистите кэш-память браузера и повторите попытку. Если проблему не удается устранить, свяжитесь с разработчиками сайта.",f&&Muse.assets.outOfDate.length&&(g+="\nOut of date: "+Muse.assets.outOfDate.join(",")),f&&Muse.assets.required.length&&(g+="\nMissing: "+Muse.assets.required.join(",")),suppressMissingFileError?(g+="\nUse SuppressMissingFileError key in AppPrefs.xml to show missing file error pop up.",console.log(g)):alert(g)};location&&location.search&&location.search.match&&location.search.match(/muse_debug/gi)?
 setTimeout(function(){f(!0)},5E3):f()}};
-var muse_init=function(){require.config({baseUrl:""});require(["jquery","museutils","whatinput","jquery.musemenu","jquery.watch","webpro","musewpslideshow","jquery.museoverlay","touchswipe","jquery.museresponsive"],function(c){var $ = c;$(document).ready(function(){try{
+var muse_init=function(){require.config({baseUrl:""});require(["jquery","museutils","whatinput","jquery.musemenu","jquery.musepolyfill.bgsize","jquery.watch","webpro","musewpslideshow","jquery.museoverlay","touchswipe","jquery.museresponsive"],function(c){var $ = c;$(document).ready(function(){try{
 window.Muse.assets.check($);/* body */
 Muse.Utils.transformMarkupToFixBrowserProblemsPreInit();/* body */
 Muse.Utils.prepHyperlinks(true);/* body */
@@ -256,6 +379,8 @@ Muse.Utils.prepHyperlinks(true);/* body */
 		Muse.Assert.fail('Error with Widget:Anchor off ParamHTMLOnDocReady Handler ' + e.toString());
 	}
 })();/* Widget:Anchor off */
+Muse.Utils.resizeHeight('.browser_width');/* resize height */
+Muse.Utils.requestAnimationFrame(function() { $('body').addClass('initialized'); });/* mark body as initialized */
 Muse.Utils.makeButtonsVisibleAfterSettingMinWidth();/* body */
 Muse.Utils.initWidget('.MenuBar', ['#bp_infinity', '#bp_768', '#bp_480'], function(elem) { return $(elem).museMenu(); });/* unifiedNavBar */
 Muse.Utils.initWidget('#pamphletu2850', ['#bp_768', '#bp_480'], function(elem) { return new WebPro.Widget.ContentSlideShow(elem, {contentLayout_runtime:'stack',event:'click',deactivationEvent:'mouseout_click',autoPlay:false,displayInterval:3000,transitionStyle:'fading',transitionDuration:500,hideAllContentsFirst:true,triggersOnTop:true,shuffle:false,enableSwipe:true,resumeAutoplay:true,resumeAutoplayInterval:3000,playOnce:false,autoActivate_runtime:false,isResponsive:false}); });/* #pamphletu2850 */
