@@ -1,4 +1,4 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1598480227790">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="false" exportTarget="other" domain="https://mebelink.github.io" resolutions="1x" timestamp="1598480629393">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
     <file name="master_______-a.css" crc="432126607" ref="3:2:index"/>
@@ -137,7 +137,7 @@
     <file name="девочка-u6165-fr.jpg" crc="506412437" ref="3"/>
     <file name="девочка-u6165-fr2.jpg" crc="480307139" ref="3"/>
   </folder>
-  <file name="index.html" crc="318951836" seo="true" mt="1598477539393" redirect="true"/>
-  <file name="2.html" crc="3780935415" seo="true" mt="1598477539393" redirect="true"/>
-  <file name="3.html" crc="297309932" seo="true" mt="1598480102253" redirect="true"/>
+  <file name="index.html" crc="179826609" seo="true" mt="1598480386219" redirect="true"/>
+  <file name="2.html" crc="284032537" seo="true" mt="1598480386219" redirect="true"/>
+  <file name="3.html" crc="3872882720" seo="true" mt="1598480386219" redirect="true"/>
 </manifest>
