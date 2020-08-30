@@ -2,71 +2,812 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://mebelink.github.io/index.html</loc>
-    <lastmod>2020-08-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mebelink.github.io/2.html</loc>
-    <lastmod>2020-08-27</lastmod>
+    <lastmod>2020-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/about.jpg</image:loc>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/small_item_376.jpg</image:loc>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/small_item_375.jpg</image:loc>
+      <image:loc>https://mebelink.github.io/images/81-1.jpg</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
     </image:image>
-    <image:image>
-      <image:loc>https://mebelink.github.io/images/small_item_374.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://mebelink.github.io/images/about373x347.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://mebelink.github.io/3.html</loc>
-    <lastmod>2020-08-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
     <image:image>
       <image:loc>https://mebelink.github.io/images/1.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://mebelink.github.io/images/2.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://mebelink.github.io/images/3.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/4.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>https://mebelink.github.io/images/2.png</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/6.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>https://mebelink.github.io/images/6328222-1-crop-u45593.jpg</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/5.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>https://mebelink.github.io/images/4-1.png</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/22-000.jpg</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/44-456.png</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/kiev-1.jpg</image:loc>
+      <image:caption>Реставрация чугунных ванн Киев</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/odessa-2.jpg</image:loc>
+      <image:caption>Реставрация ванн в Одессе</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/harkov-1.jpg</image:loc>
+      <image:caption>Ремонт и реставрация ванн в Харькове</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/dnepr-1.jpg</image:loc>
+      <image:caption>Реставрация и эмалировка ванн в Днепропетровске</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/zapor-1.jpg</image:loc>
+      <image:caption>Реставрация ванн и эмалировка ванн в Запорожье</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/6328222-1-crop-u455932.jpg</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/44-456213x213.png</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/6328222-1-crop-u455933.jpg</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/44-456179x179.png</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/6328222-1-crop-u455934.jpg</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/22-000460x147.jpg</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://mebelink.github.io/assets/about.jpg</loc>
-    <lastmod>2020-04-08</lastmod>
+    <loc>https://mebelink.github.io/metodi-restavracii.html</loc>
+    <lastmod>2020-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/1.png</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/3.png</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/2.png</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/78656456.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/4578854.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/978676575.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/78656456-crop-u8242.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/4578854-crop-u45947.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/978676575-crop-u46007.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/4578854-crop-u459472.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/978676575-crop-u460072.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/4578854-crop-u459473.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/978676575-crop-u460073.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/4578854-crop-u459474.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/978676575-crop-u460074.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/4578854-crop-u459475.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/978676575-crop-u460075.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/4578854250x188.jpg</image:loc>
+      <image:caption>Методы реставрации ванн</image:caption>
+    </image:image>
   </url>
   <url>
-    <loc>https://mebelink.github.io/assets/htaccess</loc>
-    <lastmod>2020-08-17</lastmod>
+    <loc>https://mebelink.github.io/ekspluataciya.html</loc>
+    <lastmod>2020-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Уход и эксплуатация ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/pravilnyi-ukhod-za-vannoi.png</image:loc>
+      <image:caption>Уход и эксплуатация ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/logo.png</image:loc>
+      <image:caption>Уход и эксплуатация ванн</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/remont-poddonov.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/27.jpg</image:loc>
+      <image:caption>Ремонт, реставрация душевых поддонов</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/26.jpg</image:loc>
+      <image:caption>Ремонт, реставрация душевых поддонов</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/27564x174.jpg</image:loc>
+      <image:caption>Ремонт, реставрация душевых поддонов</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/27352x109.jpg</image:loc>
+      <image:caption>Ремонт, реставрация душевых поддонов</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/photogalereya.html</loc>
+    <lastmod>2020-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0407.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/strelka.png</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0423.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0398.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0402.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0204.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0209.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0187.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0195.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0407283x213.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0423283x212.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0398283x212.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0402283x212.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0204283x212.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0209283x212.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0187283x212.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0195283x212.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0407177x133.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0423177x133.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0398177x133.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0402177x133.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0204177x133.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0209177x133.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0187177x133.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/img_0195177x133.jpg</image:loc>
+      <image:caption>Фотогалерея отреставрированных ванн</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/restavraciya-akrilovih-vann.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/15-1.jpg</image:loc>
+      <image:caption>Реставрация акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/6.jpg</image:loc>
+      <image:caption>Реставрация акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/6404x196.jpg</image:loc>
+      <image:caption>Реставрация акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/15-1431x133.jpg</image:loc>
+      <image:caption>Реставрация акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/6252x122.jpg</image:loc>
+      <image:caption>Реставрация акриловых ванн</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/vidyi-sovremennyix-vann.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/11.jpg</image:loc>
+      <image:caption>Виды современных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/11564x174.jpg</image:loc>
+      <image:caption>Виды современных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/11352x109.jpg</image:loc>
+      <image:caption>Виды современных ванн</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/restavracziya-chugunnyix-vann.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/19-1.jpg</image:loc>
+      <image:caption>Реставрация чугунных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/19-1564x174.jpg</image:loc>
+      <image:caption>Реставрация чугунных ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/19-1352x109.jpg</image:loc>
+      <image:caption>Реставрация чугунных ванн</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/cena.html</loc>
+    <lastmod>2020-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Цены на реставрацию ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/81-1.jpg</image:loc>
+      <image:caption>Реставрация ванн цена</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82-2.jpg</image:loc>
+      <image:caption>Реставрация ванн цена</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/81-1768x238.jpg</image:loc>
+      <image:caption>Реставрация ванн цена</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82-2320x191.jpg</image:loc>
+      <image:caption>Реставрация ванн цена</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/81-1480x149.jpg</image:loc>
+      <image:caption>Реставрация ванн цена</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/polirovka-akrilovoj-vannyi.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/32.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/30.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/31.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/23.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/32564x212.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/30276x207.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/31276x207.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/23276x207.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/32352x133.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/30172x130.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/31172x129.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/23172x129.jpg</image:loc>
+      <image:caption>Полировка акриловой ванны</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/remont-akrilovix-vkladishei.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/33.jpg</image:loc>
+      <image:caption>Акриловые вкладыши, ремонт акриловых вкладышей</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/38.jpg</image:loc>
+      <image:caption>Акриловые вкладыши, ремонт акриловых вкладышей</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/38512x256.jpg</image:loc>
+      <image:caption>Акриловые вкладыши, ремонт акриловых вкладышей</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/38320x160.jpg</image:loc>
+      <image:caption>Акриловые вкладыши, ремонт акриловых вкладышей</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/chugunnyie-vannyi-inostrannogo-proizvodstva.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/39.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/40.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/42.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/41.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/39256x192.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/40256x192.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/42256x171.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/41256x192.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/39160x120.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/40160x120.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/42160x107.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/41160x120.jpg</image:loc>
+      <image:caption>Чугунные ванны иностранного производства</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/vyibor-i-uhod-za-akrilovoy-vannoy.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/45.jpg</image:loc>
+      <image:caption>Выбор и уход за акриловой ванной</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/45719x269.jpg</image:loc>
+      <image:caption>Выбор и уход за акриловой ванной</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/45564x211.jpg</image:loc>
+      <image:caption>Выбор и уход за акриловой ванной</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/45352x132.jpg</image:loc>
+      <image:caption>Выбор и уход за акриловой ванной</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/vidyi-zavodskih-defektov-(brak)-akrilovyih-vann.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/49.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/56.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/57.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/54.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55719x269.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/56719x254.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/57719x269.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55564x211.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/49256x193.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/56564x199.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/57564x211.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/54256x192.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55352x132.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/49160x121.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/56352x124.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/57352x132.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/54160x120.jpg</image:loc>
+      <image:caption>дефекты акриловых ванн</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/mramornyie-vannyi-litevoy-mramor.html</loc>
+    <lastmod>2020-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/59.jpg</image:loc>
+      <image:caption>Мраморные ванны, литьевой мрамор</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/60.jpg</image:loc>
+      <image:caption>Мраморные ванны, литьевой мрамор</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/61.jpg</image:loc>
+      <image:caption>Мраморные ванны, литьевой мрамор</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/62.jpg</image:loc>
+      <image:caption>Мраморные ванны, литьевой мрамор</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/restavratsiya-vann-kiev.html</loc>
+    <lastmod>2020-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/67.jpg</image:loc>
+      <image:caption>Ремонт, реставрация ванн в Киеве</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/68.jpg</image:loc>
+      <image:caption>Ремонт, реставрация ванн в Киеве</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/69.jpg</image:loc>
+      <image:caption>Ремонт, реставрация ванн в Киеве</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/70.jpg</image:loc>
+      <image:caption>Ремонт, реставрация ванн в Киеве</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mebelink.github.io/zabluzhdeniya-potrebiteley-o-restavratsii-vann.html</loc>
+    <lastmod>2017-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/82.png</image:loc>
+      <image:caption>Кнопка вверх</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/55.gif</image:loc>
+      <image:caption>Реставрация Ванн, Эмалировка Ванн, Наливная Ванна</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mebelink.github.io/images/75.jpg</image:loc>
+      <image:caption>Заблуждения потребителей о реставрации ванн</image:caption>
+    </image:image>
   </url>
 </urlset>
