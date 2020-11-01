@@ -1,4 +1,4 @@
-<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="mebelink.github.io" resolutions="1x" timestamp="1604240128162">
+<manifest alg="2" build="2018.1.0.386" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="mebelink.github.io" resolutions="1x" timestamp="1604240900581">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
     <file name="master_______-a.css" crc="481450677" ref="spasibo:index"/>
@@ -21,9 +21,9 @@
     <file name="musewpslideshow.js" crc="3862962738" ref="phone>index:index"/>
     <file name="jquery.museoverlay.js" crc="4147669564" ref="phone>index:index"/>
     <file name="touchswipe.js" crc="4075097462" ref="phone>index:index"/>
-    <file name="form_check.php" crc="4020933626" ref="phone>index"/>
-    <file name="form_throttle.php" crc="4259590256" ref="phone>index"/>
-    <file name="form_process.php" crc="37464564" ref="phone>index"/>
+    <file name="form_check.php" crc="4020933626" ref="phone>index:index"/>
+    <file name="form_throttle.php" crc="4259590256" ref="phone>index:index"/>
+    <file name="form_process.php" crc="37464564" ref="phone>index:index"/>
     <file name="form-u2165.php" crc="4198901975" ref="phone>index"/>
     <file name="jquery.musepolyfill.bgsize.js" crc="4260645839" ref="phone>index:index"/>
     <file name="form-u2669.php" crc="3962309838" ref="phone>index"/>
@@ -38,11 +38,9 @@
     <file name="icon-phone.svg" crc="259335050" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-phone_poster_.png" crc="213580199" ref="phone>index"/>
+    <file name="icon-phone_poster_.png" crc="213580199" ref="phone>index:index"/>
     <file name="bg.jpg" crc="305121305" ref="phone>index:phone>spasibo:index:spasibo">
-      <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
       <caption webpage="spasibo" alt=""/>
@@ -56,29 +54,24 @@
     <file name="icon-clock.svg" crc="345803641" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-clock_poster_.png" crc="4293102676" ref="phone>index"/>
+    <file name="icon-clock_poster_.png" crc="4293102676" ref="phone>index:index"/>
     <file name="icon-purse.svg" crc="246590110" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-purse_poster_.png" crc="3841596785" ref="phone>index"/>
+    <file name="icon-purse_poster_.png" crc="3841596785" ref="phone>index:index"/>
     <file name="icon-people.svg" crc="3807828169" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-people_poster_.png" crc="111011032" ref="phone>index"/>
+    <file name="icon-people_poster_.png" crc="111011032" ref="phone>index:index"/>
     <file name="icon-medal.svg" crc="3954734370" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-medal_poster_.png" crc="3915330147" ref="phone>index"/>
+    <file name="icon-medal_poster_.png" crc="3915330147" ref="phone>index:index"/>
     <file name="bg-1.jpg" crc="4187741121" ref="phone>index:index">
-      <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
     </file>
@@ -88,15 +81,12 @@
     <file name="2photodune-2359510-700x700 - средство просмотра фотографий windows.jpg" crc="3938302346" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
     <file name="3photodune-2359510-700x700 - средство просмотра фотографий windows.jpg" crc="3853354243" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
     <file name="photodune-2359510-700x700 - средство просмотра фотографий windowspng.jpg" crc="3989421395" ref="phone>index:index">
-      <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
     </file>
@@ -105,40 +95,33 @@
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-phone-1_poster_.png" crc="4163893230" ref="phone>index"/>
+    <file name="icon-phone-1_poster_.png" crc="4163893230" ref="phone>index:index"/>
     <file name="icon-people-1.svg" crc="4228886978" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-people-1_poster_.png" crc="3770949981" ref="phone>index"/>
+    <file name="icon-people-1_poster_.png" crc="3770949981" ref="phone>index:index"/>
     <file name="icon-car.svg" crc="125387890" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-car_poster_.png" crc="94909465" ref="phone>index"/>
+    <file name="icon-car_poster_.png" crc="94909465" ref="phone>index:index"/>
     <file name="icon-wrench.svg" crc="7103945" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-wrench_poster_.png" crc="75222131" ref="phone>index"/>
+    <file name="icon-wrench_poster_.png" crc="75222131" ref="phone>index:index"/>
     <file name="icon-maps.svg" crc="465506973" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-maps_poster_.png" crc="4227182914" ref="phone>index"/>
+    <file name="icon-maps_poster_.png" crc="4227182914" ref="phone>index:index"/>
     <file name="icon-email.svg" crc="512885887" seo="true" ref="phone>index:index">
       <caption webpage="index" alt=""/>
       <caption webpage="index" alt=""/>
-      <caption webpage="index" alt=""/>
     </file>
-    <file name="icon-email_poster_.png" crc="4271731920" ref="phone>index"/>
+    <file name="icon-email_poster_.png" crc="4271731920" ref="phone>index:index"/>
     <file name="phone-2169x240.png" crc="330687901" seo="true" ref="phone>spasibo">
       <caption webpage="spasibo" alt=""/>
     </file>
@@ -198,6 +181,6 @@
     <file name="index.html" crc="469982654" seo="true" mt="1604239962673" redirect="true"/>
     <file name="spasibo.html" crc="4129586212" seo="true" mt="1604239962673" redirect="true"/>
   </folder>
-  <file name="index.html" crc="140433529" seo="true" mt="1604239905180" redirect="true"/>
+  <file name="index.html" crc="493046407" seo="true" mt="1604240863770" redirect="true"/>
   <file name="spasibo.html" crc="18188610" seo="true" mt="1604239905180" redirect="true"/>
 </manifest>
