@@ -56,4 +56,10 @@
       <image:loc>http://mebelink.github.io/images/phone-2206x291.png</image:loc>
     </image:image>
   </url>
+  <url>
+    <loc>http://mebelink.github.io/p444.html</loc>
+    <lastmod>2020-11-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
