@@ -1,72 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://mebelink.github.io/index.html</loc>
-    <lastmod>2020-08-27</lastmod>
+    <loc>http://mebelink.github.io/index.html</loc>
+    <lastmod>2020-11-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mebelink.github.io/2.html</loc>
-    <lastmod>2020-08-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <xhtml:link rel="alternate" media="only screen and (max-width: 370px)" href="http://mebelink.github.io/phone/index.html"/>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/about.jpg</image:loc>
+      <image:loc>http://mebelink.github.io/images/icon-phone.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/small_item_376.jpg</image:loc>
+      <image:loc>http://mebelink.github.io/images/icon-clock.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/small_item_375.jpg</image:loc>
+      <image:loc>http://mebelink.github.io/images/icon-purse.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/small_item_374.jpg</image:loc>
+      <image:loc>http://mebelink.github.io/images/icon-people.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/about373x347.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://mebelink.github.io/3.html</loc>
-    <lastmod>2020-08-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <image:image>
-      <image:loc>https://mebelink.github.io/images/1.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>http://mebelink.github.io/images/icon-medal.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/2.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>http://mebelink.github.io/images/icon-phone-1.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/3.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>http://mebelink.github.io/images/icon-people-1.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/4.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>http://mebelink.github.io/images/icon-car.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/6.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>http://mebelink.github.io/images/icon-wrench.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://mebelink.github.io/images/5.png</image:loc>
-      <image:caption>Интернет магазин мебели в Одессе</image:caption>
+      <image:loc>http://mebelink.github.io/images/icon-maps.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://mebelink.github.io/images/icon-email.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://mebelink.github.io/images/phone-2.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://mebelink.github.io/images/phone-1.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://mebelink.github.io/images/phone-2151x214.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://mebelink.github.io/images/phone-1331x359.png</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://mebelink.github.io/assets/about.jpg</loc>
-    <lastmod>2020-04-08</lastmod>
+    <loc>http://mebelink.github.io/spasibo.html</loc>
+    <lastmod>2020-11-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mebelink.github.io/assets/htaccess</loc>
-    <lastmod>2020-08-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <xhtml:link rel="alternate" media="only screen and (max-width: 370px)" href="http://mebelink.github.io/phone/spasibo.html"/>
+    <image:image>
+      <image:loc>http://mebelink.github.io/images/phone-2206x291.png</image:loc>
+    </image:image>
   </url>
 </urlset>
