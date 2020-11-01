@@ -18,8 +18,8 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
   <title>spasibo</title>
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="../css/site_global.css?crc=444006867"/>
-  <link rel="stylesheet" type="text/css" href="css/master_______-a.css?crc=285963579"/>
-  <link rel="stylesheet" type="text/css" href="css/spasibo.css?crc=492939261" id="pagesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/master_______-a.css?crc=221574935"/>
+  <link rel="stylesheet" type="text/css" href="css/spasibo.css?crc=4125446321" id="pagesheet"/>
   <!-- IE-only CSS -->
   <!--[if lt IE 9]>
   <link rel="stylesheet" type="text/css" href="css/iefonts_spasibo.css?crc=4284966172"/>
@@ -39,14 +39,22 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
 .js body {visibility: visible !important; }
 false
 </style>
-
+ <style> .button-up { position: fixed !important; bottom: -1000px !important; right: -1000px !important; left: auto !important; margin: 0 !important; cursor: pointer; } .button-up.active { bottom: 20px !important; right: 20px !important; } .animated { -webkit-animation-duration: 1s; animation-duration: 1s; -webkit-animation-fill-mode: both; animation-fill-mode: both } @-webkit-keyframes InUp { from,60%,75%,90%,to { -webkit-animation-timing-function: cubic-bezier(0.215,0.610,0.355,1.000); animation-timing-function: cubic-bezier(0.215,0.610,0.355,1.000) } from { opacity: 0; -webkit-transform: translate3d(0,3000px,0); transform: translate3d(0,3000px,0) } 60% { opacity: 1; -webkit-transform: translate3d(0,-20px,0); transform: translate3d(0,-20px,0) } 75% { -webkit-transform: translate3d(0,10px,0); transform: translate3d(0,10px,0) } 90% { -webkit-transform: translate3d(0,-5px,0); transform: translate3d(0,-5px,0) } to { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0) } } @keyframes InUp { from,60%,75%,90%,to { -webkit-animation-timing-function: cubic-bezier(0.215,0.610,0.355,1.000); animation-timing-function: cubic-bezier(0.215,0.610,0.355,1.000) } from { opacity: 0; -webkit-transform: translate3d(0,3000px,0); transform: translate3d(0,3000px,0) } 60% { opacity: 1; -webkit-transform: translate3d(0,-20px,0); transform: translate3d(0,-20px,0) } 75% { -webkit-transform: translate3d(0,10px,0); transform: translate3d(0,10px,0) } 90% { -webkit-transform: translate3d(0,-5px,0); transform: translate3d(0,-5px,0) } to { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0) } } .InUp { -webkit-animation-name: InUp; animation-name: InUp } @-webkit-keyframes OutDown { 20% { -webkit-transform: translate3d(0,10px,0); transform: translate3d(0,10px,0) } 40%,45% { opacity: 1; -webkit-transform: translate3d(0,-20px,0); transform: translate3d(0,-20px,0) } to { opacity: 0; -webkit-transform: translate3d(0,2000px,0); transform: translate3d(0,2000px,0) } } @keyframes OutDown { 20% { -webkit-transform: translate3d(0,10px,0); transform: translate3d(0,10px,0) } 40%,45% { opacity: 1; -webkit-transform: translate3d(0,-20px,0); transform: translate3d(0,-20px,0) } to { opacity: 0; -webkit-transform: translate3d(0,2000px,0); transform: translate3d(0,2000px,0) } } .OutDown { -webkit-animation-name: OutDown; animation-name: OutDown } </style> 
  </head>
  <body>
 
   <div class="clearfix" id="page"><!-- group -->
-   <div class="size_fixed grpelem" id="u3772"><!-- custom html -->
-    
+   <div class="clearfix grpelem" id="pu3772"><!-- column -->
+    <div class="size_fixed colelem" id="u3772"><!-- custom html -->
+     
 
+    </div>
+    <div class="button-up clearfix colelem" id="u5359-4" data-IBE-flags="txtStyleSrc"><!-- content -->
+     <p>▲</p>
+    </div>
+    <div class="size_fixed colelem" id="u5358"><!-- custom html -->
+      
+    </div>
    </div>
    <div class="clearfix grpelem" id="pu3082"><!-- column -->
     <div class="size_fixed colelem" id="u3082"><!-- custom html -->
@@ -99,7 +107,7 @@ Muse.Utils.transformMarkupToFixBrowserProblems();/* body */
   <script src="../scripts/require.js?crc=7928878" type="text/javascript" async data-main="../scripts/museconfig.js?crc=4286661555" onload="if (requirejs) requirejs.onError = function(requireType, requireModule) { if (requireType && requireType.toString && requireType.toString().indexOf && 0 <= requireType.toString().indexOf('#scripterror')) window.Muse.assets.check(); }" onerror="window.Muse.assets.check();"></script>
   
   <!--HTML Widget code-->
-  
+   <script> $('.button-up').click(function() { $('body, html').animate({ 'scrollTop': 0 }, 1000) }); $(window).scroll(function() { if ($(window).scrollTop() > 300) { if ($('.button-up').hasClass('OutDown')) { $('.button-up').removeClass('OutDown'); } $('.button-up').addClass('active animated InUp'); } else { if ($('.button-up').hasClass('active animated InUp')) { $('.button-up').addClass('animated OutDown'); setTimeout(function() { $('.btn').removeClass('InUp'); }, 100); } } }); </script> 
 <script type="text/javascript" defer>
 window.setTimeout("document.location.href='index.html'", 5000);
 </script>

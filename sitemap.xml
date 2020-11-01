@@ -45,12 +45,6 @@
     <image:image>
       <image:loc>http://mebelink.github.io/images/phone-1.png</image:loc>
     </image:image>
-    <image:image>
-      <image:loc>http://mebelink.github.io/images/phone-2151x214.png</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>http://mebelink.github.io/images/phone-1331x359.png</image:loc>
-    </image:image>
   </url>
   <url>
     <loc>http://mebelink.github.io/spasibo.html</loc>
