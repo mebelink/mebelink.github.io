@@ -1,170 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 	<url>
-		<loc>http://mebelink.ml/index.html</loc>
+		<loc>https://mebelink.github.io/index.html</loc>
 		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>1.0</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/1.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/1.jpg</image:loc>
 			<image:caption><![CDATA[Шкафы-купе]]></image:caption>
 			<image:title><![CDATA[Шкафы-купе]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/2.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/2.jpg</image:loc>
 			<image:caption><![CDATA[Кухни]]></image:caption>
 			<image:title><![CDATA[Кухни]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/3.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/3.jpg</image:loc>
 			<image:caption><![CDATA[Прихожие]]></image:caption>
 			<image:title><![CDATA[Прихожие]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/4.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/4.jpg</image:loc>
 			<image:caption><![CDATA[Мебель для детской]]></image:caption>
 			<image:title><![CDATA[Мебель для детской]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/5.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/5.jpg</image:loc>
 			<image:caption><![CDATA[Компьютерные столы]]></image:caption>
 			<image:title><![CDATA[Компьютерные столы]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/6.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/6.jpg</image:loc>
 			<image:caption><![CDATA[Мебель для кабинета]]></image:caption>
 			<image:title><![CDATA[Мебель для кабинета]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/7.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/7.jpg</image:loc>
 			<image:caption><![CDATA[Стенки в гостиную]]></image:caption>
 			<image:title><![CDATA[Стенки в гостиную]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/8.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/8.jpg</image:loc>
 			<image:caption><![CDATA[Мебель для спальни]]></image:caption>
 			<image:title><![CDATA[Мебель для спальни]]></image:title>
 		</image:image>
 	</url>
 	<url>
-		<loc>http://mebelink.ml/mebel-na-zakaz.html</loc>
-		<lastmod>2020-12-18</lastmod>
+		<loc>https://mebelink.github.io/mebel-na-zakaz.html</loc>
+		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>
 	</url>
 	<url>
-		<loc>http://mebelink.ml/kuhni.html</loc>
-		<lastmod>2020-12-18</lastmod>
+		<loc>https://mebelink.github.io/kuhni.html</loc>
+		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/30_9x3wv5xm.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/30_9x3wv5xm.jpg</image:loc>
 			<image:caption><![CDATA[Изготовление мебели для кухни на заказ]]></image:caption>
 			<image:title><![CDATA[Изготовление мебели для кухни на заказ]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/31_bgcjwodf.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/31_bgcjwodf.jpg</image:loc>
 			<image:caption><![CDATA[Изготовление мебели для кухни на заказ]]></image:caption>
 			<image:title><![CDATA[Изготовление мебели для кухни на заказ]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/32_8j8k6354.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/32_8j8k6354.jpg</image:loc>
 			<image:caption><![CDATA[Изготовление мебели для кухни на заказ]]></image:caption>
 			<image:title><![CDATA[Изготовление мебели для кухни на заказ]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/20_i7hgsygk.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/20_i7hgsygk.jpg</image:loc>
 			<image:caption><![CDATA[Изготовление мебели для кухни на заказ]]></image:caption>
 			<image:title><![CDATA[Изготовление мебели для кухни на заказ]]></image:title>
 		</image:image>
 	</url>
 	<url>
-		<loc>http://mebelink.ml/shkaf-kupe.html</loc>
-		<lastmod>2020-12-18</lastmod>
+		<loc>https://mebelink.github.io/shkaf-kupe.html</loc>
+		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>
 	</url>
 	<url>
-		<loc>http://mebelink.ml/prihozhie.html</loc>
-		<lastmod>2020-12-18</lastmod>
+		<loc>https://mebelink.github.io/prihozhie.html</loc>
+		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22_qt89qdvk.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22_qt89qdvk.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>
 	</url>
 	<url>
-		<loc>http://mebelink.ml/mebel-dlya-detskoj.html</loc>
-		<lastmod>2020-12-18</lastmod>
+		<loc>https://mebelink.github.io/mebel-dlya-detskoj.html</loc>
+		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/59_8e0zu3bf.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/59_8e0zu3bf.jpg</image:loc>
 			<image:caption><![CDATA[Мебель для детской]]></image:caption>
 			<image:title><![CDATA[Мебель для детской]]></image:title>
 		</image:image>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/57_b4t0xadf.jpg</image:loc>
+			<image:loc>https://mebelink.github.io/images/57_b4t0xadf.jpg</image:loc>
 			<image:caption><![CDATA[Мебель для детской]]></image:caption>
 			<image:title><![CDATA[Мебель для детской]]></image:title>
 		</image:image>
 	</url>
 	<url>
-		<loc>http://mebelink.ml/dizajnerskaya-mebel.html</loc>
-		<lastmod>2020-12-18</lastmod>
+		<loc>https://mebelink.github.io/dizajnerskaya-mebel.html</loc>
+		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>
 	</url>
 	<url>
-		<loc>http://mebelink.ml/ceny.html</loc>
-		<lastmod>2020-12-18</lastmod>
+		<loc>https://mebelink.github.io/ceny.html</loc>
+		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>
 	</url>
 	<url>
-		<loc>http://mebelink.ml/foto-mebel.html</loc>
-		<lastmod>2020-12-18</lastmod>
+		<loc>https://mebelink.github.io/foto-mebel.html</loc>
+		<lastmod>2020-12-20</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 		<image:image>
-			<image:loc>http://mebelink.ml/images/22.png</image:loc>
+			<image:loc>https://mebelink.github.io/images/22.png</image:loc>
 			<image:caption><![CDATA["Mebelink"]]></image:caption>
 			<image:title><![CDATA["Mebelink"]]></image:title>
 		</image:image>

@@ -7,10 +7,10 @@
 */
 
 $imSettings['general'] = array(
-	'site_id' => 'B00FBCA48D9EB5441FE5F7BC39A64068',
-	'url' => 'http://mebelink.ml/',
-	'homepage_url' => 'http://mebelink.ml/index.html',
-	'icon' => 'http://mebelink.ml/favImage.png',
+	'site_id' => '6621BB7A10765027798BEFB47465BC3A',
+	'url' => 'https://mebelink.github.io/',
+	'homepage_url' => 'https://mebelink.github.io/index.html',
+	'icon' => 'https://mebelink.github.io/favImage.png',
 	'version' => '2020.3.7.0',
 	'sitename' => 'Студия мебели «Mebelink»',
 	'lang_code' => 'ru-RU',
@@ -37,8 +37,8 @@ $imSettings['password_policy'] = array(
 |	Captcha
 |-------------------------------
 */ImTopic::$captcha_code = "		<div class=\"x5captcha-wrap\">
-			<label for=\"pkqvn2o1-imCpt\">Проверочное слово:</label><br />
-			<input type=\"text\" id=\"pkqvn2o1-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
+			<label for=\"g1z3j35d-imCpt\">Проверочное слово:</label><br />
+			<input type=\"text\" id=\"g1z3j35d-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
 		</div>
 ";
 
@@ -69,7 +69,7 @@ $couponData['products'] = array();
 $ecommerce->setPublicFolder('');
 $ecommerce->setCouponData($couponData);
 $ecommerce->setSettings(array(
-	'page_url' => 'http://mebelink.ml/',
+	'page_url' => 'https://mebelink.github.io/',
 	'force_sender' => false,
 	'mail_btn_css' => 'display: inline-block; text-decoration: none; color: rgba(255, 255, 255, 1); background-color: rgba(54, 71, 79, 1); padding: 10px 20px 10px 20px; border-style: solid; border-width: 0px 0px 0px 0px; border-color: rgba(55, 71, 79, 1) rgba(55, 71, 79, 1) rgba(55, 71, 79, 1) rgba(55, 71, 79, 1); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;',
 	'email_opening' => 'Уважаемый покупатель,Благодарим вас за ваш заказ и напоминаем, что вам нужно его оплатить.<br /><br />Ниже вы найдете список заказанных товаров, данные счета-фактуры и отправки и инструкции по оплате.',

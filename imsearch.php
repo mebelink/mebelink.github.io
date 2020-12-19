@@ -8,10 +8,10 @@
 		<meta name="author" content="Студия мебели «Mebelink»" />
 		<meta property="og:locale" content="ru" />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="http://mebelink.ml/imsearch.php" />
+		<meta property="og:url" content="https://mebelink.github.io/imsearch.php" />
 		<meta property="og:title" content="Поиск" />
 		<meta property="og:site_name" content="Студия мебели «Mebelink»" />
-		<meta property="og:image" content="http://mebelink.ml/favImage.png" />
+		<meta property="og:image" content="https://mebelink.github.io/favImage.png" />
 		<meta property="og:image:type" content="image/png">
 		<meta property="og:image:width" content="744">
 		<meta property="og:image:height" content="450">
@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="style/print.css?2020-3-7-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?2020-3-7-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?2020-3-7-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?2020-3-7-0-637440238310748111" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?2020-3-7-0-637440242323775367" media="screen,print" />
 		<script src="res/jquery.js?2020-3-7-0"></script>
 		<script src="res/x5engine.js?2020-3-7-0" data-files-version="2020-3-7-0"></script>
 		<script>
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.ico?2020-3-7-0-637440238310748111" type="image/vnd.microsoft.icon" />
+		<link rel="icon" href="favicon.ico?2020-3-7-0-637440242323653736" type="image/vnd.microsoft.icon" />
 		<style>
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
