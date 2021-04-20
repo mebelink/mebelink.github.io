@@ -12,7 +12,7 @@ $results = $ecommerce->getDynamicProductsAvailabilityTable(0, 0);
 // Load the main template
 $mainT = Configuration::getControlPanel()->getMainTemplate();
 $mainT->stylesheets = array("css/cart.css");
-$mainT->pagetitle = l10n("cart_title", "E-Commerce");
+$mainT->pagetitle = l10n("admin_cart_title", "E-Commerce");
 $contentT = new Template("templates/common/box.php");
 $contentT->cssClass = "cart";
 $contentT->content = "";

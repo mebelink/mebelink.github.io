@@ -30,7 +30,7 @@ if (isset($_GET['delete'])) {
 
 // Load the main template
 $mainT = Configuration::getControlPanel()->getMainTemplate();
-$mainT->pagetitle = l10n("admin_privatearea", "Private Area");
+$mainT->pagetitle = l10n("private_area_title", "Private Area");
 //$mainT->stylesheets = array("css/comments.css");
 $mainT->content = "";
 $contentT = new Template("templates/common/box.php");

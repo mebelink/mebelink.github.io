@@ -7,11 +7,11 @@ Configuration::getControlPanel()->accessOrRedirect();
 $analytics = Configuration::getAnalytics();
 $from = date("Y-m-d H:i:s", strtotime("-1 month"));
 if (isset($_GET['from'])) {
-	$from = date("Y-m-d H:i:s", intval($_GET['from'], 10) / 1000);
+	$from = date("Y-m-d H:i:s", intval(substr($_GET['from'], 0, -3), 10));
 }
 $to = date("Y-m-d H:i:s");
 if (isset($_GET['to'])) {
-	$to = date("Y-m-d H:i:s", intval($_GET['to'], 10) / 1000);
+	$to = date("Y-m-d H:i:s", intval(substr($_GET['to'], 0, -3), 10));
 }
 
 // Safely get the type and set the tab color

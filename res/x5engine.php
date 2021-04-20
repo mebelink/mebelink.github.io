@@ -152,7 +152,7 @@ class imBlog
      *
      * @return void
      */
-    function paginate($baseurl = "", $start, $length, $count)
+    function paginate($baseurl, $start, $length, $count)
     {
         $pages = ceil($count / $length);
         if ($pages < 2) {
@@ -297,6 +297,8 @@ class imBlog
                 $comments->loadXML($bs['folder']);
             foreach ($comments->getComments($from, $to) as $comment) {
                 $comment["title"] = $post['title'];
+                $comment["category"] = $post['category'];
+                $comment["postid"] = $post['id'];
                 $commentsArray[] = $comment;
             }
         }
@@ -1199,11 +1201,44 @@ class imBlog
 
     function getSearchPosts($search)
     {
-        $posts = array();
-        foreach ($this->getPosts() as $id => $post) {
-            if (stristr($post['title'], $search) || stristr($post['summary'], $search) || stristr($post['body'], $search)) {
-                $posts[$id] = $post;
+        $queries = preg_split("/\s+/", trim(imstrtolower($search)));
+        $weights = array();
+        foreach ($this->getPosts() as $id => $value) {
+            $weight = 0;
+            foreach ($queries as $query) {
+                $queryRegex = '/' . preg_quote($query, '/') . '/';
+                // Conto il numero di match nei titoli
+                if (($t_count = preg_match_all($queryRegex, imstrtolower($value['title']), $matches))) {
+                    $weight += ($t_count * 3);
+                }
+                // tag_description
+                if (preg_match($queryRegex, $value['summary']) === 1) {
+                    $weight += 2;
+                }
+                // keywords
+                if (preg_match($queryRegex, $value['keywords']) === 1) {
+                    $weight += 2;
+                }
+                // Conto il numero di match nei tag
+                if (in_array($query, $value['tag'])) {
+                    $weight += 4;
+                }
+                // Conto occorrenze nel contenuto
+                if (($t_count = preg_match_all($queryRegex, imstrtolower(strip_tags($value['body'])), $matches))) {
+                    $weight += $t_count;
+                }
             }
+            if ($weight > 0) {
+                if (!isset($weights[$weight])) {
+                    $weights[$weight] = array();
+                }
+                $weights[$weight][$id] = $value;
+            }
+        }
+        krsort($weights);
+        $posts = array();
+        foreach ($weights as $p) {
+            $posts = array_merge($posts, $p);
         }
         return $posts;
     }
@@ -1221,24 +1256,13 @@ class imBlog
         $start = isset($_GET['start']) ? max(0, (int)$_GET['start']) : 0;
         $length = isset($_GET['length']) ? (int)$_GET['length'] : $imSettings['blog']['home_posts_number'];
 
-        $bps = $this->getPosts();
-        $j = 0;
-        if (is_array($bps)) {
-            $bpsc = count($bps);
-            $results = array();
-            for ($i = $start; $i < $bpsc; $i++) {
-                if (stristr($imSettings['blog']['posts'][$bps[$i]]['title'], $search) || stristr($imSettings['blog']['posts'][$bps[$i]]['summary'], $search) || stristr($imSettings['blog']['posts'][$bps[$i]]['body'], $search)) {
-                    $results[] = $bps[$i];
-                    $j++;
-                }
-            }
-            $this->showPosts($results, $start, $length, $j);
-            $this->paginate("?search=" . $search . "&", $start, $length, $j);
-            if ($j == 0) {
-                echo "<div class=\"imBlogEmpty\">Empty search</div>";
-            }
+        $results = array_values($this->getSearchPosts($search));
+        $count = count($results);
+        if ($count > 0) {
+            $this->showPosts($results, $start, $length, $count);
+            $this->paginate("?search=" . $search . "&", $start, $length, $count);
         } else {
-            echo "<div class=\"imBlogEmpty\">Empty blog</div>";
+            echo "<div class=\"imBlogEmpty\">Empty search</div>";
         }
     }
 
@@ -1735,6 +1759,257 @@ class ReCaptcha {
 }
 
 
+class Router
+{
+    private $routes = array();
+
+    public function addRoute($check, $callback)
+    {
+        $this->routes[] = array(
+            'check' => $check,
+            'callback' => $callback
+        );
+    }
+
+    public function handleRoute($data)
+    {
+        foreach ($this->routes as $route) {
+            if ($route['check']($data)) {
+                $route['callback']($data);
+                return;
+            }
+        }
+    }
+}
+class CartRouter
+{
+    public static function handleRoute($params)
+    {
+        $router = new Router();
+
+        $router->addRoute(function () {
+            return $_GET['action'] == 'chkcpn' && isset($_POST['coupon']);
+        }, function ($params) {
+            header('Content-type: application/json');
+            echo $params['cart']->checkCoupon($_POST['coupon']);
+        });
+
+        $router->addRoute(function () {
+            return $_GET['action'] == 'userdata';
+        }, function ($params) {
+            $cart = $params['cart'];
+            $data = $params['private_area']->whoIsLogged();
+
+            $response = array(
+                'success' => false
+            );
+
+            if (strlen(@$data['email'])) {
+                $response['success'] = true;
+                $order = $cart->getOrders(0, 1, $data['email']);
+                if (count($order['orders'])) {
+                    $order = $cart->getOrder($order['orders'][0]['id']);
+                    $response['invoiceData'] = $order['invoice'];
+                    $response['shippingData'] = $order['shipping'];
+                } else {
+                    $response['invoiceData'] = array(
+                        array('field_id' => 'Email', 'value' => $data['email']),
+                        array('field_id' => 'Name', 'value' => $data['firstname']),
+                        array('field_id' => 'LastName', 'value' => $data['lastname'])
+                    );
+                }
+            }
+
+            header('Content-type: application/json');
+            echo json_encode($response);
+        });
+
+        $router->addRoute(function () {
+            return $_GET['action'] == 'productstatus';
+        }, function ($params) {
+            if (isset($_POST['product_id'])) {
+                header('Content-type: application/json');
+                echo $params['cart']->getDynamicProductQuantity(@$_POST['product_id']);
+            } else if (self::checkServerToken($params['server_token'])) {
+                header('Content-type: application/json');
+                echo json_encode(array('data' => $params['cart']->getDynamicProductsStatus()));
+            }
+        });
+
+        $router->addRoute(function () {
+            return isset($_GET['download']);
+        }, function ($params) {
+            try {
+                $params['cart']->startProductDownload($_GET['download']);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        });
+
+        $router->addRoute(function () {
+            return $_GET['action'] == 'uploadattachment';
+        }, function () {
+            $result = array();
+
+            if (empty($_FILES['attachment']['name']) || empty($_FILES['attachment']['type'])) {
+                $result['error'] = 'fileMissing';
+            } else {
+                $targetFolder = self::getPublicFolder();
+                if ($targetFolder === false) {
+                    $result['error'] = 'folderMissing';
+                } else if (!is_writable($targetFolder)) {
+                    $result['error'] = 'folderUnwritable';
+                } else {
+                    $fileName = time() . '_' . $_FILES['attachment']['name'];
+                    $sourcePath = $_FILES['attachment']['tmp_name'];
+                    $targetPath = pathCombine(array($targetFolder, $fileName));
+
+                    if (!move_uploaded_file($sourcePath, $targetPath)) {
+                        $result['error'] = 'genericError';
+                    } else {
+                        $result['fileName'] = $fileName;
+                    }
+                }
+            }
+            $result['status'] = isset($result['error']) ? 'no' : 'ok';
+
+            header('Content-type: application/json');
+            echo json_encode($result);
+        });
+
+        $router->addRoute(function () {
+            return $_GET['action'] == 'sndrdr' && isset($_POST['orderData']);
+        }, function ($params) {
+            header('Content-type: application/json');
+            echo json_encode($params['cart']->sendOrder($_POST['orderData'], $params['notifier']));
+        });
+
+        if ($params['send_email_after_payment']) {
+            $router->addRoute(function () {
+                return $_GET['action'] == 'pmntcmplt' && isset($_GET['oi']) && isset($_GET['pi']) && isset($_GET['si']);
+            }, function ($params) {
+                $params['cart']->paymentCompleted(isset($_GET['st']), $_GET['oi'], $_GET['pi'], $_GET['si']);
+            });
+        }
+
+        $router->addRoute(function () {
+            return $_GET['action'] == 'prddnvl';
+        }, function ($params) {
+            header('Content-type: application/json');
+            echo json_encode(array(
+                'status' => 'ok',
+                'data' => $params['cart']->get_products_dynamic_availability()
+            ));
+        });
+
+        $router->addRoute(function () {
+            return $_GET['action'] == 'dscprd';
+        }, function ($params) {
+            header('Content-type: application/json');
+            echo json_encode(array(
+                'status' => 'ok',
+                'data' => $params['cart']->get_discounted_products()
+            ));
+        });
+
+        $router->addRoute(function () {
+            return $_GET['action'] == 'srcpg';
+        }, function ($params) {
+            $cart = $params['cart'];
+            header('Content-type: application/json');
+            echo json_encode(array(
+                'status' => 'ok',
+                'data' => array(
+                    'discountedProducts' => $cart->get_discounted_products(),
+                    'availabilityData' => $cart->get_products_dynamic_availability()
+                )
+            ));
+        });
+
+        $router->addRoute(
+            function () {
+                return $_GET['action'] == 'prdinfo';
+            },
+            function ($params) {
+                header('Content-type: application/json');
+                echo json_encode(array(
+                    'status' => 'ok',
+                    'data' => $params['cart']->getProductsData(isset($_POST['products']) ? $_POST['products'] : array())
+                ));
+            }
+        );
+
+        $router->addRoute(
+            function () {
+                return $_GET['action'] == 'prddyna';
+            },
+            function ($params) {
+                header('Content-type: application/json');
+                echo json_encode(array(
+                    'status' => 'ok',
+                    'data' => $params['cart']->getProductsDynamicData(isset($_POST['products']) ? $_POST['products'] : array())
+                ));
+            }
+        );
+
+        $router->addRoute(
+            function () {
+                return $_GET['action'] == 'prdid';
+            },
+            function ($params) {
+                header('Content-type: application/json');
+                echo json_encode(array(
+                    'status' => isset($_POST['slug']) ? 'ok' : 'ko',
+                    'data' => isset($_POST['slug']) ? $params['cart']->getProductIdBySlug($_POST['slug']) : 'the slug is mandatory'
+                ));
+            }
+        );
+
+        $router->addRoute(
+            function () {
+                return $_GET['action'] == 'crtvrs';
+            },
+            function ($params) {
+                header('Content-type: application/json');
+                echo json_encode(array(
+                    'status' => 'ok',
+                    'data' => $params['cart']->getCartDataVersion()
+                ));
+            }
+        );
+
+        $router->handleRoute($params);
+    }
+
+    private static function checkServerToken($server_token)
+    {
+        if (($headers = imRequestHeaders()) !== false) {
+            foreach ($headers as $key => $value) {
+                if (strtolower($key) == 'x-incomedia-wsx5-token') {
+                    return $value == $server_token;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static function getPublicFolder()
+    {
+        global $imSettings;
+        $targetFolder = pathCombine(array('../', $imSettings['general']['public_folder']));
+        // If the folder doesn't exists, try to create it
+        if ($targetFolder != "" && $targetFolder != "/" && $targetFolder != "." && $targetFolder != ".." && $targetFolder != "./" && !file_exists($targetFolder)) {
+            @mkdir($targetFolder, 0777, true);
+        }
+        if (is_dir($targetFolder)) {
+            return $targetFolder;
+        }
+        return false;
+    }
+}
+
+
+
 
 /**
  * Provide support for sending and saving a cart order as well as checking the coupon codes
@@ -1837,6 +2112,12 @@ class ImCart {
     private $availabilityDirectCount = true;
     private $digitalProducts = array();
     private $products = array();
+    private $categories = array();
+    private $commentsData = null;
+    private $slugToProductIdMap = array();
+    private $cartDataVersion = ''; 
+    private $sendEmailNotification = false;
+    private $sendManagerNotification = false;
     private $payments = array();
     private $shippings = array();
 
@@ -1993,17 +2274,17 @@ class ImCart {
         $discounted_prds_because_of_quantity = array();
         foreach ($this->products as $prd_id => $prd_info) {
             $is_discounted_regardless_of_coupon_and_quantity = false;
-            if (isset($prd_info['discount'])) {
-                $d = $prd_info['discount'];
-                $start_date_check = !isset($d['start_date']) || time() > $d['start_date'];
-                $end_date_check = !isset($d['end_date']) || time() < $d['end_date'];
+            if (isset($prd_info['fixedDiscount'])) {
+                $d = $prd_info['fixedDiscount'];
+                $start_date_check = !isset($d['startDate']) || time() > $d['startDate'];
+                $end_date_check = !isset($d['endDate']) || time() < $d['endDate'];
                 $coupon_check = !isset($d['coupon']);
                 if ($start_date_check && $end_date_check && $coupon_check) {
                     $is_discounted_regardless_of_coupon_and_quantity = true;
                     $discounted_prds_regardless_of_coupon_and_quantity[] = $prd_id;
                 }
             }
-            if (isset($prd_info['quantity_discounts']) && !$is_discounted_regardless_of_coupon_and_quantity) {
+            if (isset($prd_info['quantityDiscounts']) && !$is_discounted_regardless_of_coupon_and_quantity) {
                 $discounted_prds_because_of_quantity[] = $prd_id;
             }
         }
@@ -2490,7 +2771,7 @@ class ImCart {
 
         // Check that the record really exists
         if (!$row || !count($row)) {
-            throw new Exception(l10n("cart_download_hash_not_found", "Cannot download the file") .  " (Errro 0)");
+            throw new Exception(l10n("cart_download_hash_not_found", "Cannot download the file") .  " (Error 0)");
         }
 
         // Do not let the user download outdated links
@@ -3253,12 +3534,14 @@ class ImCart {
         $orderData['payment']['vat'] = $this->applyPriceFormat($orderData['payment']['rawVat']);
 
         //userInvoiceData
-        foreach ($order['invoice'] as $field) {
-            $orderData['userInvoiceData'][$field['field_id']] = array(
-                'id' => $field['field_id'],
-                'label' => $field['label'],
-                'value' => $field['value']
-            );
+        if (isset($order['invoice'])) {
+            foreach ($order['invoice'] as $field) {
+                $orderData['userInvoiceData'][$field['field_id']] = array(
+                    'id' => $field['field_id'],
+                    'label' => $field['label'],
+                    'value' => $field['value']
+                );
+            }
         }
         if ($order['attachments']){
             $orderData['userInvoiceData']['Attachment'] = array(
@@ -4108,18 +4391,358 @@ class ImCart {
         }
         return "notavailable";
     }
+    
+    public function setCommentsData($commentsData)
+    {
+        $this->commentsData = $commentsData;
+        return $this;
+    }
+
+    public function getCommentsData()
+    {
+        return $this->commentsData;
+    }
+
+    public function getComments($params = array())
+    {
+        if (!$this->commentsData['enabled'] || $this->commentsData['type'] !== 'websitex5') {
+            return null;
+        }
+
+        $db = ImDb::from_db_data(getDbData($this->commentsData['db']));
+
+        $where = array();
+        if (isset($params['products'])) {
+            $ids = $params['products'];
+            if (is_string($ids) && strlen($ids) > 0) {
+                $where['postid'] = $this->commentsData['prefix'] . $ids;
+            } else if (is_array($ids) && count($ids) > 0) {
+                $where['postid'] = array();
+                foreach ($ids as $id) {
+                    $where['postid'][] = $this->commentsData['prefix'] . $id;
+                }
+            }
+        }
+
+        $where_flat = array();
+        if (isset($params['from']) && strlen($params['from']) > 0) {
+            $where_flat[] = "`timestamp` >= '" . $db->escapeString($params['from']) . "'";
+        }
+        if (isset($params['to']) && strlen($params['to']) > 0) {
+            $where_flat[] = "`timestamp` <= '" . $db->escapeString($params['to']) . "'";
+        }
+
+        $resultSet = $db->select(array(
+            'select' =>  array('postid', 'commentid', 'email', 'name', 'body', 'timestamp', 'abuse', 'approved', 'rating'),
+            'from' => $this->commentsData['table'],
+            'where' => $where,
+            'where_flat' => $where_flat
+        ));
+
+        if (isset($params['asRawDbData']) && $params['asRawDbData']) {
+            return $resultSet;
+        } else {
+            return $this->commentsGroupedByProducts($resultSet);
+        }
+    }
+
+    private function commentsGroupedByProducts($resultSet)
+    {
+        $posts = array();
+        if (is_array($resultSet) && count($resultSet) > 0) {
+            foreach ($resultSet as $row) {
+                $prodId = str_replace($this->commentsData['prefix'], '', $row['postid']);
+                if (!isset($posts[$prodId])) {
+                    $posts[$prodId] = array(
+                        'comments' => array()
+                    );
+                }
+                $posts[$prodId]['comments'][$row['commentid']] = array(
+                    'id' => $row['commentid'],
+                    'email' => $row['email'],
+                    'name' => $row['name'],
+                    'publishDate' => $row['timestamp'],
+                    'abuse' => $row['abuse'] != 0,
+                    'approved' => $row['approved'] != 0
+                );
+                if (isset($row['body']) && is_string($row['body']) && strlen($row['body'])) {
+                    $posts[$prodId]['comments'][$row['commentid']]['text'] = $row['body'];
+                }
+                if (isset($row['rating']) && $row['rating'] > 0) {
+                    if (!isset($posts[$prodId]['averageRating'])) {
+                        $posts[$prodId]['averageRating'] = 0;
+                        $posts[$prodId]['commentsRatedCount'] = 0;
+                    }
+                    $posts[$prodId]['comments'][$row['commentid']]['rating'] = $row['rating'];
+                    $posts[$prodId]['commentsRatedCount']++;
+                    // I know that for the moment the rating is the sum of all the ratings...
+                    $posts[$prodId]['averageRating'] += $row['rating'];
+                }
+            }
+
+            // Now let's change the rating sum with the average rating ;-)
+            foreach ($posts as $pid => $post) {
+                if (isset($post['averageRating']) && $post['averageRating'] > 0) {
+                    $posts[$pid]['averageRating'] = $post['averageRating'] / $post['commentsRatedCount'];
+                }
+            }
+        }
+        return $posts;
+    }
+
+    public function setCategoriesData($array)
+    {
+        $this->categories = $array;
+        return $this;
+    }
+
+    public function getCategoriesTree()
+    {
+        return $this->categories;
+    }
+
+    public function getCategoryByProductId($id)
+    {
+        $prod = $this->products[$id];
+        if (count($prod['categoryPath']) > 0) {
+            $cat = array('categories' => $this->categories);
+            foreach ($prod['categoryPath'] as $catId) {
+                $cat = $cat['categories'][$catId];
+            }
+            return $cat;
+        }
+        return null;
+    }
+
+    public function setSlugToProductIdMap($slugToProductIdMap){
+        $this->slugToProductIdMap = $slugToProductIdMap;
+        return $this;
+    }
+
+    public function getProductIdBySlug($slug)
+    {
+        return isset($this->slugToProductIdMap[$slug]) ? $this->slugToProductIdMap[$slug] : null;
+    }
 
     public function setProductsData($array)
     {
         $this->products = $array;
-        $this->digitalProducts = array();
-        foreach($array as $id => $prod){
-            if($prod['digital']){
-                $this->digitalProducts[$id] = $prod;
-            }
-        }
+        return $this;
     }
 
+    public function getProductsData($ids = array())
+    {
+        $productsData = array();
+        foreach ($this->normalizeProductIdsInput($ids) as $id) {
+            if (isset($this->products[$id])) {
+                $productsData[$id] = array_merge(
+                    $this->products[$id],
+                    $this->getProductDynamicData($id),
+                    array('relatedProducts' => $this->getRelatedProducts($id))
+                );
+            }
+        }
+        return $productsData;
+    }
+
+    private function normalizeProductIdsInput($ids)
+    {
+        if (is_string($ids) && strlen($ids) > 0) {
+            return array($ids);
+        } else if (!is_array($ids) || count($ids) == 0) {
+            return array_keys($this->products);
+        }
+        return $ids;
+    }
+
+    private function getRelatedProducts($id)
+    {
+        if (!isset($this->products[$id])) {
+            return array();
+        }
+        $prod = $this->products[$id];
+        if (isset($prod['relatedProducts']) && is_array($prod['relatedProducts']) && count($prod['relatedProducts']) > 0) {
+            if (count($prod['relatedProducts']) == 1) {
+                return $prod['relatedProducts'];
+            } else {
+                $relatedProducts = array();
+                foreach (array_rand($prod['relatedProducts'], min(50, count($prod['relatedProducts']))) as $key) {
+                    $relatedProducts[] = $prod['relatedProducts'][$key];
+                }
+                return $relatedProducts;
+            }
+        }
+        return array();
+    }
+
+    public function getProductsDynamicData($ids)
+    {
+        $data = array();
+        foreach ($this->normalizeProductIdsInput($ids) as $id) {
+            $data[$id] = $this->getProductDynamicData($id);
+        }
+        return $data;
+    }
+
+    private function getProductDynamicData($id)
+    {
+        if (!isset($this->products[$id])) {
+            return array();
+        }
+        $prod = $this->products[$id];
+
+        $additionalData = array();
+
+        // Comments
+        $comments = $this->getComments(array('products' => $id));
+        if (is_array($comments) && isset($comments[$id])) {
+            $additionalData['comments'] = $comments[$id];
+        }
+
+        // Dynamic availability
+        if ($prod['availabilityType'] == 'dynamic' && $this->db && $this->db->testConnection()) {
+            $rows = $this->db->select(array(
+                'select' => array('quantity', 'warninglimit'),
+                'from' => $this->table_prefix . $this->settings['dynamicproducts_table'],
+                'where' => array('id' => $id)
+            ));
+            if (is_array($rows) && count($rows) == 1) {
+                $row = $rows[0];
+                $additionalData['dynamicAvailValue'] = $row['quantity'] <= 0 ? 'notavailable' : ($row['quantity'] < $row['warninglimit'] ? 'lacking' : 'available');
+                $additionalData['availableItems'] = $row['quantity'];
+                $additionalData['availablilityWarningLimit'] = $row['warninglimit'];
+            }
+        }
+
+        // Discounts
+        if (isset($prod['fixedDiscount'])) {
+            $d = $prod['fixedDiscount'];
+            $start_date_check = !isset($d['startDate']) || time() > $d['startDate'];
+            $end_date_check = !isset($d['endDate']) || time() < $d['endDate'];
+            $coupon_check = !isset($d['coupon']);
+            $additionalData['isDiscountedRegardlessOfCouponAndQuantity'] = $start_date_check && $end_date_check && $coupon_check;
+        } else {
+            $additionalData['isDiscountedRegardlessOfCouponAndQuantity'] = false;
+        }
+        $additionalData['isDiscountedBecauseOfQuantity'] = isset($prod['quantityDiscounts']) && !$additionalData['isDiscountedRegardlessOfCouponAndQuantity'];
+
+        // Schema org
+        if (isset($prod['schemaOrg'])) {
+            $addedData = false;
+            if ($this->commentsData['comment_type'] !== 'comment' && isset($additionalData['comments'])) {
+                if (isset($additionalData['comments']['averageRating']) && isset($additionalData['comments']['commentsRatedCount']) && isset($additionalData['comments']['comments']) && is_array($additionalData['comments']['comments']) && count($additionalData['comments']['comments']) > 0) {
+                    $addedData = true;
+                    $prod['schemaOrg']['aggregateRating'] = array(
+                        "ratingValue" => $additionalData['comments']['averageRating'],
+                        "ratingCount" => $additionalData['comments']['commentsRatedCount']
+                    );
+                    $review = null;
+                    foreach ($additionalData['comments']['comments'] as $comment) {
+                        $review = $this->bestReview($review, $comment);
+                    }
+                    if ($review != null && isset($review['rating']) && isset($review['name'])) {
+                        $prod['schemaOrg']['review'] = array(
+                            "reviewRating" => array(
+                                "ratingValue" => $review['rating']
+                            ),
+                            "author" => array(
+                                "@type" => "Person",
+                                "name" => $review['name']
+                            )
+                        );
+                        if (isset($review['publishDate'])) {
+                            $prod['schemaOrg']['review']['datePublished'] = $review['publishDate'];
+                        }
+                        if (isset($review['text'])) {
+                            $prod['schemaOrg']['review']['reviewBody'] = $review['text'];
+                        }
+                    }
+                }
+            }
+            if (isset($additionalData['dynamicAvailValue']) && isset($prod['schemaOrg']['offers'])) {
+                $addedData = true;
+                $prod['schemaOrg']['offers']['availability'] = array(
+                    'available' => 'http://schema.org/InStock',
+                    'lacking' => 'http://schema.org/LimitedAvailability',
+                    'notavailable' => 'http://schema.org/OutOfStock'
+                )[$additionalData['dynamicAvailValue']];
+            }
+            if ($addedData) {
+                $additionalData['schemaOrg'] = $prod['schemaOrg'];
+            }
+        }
+
+        return $additionalData;
+    }
+
+    private function bestReview($a, $b) {
+        if ($b == null) {
+            return $a;
+        }
+        if ($a == null) {
+            return $b;
+        }
+
+        if (!isset($b['rating']) || !isset($b['publishDate'])) {
+            return $a;
+        }
+        if (!isset($a['rating']) || !isset($a['publishDate'])) {
+            return $b;
+        }
+
+        if ($a['rating'] < $b['rating']) {
+            return $b;
+        }
+        if ($b['rating'] < $a['rating']) {
+            return $a;
+        }
+
+        if ($a['publishDate'] < $b['publishDate']) {
+            return $b;
+        }
+        return $a;
+    }
+
+    public function setCartDataVersion($versionString)
+    {
+        $this->cartDataVersion = $versionString;
+        return $this;
+    }
+
+    public function getCartDataVersion()
+    {
+        return $this->cartDataVersion;
+    }
+
+    public function setSendMode($sendMode)
+    {
+        $this->sendMode = $sendMode;
+        return $this;
+    }
+
+    public function enableEmailNotification()
+    {
+        $this->sendEmailNotification = true;
+        return $this;
+    }
+
+    public function disableEmailNotification()
+    {
+        $this->sendEmailNotification = false;
+        return $this;
+    }
+    
+    public function enableManagerNotification()
+    {
+        $this->sendManagerNotification = true;
+        return $this;
+    }
+
+    public function disableManagerNotification()
+    {
+        $this->sendManagerNotification = false;
+        return $this;
+    }
     /**
      * Set the digital products download data
      *
@@ -4145,6 +4768,35 @@ class ImCart {
     public function setPriceFormatData($array)
     {
         $this->priceFormat = $array;
+    }
+
+    public function sendOrder($orderData, $notifier)
+    {
+        $orderNo = $orderData['orderNo'];
+        $this->setOrderData($orderData);
+        $this->setEncodedOrderData();
+        if ($this->sendMode == 'db') {
+            $order = $this->saveOrderToDb();
+            if ($order['status'] == 'ok') {
+                if ($this->sendEmailNotification) {
+                    $this->sendOwnerEmail();
+                }
+                $this->sendCustomerEmail();
+
+                // Send the notification
+                if ($this->sendManagerNotification) {
+                    $notifier->sendNotification('ECOMMERCE_ORDER', '{ "orderNumber": "' . $orderNo . '", "controlPanelQueryString": "redirect=cart-order&order_id=' . $orderNo . '" }');
+                    if (count($this->getDynamicProductsAlertStatus()) > 0) {
+                        $notifier->sendNotification('ECOMMERCE_LOW_STOCK', '{ "controlPanelQueryString": "redirect=cart-low-stock" }');
+                    }
+                }
+            }
+            return $order;
+        } else {
+            $this->sendOwnerEmail();
+            $this->sendCustomerEmail();
+            return array("status" => "ok", "orderNumber" => $orderNo);
+        }
     }
 }
 
@@ -5717,7 +6369,7 @@ class ImDb implements DatabaseAccess
         $conditions = array();
         if (isset($data['where'])) {
             foreach ($data['where'] as $column => $value) {
-                $conditions[] = (is_string($value) ? 'BINARY ' : '') . '`' . $column . '` ' . (is_null($value) ? 'IS' : is_array($value) ? 'IN' : '=') . ' ' . $this->_to_sql_value($value);
+                $conditions[] = (is_string($value) ? 'BINARY ' : '') . '`' . $column . '` ' . (is_null($value) ? 'IS' : (is_array($value) ? 'IN' : '=')) . ' ' . $this->_to_sql_value($value);
             }
         }
         if (isset($data['where_flat'])) {
@@ -6718,6 +7370,7 @@ class ImGuestbook
 	        else
 	            $comments->loadXML($gb['folder']);
 	        foreach ($comments->getComments($from, $to, $approved) as $comment) {
+	        	$comment['topicid'] = $gb['id'];
 	        	$comment['title'] = "";
 	            $commentsArray[] = $comment;
 	        }
@@ -7460,7 +8113,7 @@ class imPrivateArea
             }
         }
         $ids_count = count($ids);
-        $id_condition = $ids_count == 1 ? intval($ids[0]) : $ids_count > 1 ? array_map('intval', $ids) : false;
+        $id_condition = $ids_count == 1 ? intval($ids[0]) : ($ids_count > 1 ? array_map('intval', $ids) : false);
         if ($id_condition) {
             $where_conditions['id'] = $id_condition;
         }
@@ -8441,7 +9094,9 @@ class imSearch {
                     $html .= "<div class=\"imSearchPageResult\"><h3><a class=\"imCssLink\" href=\"" . $name . "\">" . strip_tags($title, "<b><strong>") . "</a></h3>" . strip_tags($text, "<b><strong>") . "<div class=\"imSearchLink\"><a class=\"imCssLink\" href=\"" . $name . "\">" . (substr($imSettings['general']['url'], -1) != "/" ? $imSettings['general']['url'] . "/" : $imSettings['general']['url']) . $name . "</a></div></div>\n";
                 }
             }
-            $html = preg_replace_callback('/\\s+/', create_function('$matches', 'return implode(\' \', $matches);'), $html);
+            $html = preg_replace_callback('/\\s+/', function ($matches) {
+                return implode(' ', $matches);
+            }, $html);
             $html .= "<div class=\"imSLabel\">&nbsp;</div>\n";
         }
 
@@ -8468,7 +9123,8 @@ class imSearch {
                 }
                 $count = 0;
                 $weight = 0;
-                $filename = 'blog/index.php?id=' . $key;
+                $qs = isset($value['slug']) ? $value['slug'] : ('id=' . $key);
+                $filename = 'blog/index.php?' . $qs;
                 $file_content = $value['body'];
 
                 // Rimuovo le briciole dal contenuto
@@ -8498,20 +9154,17 @@ class imSearch {
                 foreach ($queries as $query) {
                     $queryRegex = '/' . preg_quote($query, '/') . '/';
                     // Conto il numero di match nei titoli
-                    $titles = array($value['title'], $value['tag_title']);
-                    foreach ($titles as $title) {
-                        if (($t_count = preg_match_all($queryRegex, imstrtolower($title), $matches))) {
-                            $weight += ($t_count * 3);
-                            $count += $t_count;
-                        }
+                    if (($t_count = preg_match_all($queryRegex, imstrtolower($value['title']), $matches))) {
+                        $weight += ($t_count * 3);
+                        $count += $t_count;
                     }
                     // tag_description
-                    if(preg_match($queryRegex, $value['tag_description']) === 1) {
+                    if (preg_match($queryRegex, $value['tag_description']) === 1) {
                         $count++;
                         $weight += 2;
                     }
                     // keywords
-                    if(preg_match($queryRegex, $value['keywords']) === 1) {
+                    if (preg_match($queryRegex, $value['keywords']) === 1) {
                         $count++;
                         $weight += 2;
                     }
@@ -8521,7 +9174,7 @@ class imSearch {
                         $weight += 4;
                     }
                     // Conto occorrenze nel contenuto
-                    if (($t_count = preg_match_all($queryRegex, imstrtolower($file_content), $matches))) {
+                    if (($t_count = preg_match_all($queryRegex, imstrtolower(strip_tags($file_content)), $matches))) {
                         $weight += $t_count;
                         $count += $t_count;
                     }
@@ -8597,7 +9250,9 @@ class imSearch {
             echo "  <div class=\"imSLabel\">&nbsp;</div>\n";
         }
 
-        $html = preg_replace_callback('/\\s+/', create_function('$matches', 'return implode(\' \', $matches);'), $html);
+        $html = preg_replace_callback('/\\s+/', function ($matches) {
+            return implode(' ', $matches);
+        }, $html);
         return array("content" => $html, "count" => count($found_content));
     }
 
@@ -8660,7 +9315,7 @@ class imSearch {
                     $html .= "</div>";
                     $html .= "<div class=\"imProductDescription\">";
                     $html .= "<div class=\"imProductTitle\">";
-                    $html .= "<h3>" . $product['name'] . "</h3>";
+                    $html .= "<h3>" . $product['title_link'] . "</h3>";
                     $html .= "<span>" . $product['price'] . "<a class=\"imCssLink\" href=\"#\"  onclick=\"x5engine.cart.ui.addToCart('" . $id . "', 1);\" style=\"margin-left: 5px;\">" . l10n('cart_add') . "</a></span>";
                     $html .= "</div>";
                     $html .= "<p>" . strip_tags($product['description']) . "</p>";
@@ -9314,7 +9969,7 @@ class ImTopic
      * @param {string} $basepath The base path
      * @param {string} $postUrl  The URL to post to
      */
-    function __construct($id, $target = "", $basepath = "", $postUrl = "")
+    function __construct($id, $target = "", $basepath = "", $postUrl = "", $queryString = null, $queryStringFallbackAll = false)
     {
         $this->id = $id;
         $this->target = $target;
@@ -9324,6 +9979,22 @@ class ImTopic
             $this->posturl .=(strpos($this->posturl, "?") === false ? "?" : "&");
         } else {
             $this->posturl = basename($_SERVER['PHP_SELF']) . "?";
+        }
+        //adding parameters of querystring to url if is present
+        if ($queryString != null) {
+            $found = false;
+            foreach ($queryString as $value) {
+                if ($_GET[$value] != null && $_GET[$value] != "") {
+                    $this->posturl .= $value . "=" . $_GET[$value] . "&";
+                    $found = true;
+                }
+            }
+            if(!$found && $queryStringFallbackAll){
+                $this->posturl .= $_SERVER['QUERY_STRING'];
+            }
+            if (substr($this->posturl, -1) == "&") {
+                $this->posturl = substr($this->posturl, 0, -1);
+            }
         }
         $this->basepath = $this->prepFolder($basepath);
         // Create the comments array
@@ -9566,6 +10237,8 @@ class ImTopic
 
             if ($type == "guestbook")
                 $html = str_replace(array("Blog", "blog"), array("Guestbook", "guestbook"), l10n('blog_new_comment_text')) . " \"" . $this->title . "\":<br /><br />\n\n";
+            else if ($type == "productpage")
+                $html = l10n('cart_new_comment_text') . " \"" . $this->title . "\":<br /><br />\n\n";
             else
                 $html = l10n('blog_new_comment_text') . ":<br /><br />\n\n";
             $html .= "<b>" . l10n('blog_name') . "</b> " . stripslashes($_POST['name']) . "<br />\n";
@@ -9581,6 +10254,8 @@ class ImTopic
             }
             if ($type == "guestbook")
                 $subject = str_replace(array("Blog", "blog"), array("Guestbook", "guestbook"), l10n('blog_new_comment_object'));
+            else if ($type == "productpage")
+                $subject = str_replace(array("Blog", "blog"), array($this->title, $this->title), l10n('blog_new_comment_object'));
             else
                 $subject = l10n('blog_new_comment_object');
             $ImMailer->send($from, $to, $subject, strip_tags($html), $html);
@@ -9751,30 +10426,9 @@ class ImTopic
      */
     function showSummary($ratingAndStars = true, $admin = false, $hideifempty = true)
     {
-        $c = $this->comments->getAll();
-        $vote = 0;
-        $votes = 0;
-        $votescount = 0;
-        $ratingByValue = array("1"=> 0, "2"=> 0, "3"=> 0, "4"=> 0, "5"=> 0);
-        $commentsTotal = 0;
+        $data = $this->getRatingsDataSummary();
 
-        if (count($c) > 0) {
-            foreach ($c as $comment) {
-                if ($comment['approved'] == "1" || $admin) {
-                    if ( isset($comment['body']) ) {
-                        $commentsTotal++;
-                        if ( isset($comment['rating']) && $comment['rating'] > 0 ) {
-                            $votes += $comment['rating'];
-                            $votescount++;
-                            $ratingByValue[$comment['rating']] = $ratingByValue[$comment['rating']] + 1;
-                        }
-                    }
-                }
-            }
-            $vote = $votescount > 0 ? $votes / $votescount : 0;
-        }
-
-        $classContainer = "topic-summary" . ($commentsTotal > 0 ? "" : " no-review");
+        $classContainer = "topic-summary" . ($data["totalComments"] > 0 ? "" : " no-review");
         $classContainer .= $ratingAndStars ? " comments-and-star" : " comments";
 
         echo "<div id=\"" . $this->id . "-topic-summary\" class=\""  . $classContainer . "\">\n";
@@ -9782,10 +10436,10 @@ class ImTopic
             /** case comment and star **/
 
             //add block of topic average
-            echo $commentsTotal == 0 ? $this->getTopicZeroAverage() : $this->getTopicAverage($commentsTotal, $vote);
+            echo $data["totalComments"] == 0 ? $this->getTopicZeroAverage() : $this->getTopicAverage($data["totalComments"], $data["vote"]);
 
             //add block topic bars
-            echo $this->getTopicBars($votescount, $ratingByValue);
+            echo $this->getTopicBars($data["votescount"], $data["ratingByValue"]);
 
             //add block of add review button
             echo $this->getTopicAddReviewHtml();
@@ -9794,8 +10448,8 @@ class ImTopic
             /** case only comment **/
             echo "<div class=\"topic-total-review\">";
                 echo "<div class=\"topic-review-c\">";
-                    echo "<div class=\"topic-number-review\">" . $commentsTotal . "</div>";
-                    echo "<div class=\"label-review\">" . ( $commentsTotal == 1 ? l10n('comments_and_ratings_label_review') : l10n('comments_and_ratings_label_reviews') ) . "</div>";
+                    echo "<div class=\"topic-number-review\">" . $data["totalComments"] . "</div>";
+                    echo "<div class=\"label-review\">" . ( $data["totalComments"] == 1 ? l10n('comments_and_ratings_label_review') : l10n('comments_and_ratings_label_reviews') ) . "</div>";
                     echo "<div class=\"fill\"></div>";
                 echo "</div>\n";
             echo "</div>\n";
@@ -9807,8 +10461,40 @@ class ImTopic
                 echo "<div class=\"fill\"></div>";
             echo "</div>";
         }
-
         echo "</div>\n"; //end topic-summary
+    }
+
+    function getRatingsDataSummary() {	
+        $c = $this->comments->getAll();
+        $vote = 0;
+        $votes = 0;
+        $votescount = 0;
+        $ratingByValue = array("1"=> 0, "2"=> 0, "3"=> 0, "4"=> 0, "5"=> 0);
+        $totalComments = 0;
+
+        if (count($c) > 0) {
+            foreach ($c as $comment) {
+                if ($comment['approved'] == "1" || $admin) {
+                    if ( isset($comment['body']) ) {
+                        $totalComments++;
+                        if ( isset($comment['rating']) && $comment['rating'] > 0 ) {
+                            $votes += $comment['rating'];
+                            $votescount++;
+                            $ratingByValue[$comment['rating']] = $ratingByValue[$comment['rating']] + 1;
+                        }
+                    }
+                }
+            }
+            $vote = $votescount > 0 ? $votes / $votescount : 0;
+        }
+
+        return array(
+            "vote" =>  $vote,
+            "formatVote" =>  number_format($vote, 1),
+            "votescount" =>  $votescount,
+            "ratingByValue" =>  $ratingByValue,
+            "totalComments" =>  $totalComments
+        );
     }
 
     /**
@@ -9864,7 +10550,7 @@ class ImTopic
      * Returns html of box average of topic
      * @return string
      */
-    function getTopicAverage($commentsTotal, $vote)
+    function getTopicAverage($totalComments, $vote)
     {
         $average = "<div class=\"topic-average\">";
         $average .=     "<div style=\"margin-bottom: 5px;\">";
@@ -9873,7 +10559,7 @@ class ImTopic
         $average .=     "<span class=\"topic-star-container-big\" title=\"" . number_format($vote, 1) . "/5\">";
         $average .=         "<span class=\"topic-star-fixer-big\" style=\"width: " . round($vote/5 * 100) . "%;\"></span>";
         $average .=     "</span>\n";
-        $average .=     "<div class=\"label-review\">" . $commentsTotal . "&nbsp;" . ( $commentsTotal == 1 ? l10n('comments_and_ratings_label_review') : l10n('comments_and_ratings_label_reviews') ) . "</div>";
+        $average .=     "<div class=\"label-review\">" . $totalComments . "&nbsp;" . ( $totalComments == 1 ? l10n('comments_and_ratings_label_review') : l10n('comments_and_ratings_label_reviews') ) . "</div>";
         $average .=     "<div class=\"fill\"></div>";
         $average .= "</div>\n"; //end topic-average
         return $average;
@@ -10204,34 +10890,16 @@ class ImTopic
             );
             $this->storageType == "xml" ? $this->saveXML() : $this->saveDb();
         }
+        $data = $this->getRatingsDataRating();
 
-        $c = $this->comments->getAll();
-        $count = 0;
-        $votes = 0;
-        $votescount = 0;
-        $ratingByValue = array("1"=> 0, "2"=> 0, "3"=> 0, "4"=> 0, "5"=> 0);
-
-        $vote = 0;
-        if ( count($c) > 0 ) {
-            // Check aproved comments count
-            $ca = array();
-            foreach ($c as $comment) {
-                if ( $comment['approved'] == "1" && isset($comment['rating']) && $comment['rating'] > 0 ) {
-                    $count++;
-                    $votes += $comment['rating'];
-                    $ratingByValue[$comment['rating']] = $ratingByValue[$comment['rating']] + 1;
-                }
-            }
-            $vote = ( $count > 0 ? $votes/$count : 0 );
-        }
-        $classContainer = "topic-summary star" . ($count > 0 ? "" : " no-review");
+        $classContainer = "topic-summary star" . ($data["totalComments"] > 0 ? "" : " no-review");
         echo "<div id=\"" . $this->id . "-topic-summary\" class=\""  . $classContainer . "\">\n";
 
         //add block of topic average
-        echo $count == 0 ? $this->getTopicZeroAverage() : $this->getTopicAverage($count, $vote);
+        echo $data["totalComments"] == 0 ? $this->getTopicZeroAverage() : $this->getTopicAverage($data["totalComments"], $data["vote"]);
 
         //add block topic bars
-        echo $this->getTopicBars($count, $ratingByValue);
+        echo $this->getTopicBars($data["totalComments"], $data["ratingByValue"]);
 
         //add block vote with stars
         echo "<div class=\"topic-star\">";
@@ -10247,6 +10915,34 @@ class ImTopic
         echo "</div>";
 
         echo "</div>\n"; //end topic-summary
+    }
+
+    function getRatingsDataRating() {	
+        $c = $this->comments->getAll();
+        $totalComments = 0;
+        $votes = 0;
+        $ratingByValue = array("1"=> 0, "2"=> 0, "3"=> 0, "4"=> 0, "5"=> 0);
+
+        $vote = 0;
+        if ( count($c) > 0 ) {
+            // Check aproved comments count
+            $ca = array();
+            foreach ($c as $comment) {
+                if ( $comment['approved'] == "1" && isset($comment['rating']) && $comment['rating'] > 0 ) {
+                    $totalComments++;
+                    $votes += $comment['rating'];
+                    $ratingByValue[$comment['rating']] = $ratingByValue[$comment['rating']] + 1;
+                }
+            }
+            $vote = ( $totalComments > 0 ? $votes/$totalComments : 0 );
+        }
+
+        return array(
+            "vote" =>  $vote,
+            "formatVote" =>  number_format($vote, 1),
+            "ratingByValue" =>  $ratingByValue,
+            "totalComments" =>  $totalComments
+        );
     }
 }
 
@@ -10650,27 +11346,6 @@ function in_array_field($needle, $haystack, $all = false)
 }
 
 /**
- * Filter the var from unwanted input chars.
- * Basically remove the quotes added by magic_quotes
- * @param  mixed $var The var to filter
- * @return mixed      The filtered var
- */
-function imFilterInput($var) {
-    // Remove the magic quotes
-    if (get_magic_quotes_gpc()) {
-        // String
-        if (is_string($var))
-            $var = stripslashes($var);
-        // Array
-        else if (is_array($var)) {
-            for ($i = 0; $i < count($var); $i++)
-                $var[$i] = imFilterInput($var[$i]);
-        }
-    }
-    return $var;
-}
-
-/**
  * Get the most recent date in the provided array of PHP times that do not define a future time.
  * The date is provided in the RSS format Sun, 15 Jun 2008 21:15:07 GMT
  * @param  array    $timeArr
@@ -10812,7 +11487,7 @@ class X5Gravatar {
     /**
      *    Gravatar's url
      */
-    const GRAVATAR_URL = "http://www.gravatar.com/avatar.php";
+    const GRAVATAR_URL = "https://www.gravatar.com/avatar.php";
 
     /**
      *    Ratings available

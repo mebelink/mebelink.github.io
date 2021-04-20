@@ -133,8 +133,16 @@ class ControlPanel {
             $menu[] = array(
                 "url" => "cart-orders.php",
                 "image" => "images/shop_white.png",
-                "text" => $loc->get("cart_title", "E-Commerce"),
-                "selected" => isset($_SERVER['PHP_SELF']) && substr(basename($_SERVER['PHP_SELF']), 0, 5) == "cart-"
+                "text" => $loc->get("admin_cart_title", "E-Commerce: Cart"),
+                "selected" => isset($_SERVER['PHP_SELF']) && substr(basename($_SERVER['PHP_SELF']), 0, 11) == "cart-orders"
+            );
+        }
+        if (Configuration::getCart()->getCommentsData()['enabled'] && Configuration::getCart()->getCommentsData()['type'] == 'websitex5') {
+            $menu[] = array(
+                "url" => "cart-comments.php",
+                "image" => "images/guestbook_white.png",
+                "text" => $loc->get("admin_cart_comments_title", "E-Commerce: Comments"),
+                "selected" => isset($_SERVER['PHP_SELF']) && basename($_SERVER['PHP_SELF']) == "cart-comments.php"
             );
         }
         if (isset($settings['dynamicobjects']) && (count($settings['dynamicobjects']['pages']) || count($settings['dynamicobjects']['template']))) {

@@ -19,7 +19,7 @@
         $user = $comment['name'];
     }
     if (isset($comment['email'])) {
-        $user .= "<span class=\"no-small-phone\">(<a class=\"fore-color-inherit\" href=\"mailto:${comment['email']}\">${comment['email']}</a>)</span>";
+        $user .= "<span class=\"comments-email no-small-phone\">(<a class=\"fore-color-inherit\" href=\"mailto:${comment['email']}\">${comment['email']}</a>)</span>";
     }
 
     // -----
@@ -69,13 +69,13 @@
     <!-- Desktop Row -->
     <tr class="no-phone comment <?php echo $cssClass ?>">
         <td class="text-small border-left border-mute-light border-bottom">
+            <div class="margin-bottom"><?php echo $comment['timestamp'] ?></div>
             <div class="margin-bottom"><?php echo $user ?></div>
             <?php echo $rating; ?>
             <div>IP: <?php echo $comment['ip'] ?></div>
         </td>
-        <td class="text-small border-bottom border-mute-light"><?php echo $comment['timestamp'] ?></td>
         <td class="text-small border-bottom border-mute-light"><?php echo $comment['body'] ?></td>
-        <td class="border-bottom border-right border-mute-light"><?php echo $links ?></td>
+        <td class="border-bottom border-right border-mute-light text-right padding-left-10-child padding-bottom-10-child"><?php echo $links ?></td>
     </tr>
 
     <!-- Phone Row -->
@@ -89,9 +89,11 @@
             <?php if (strlen($rating)): ?>
             <div class="margin-bottom clearfix"><?php echo $rating ?></div>
             <?php endif; ?>
-            <div class="margin-bottom clearfix">IP: <?php echo $comment['ip'] ?></div>
-            <div class="margin-bottom"><?php echo $comment['body'] ?></div>
-            <div class="text-right"><?php echo $links ?></div>
+            <div class="margin-bottom clearfix"><?php echo $comment['body'] ?></div>
+            <div class="flex">
+                <div class="flex-grow-1">IP: <?php echo $comment['ip'] ?></div>
+                <div class="flex-grow-1 text-right padding-left-10-child"><?php echo $links ?></div>
+            </div>
         </td>
     </tr>
 <?php endforeach; ?>

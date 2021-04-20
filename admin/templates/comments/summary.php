@@ -8,7 +8,7 @@
 <?php endif; ?>
 	</span>
 <?php if ($count && $hasRating): ?>
-    <span><span class="clearfix-phone div-phone"></span><span class="no-phone"> - </span><?php echo l10n("blog_average_rating", "Average Vote") ?>: <?php echo number_format($vote, 1) ?>/5</span>
+    <span class="margin-right"><span class="clearfix-phone div-phone"></span><span class="no-phone"> - </span><?php echo l10n("blog_average_rating", "Average Vote") ?>: <?php echo number_format($vote, 1) ?>/5</span>
 <?php for ($s = 0; $s < 5; $s++) :?>
     <?php if ($vote >= $s + 1): ?>
     <span class="icon-phone fa icon-large fa-star fore-yellow"></span>

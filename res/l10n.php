@@ -1,4 +1,8 @@
 <?php
+	$l10n['admin_all_articles'] = 'Все статьи';
+	$l10n['admin_all_category'] = 'Все категории';
+	$l10n['admin_all_objects'] = 'Все объекты';
+	$l10n['admin_all_products'] = 'Все товары';
 	$l10n['admin_analytics_count'] = 'Количество';
 	$l10n['admin_analytics_langs'] = 'Языки';
 	$l10n['admin_analytics_language'] = 'Языки';
@@ -10,6 +14,8 @@
 	$l10n['admin_analytics_views'] = 'Просмотры';
 	$l10n['admin_analytics_visitorscount'] = 'Количество посетителей';
 	$l10n['admin_app_name'] = 'WebSite X5 Manager';
+	$l10n['admin_cart_comments_title'] = 'Корзина покупок: комментарии';
+	$l10n['admin_cart_title'] = 'Корзина покупок: Корзина';
 	$l10n['admin_category_select'] = 'Выберите категорию:';
 	$l10n['admin_comment_abuse'] = 'Это сообщение было отмечено как нецензурное!';
 	$l10n['admin_download'] = 'Загрузить';
@@ -28,6 +34,7 @@
 	$l10n['admin_manager_site_connect_info'] = 'Отройте WebSite X5 Manager и отсканируйте этот QR-код, чтобы добавить ваш сайт "[WEBSITENAME]".';
 	$l10n['admin_manager_subtitle'] = 'Приложение WebSite X5 для управления сайтами даже с мобильного устройства.';
 	$l10n['admin_post_select'] = 'Выберите запись:';
+	$l10n['admin_product_select'] = 'Выберите товар:';
 	$l10n['admin_test_database'] = 'Настройки MySQL';
 	$l10n['admin_test_database_suggestion'] = 'Попросите своего хостинг-провайдера проверить настройки вашей базы данных';
 	$l10n['admin_test_email'] = 'Проверьте настройки e-mail';
@@ -165,11 +172,13 @@
 	$l10n['cart_goshop'] = 'Перейти в Корзину';
 	$l10n['cart_grand_total'] = 'Продолжить';
 	$l10n['cart_inbox'] = 'Продукт заказан';
+	$l10n['cart_label'] = 'Корзина покупок: Корзина и оформление заказа';
 	$l10n['cart_loading'] = 'Загрузка...';
 	$l10n['cart_lowstock'] = 'Товар заканчивается';
 	$l10n['cart_move_to_inbox'] = 'Переместить в раздел "Скоро"';
 	$l10n['cart_move_to_wait'] = 'Переместить в раздел "В ожидании"';
 	$l10n['cart_name'] = 'Наименование';
+	$l10n['cart_new_comment_text'] = 'Добавлен новый комментарий к товару';
 	$l10n['cart_opt'] = 'Параметры';
 	$l10n['cart_order_charts'] = 'Графики';
 	$l10n['cart_order_date'] = 'Дата заказа';
@@ -268,7 +277,8 @@
 	$l10n['cmn_only_when_online'] = 'Эта функция доступна только когда веб-сайт доступен в Интернете.';
 	$l10n['cmn_pagination_next'] = 'Далее';
 	$l10n['cmn_pagination_prev'] = 'Назад';
-	$l10n['comments_and_ratings_add_review'] = 'написать обзор';
+	$l10n['cmn_subject'] = 'Объект';
+	$l10n['comments_and_ratings_add_review'] = 'Написать отзыв';
 	$l10n['comments_and_ratings_enter_rating'] = 'Укажите оценку:';
 	$l10n['comments_and_ratings_form_attachment'] = 'Приложенный Файл';
 	$l10n['comments_and_ratings_label_review'] = 'отзыв';
@@ -417,6 +427,8 @@
 	$l10n['private_area_validation_subject'] = 'Подтвердите вашу [FIELD] учетную запись';
 	$l10n['private_area_waiting'] = 'Ваша учетная запись пока не подтверждена.';
 	$l10n['product_option'] = 'Опция';
+	$l10n['product_page_interesting_for_you'] = 'Это может вас заинтересовать';
+	$l10n['product_page_title'] = 'Корзина: На страницу продукта';
 	$l10n['rating_novote'] = 'Спасибо за ваше мнение';
 	$l10n['rating_vote'] = 'Голосовать';
 	$l10n['row_video_offline_error_notsupported'] = 'Фоновое видео в Стиле Полос не может воспроизводиться в этом браузере. Попробуйте использовать другой браузер.';

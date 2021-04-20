@@ -14,7 +14,7 @@
 		
 		var $attachments;
 		
-		function imEMail($from,$to,$subject,$charset) {
+		function __construct($from,$to,$subject,$charset) {
 			$this->from = $from;
 			$this->to = $to;
 			$this->charset = $charset;

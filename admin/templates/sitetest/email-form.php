@@ -39,7 +39,7 @@ $( document ).ready(function () {
 	<table class="email-test div-phone" style="width: auto;">
 		<tbody class="div-phone">
 			<tr class="div-phone">
-				<td class="small text-middle div-phone">
+				<td class="small text-middle div-phone vertical-align-middle">
 					<label for="type" class="div-phone"><?php echo l10n('form_script_type'); ?></label>
 				</td>
 				<td class="div-phone">

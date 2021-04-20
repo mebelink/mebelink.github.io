@@ -42,6 +42,7 @@ if (isset($imSettings['analytics']) && $imSettings['analytics']['type'] == 'wsx5
     // Main render
     $boxT = new Template("templates/dashboard/box.php");
     $boxT->title = l10n("admin_analytics_title", "Statistics");
+    $boxT->url = "analytics.php";
     $boxT->content = $visitsPlotT->render();
     $boxT->content .= $viewsPlotT->render();
     $boxT->image = "images/analytics_black.png";
@@ -61,7 +62,8 @@ if (isset($imSettings['ecommerce']) && isset($imSettings['ecommerce']['database'
 
     // Main render
     $boxT = new Template("templates/dashboard/box.php");
-    $boxT->title = l10n("cart_title", "Orders");
+    $boxT->title = l10n("admin_cart_title", "E-Commerce: Cart");
+    $boxT->url = "cart-orders.php";
     $boxT->content = "";
     $boxT->image = "images/shop_black.png";
 
@@ -80,6 +82,7 @@ if (isset($imSettings['ecommerce']) && isset($imSettings['ecommerce']['database'
         $rowT->iconColoredClass = "background-color-4";
         $rowT->iconEmptyClass = "background-mute";
         $rowT->value = $ecommerce->getOrdersCountByStatus('inbox');
+        $rowT->url = "cart-orders.php?status=inbox";
         $rowT->caption = l10n('cart_inbox', 'Inbox');
         $rowT->margin = true;
         $boxT->bottom = $rowT->render();
@@ -90,6 +93,7 @@ if (isset($imSettings['ecommerce']) && isset($imSettings['ecommerce']['database'
         $rowT->iconColoredClass = "background-color-3";
         $rowT->iconEmptyClass = "background-mute";
         $rowT->value = $ecommerce->getOrdersCountByStatus('waiting');
+        $rowT->url = "cart-orders.php?status=waiting";
         $rowT->caption = l10n('cart_waiting', 'On hold');
         $boxT->bottom .= $rowT->render();
 
@@ -99,12 +103,115 @@ if (isset($imSettings['ecommerce']) && isset($imSettings['ecommerce']['database'
         $rowT->iconColoredClass = "background-color-2";
         $rowT->iconEmptyClass = "background-mute";
         $rowT->value = count($ecommerce->getDynamicProductsAlertStatus());
+        $rowT->url = "cart-availability.php";
         $rowT->caption = l10n('cart_lowstock', 'Low Stock');
         $boxT->bottom .= $rowT->render();
+
+        if ($ecommerce->getCommentsData()['enabled'] &&  $ecommerce->getCommentsData()['type'] == 'websitex5') { 
+            // Comments Last 7 days
+            $param = array("from" => date("Y-m-d", strtotime("-7 days")) . " 00:00:01", "to" => date("Y-m-d") . " 23:59:59");
+            $countComments = 0;
+            $cartComments = $ecommerce->getComments($param);
+
+            foreach ($cartComments as $productId => $productCommentsData) {
+                $countComments += count($productCommentsData['comments']);
+            }
+
+            $rowT = new Template("templates/dashboard/summary-row.php");
+            $rowT->icon = "fa-comment";
+            $rowT->iconColoredClass = "background-color-6";
+            $rowT->iconEmptyClass = "background-mute";
+            $rowT->value = $countComments;
+            $rowT->caption = ucfirst(l10n('blog_comments', 'Comments')) . " - " . l10n("admin_lastdays", "Last 7 days");
+            $rowT->url = "cart-comments.php";
+            $boxT->bottom .= $rowT->render();
+        }
+
     } else {
         // Connection Error
         $boxT->content .= "DB Connection error";
     }
+    $main->content .= $boxT->render();
+}
+
+
+
+// -------------------
+// E-Commerce Comments
+// -------------------
+
+function sortCommentsByDate($a, $b) {
+	if ($a["timestamp"] == $b["timestamp"]) return 0;
+    return ($a["timestamp"] > $b["timestamp"]) ? -1 : 1;
+}
+
+$ecommerce = Configuration::getCart();
+if (isset($ecommerce) && $ecommerce->getCommentsData()['enabled'] &&  $ecommerce->getCommentsData()['type'] == 'websitex5') {
+    // Comments Last 7 days
+    $param = array("from" => date("Y-m-d", strtotime("-7 days")) . " 00:00:01", "to" => date("Y-m-d") . " 23:59:59");
+    $cartComments = $ecommerce->getComments($param);
+
+    // Main render
+    $boxT = new Template("templates/dashboard/box.php");
+    $boxT->title = l10n("admin_cart_comments_title", "E-Commerce: Comments");
+    $boxT->url = "cart-comments.php";
+    $boxT->content = "";
+    $boxT->image = "images/guestbook_black.png";
+
+    // Summary
+    $rowT = new Template("templates/dashboard/summary-row.php");
+    $rowT->icon = "fa-comment";
+    $rowT->iconColoredClass = "background-color-6";
+    $rowT->iconEmptyClass = "background-mute";
+    $rowT->value = $countComments;
+    $rowT->caption = ucfirst(l10n('blog_comments', 'Comments')) . " - " . l10n("admin_lastdays", "Last 7 days");
+    $boxT->content .= $rowT->render();
+
+    // Latest comments
+    $commentT = new Template("templates/dashboard/comment-row.php");
+    foreach ($cartComments as $productId => $productCommentsData) {
+        $prod = $ecommerce->getProductsData($productId);
+        foreach ($productCommentsData['comments'] as $c) {
+            $comment = [];
+            $comment['name'] = $c['name'];
+            $comment['body'] = $c['text'];
+            $comment['title'] = $prod[$productId]["name"];
+            $comment['timestamp'] = $c['publishDate'];
+            $comment['url'] = "cart-comments.php?category=" . $prod[$productId]["categoryPath"][0] . "&product=" . $productId;
+            $totalComments[] = $comment;
+        }
+    }
+    if(count($totalComments)) {
+        usort($totalComments, "sortCommentsByDate");
+        for ($i = 0; $i < count($totalComments) && $i < 3; $i++) {
+            $commentT->name = $totalComments[$i]['name'];
+            $commentT->body = $totalComments[$i]['body'];
+            $commentT->title = $totalComments[$i]["title"];
+            $commentT->timestamp = $totalComments[$i]['timestamp'];
+            $commentT->url = $totalComments[$i]["url"];
+            $boxT->content .= $commentT->render();
+        }
+    }
+
+    // Count of messages to be validated
+    $allCartComments = $ecommerce->getComments();
+    $toApprove = 0;
+    foreach ($allCartComments as $productId => $productCommentsData) {
+        foreach ($productCommentsData['comments'] as $c) {
+            if(!$c['approved']){
+                $toApprove++;
+            }
+        }
+    }
+    //Show messages to be validated
+    $rowT = new Template("templates/dashboard/summary-row.php");
+    $rowT->icon = "fa-exclamation-triangle";
+    $rowT->iconColoredClass = "background-color-3";
+    $rowT->iconEmptyClass = "background-mute";
+    $rowT->value = $toApprove;
+    $rowT->caption = ucfirst(l10n("blog_waiting_approval", "Waiting for approval"));
+    $boxT->bottom = $rowT->render();
+
     $main->content .= $boxT->render();
 }
 
@@ -120,6 +227,7 @@ if (isset($imSettings['blog']) && $imSettings['blog']['comments_source'] == 'wsx
 
     $boxT = new Template("templates/dashboard/box.php");
     $boxT->title = l10n("blog_title", "Blog");
+    $boxT->url = "blog.php";
     $boxT->content = "";
     $boxT->image = "images/blog_black.png";
 
@@ -139,6 +247,7 @@ if (isset($imSettings['blog']) && $imSettings['blog']['comments_source'] == 'wsx
         $commentT->body = $comments[$i]['body'];
         $commentT->title = $comments[$i]['title'];
         $commentT->timestamp = $comments[$i]['timestamp'];
+        $commentT->url = "blog.php?category=" . $comments[$i]['category'] . "&post=" . $comments[$i]['postid'];
         $boxT->content .= $commentT->render();
     }
 
@@ -166,6 +275,7 @@ if (isset($imSettings['access']['entrancepage'])) {
 
     $boxT = new Template("templates/dashboard/box.php");
     $boxT->title = l10n("private_area_title", "Access Management");
+    $boxT->url = "privatearea.php";
     $boxT->content = "";
     $boxT->image = "images/access_black.png";
 
@@ -217,6 +327,7 @@ if (count($imSettings['guestbooks']) > 0) {
 
     $boxT = new Template("templates/dashboard/box.php");
     $boxT->title = l10n("admin_guestbook", "Comments and Ratings");
+    $boxT->url = "guestbook.php";
     $boxT->content = "";
     $boxT->image = "images/guestbook_black.png";
 
@@ -236,6 +347,7 @@ if (count($imSettings['guestbooks']) > 0) {
         $commentT->body = $validatedComments[$i]['body'];
         $commentT->title = $validatedComments[$i]['title'];
         $commentT->timestamp = $validatedComments[$i]['timestamp'];
+        $commentT->url = "guestbook.php?id=" . $validatedComments[$i]['topicid'];
         $boxT->content .= $commentT->render();
     }
 
@@ -271,6 +383,7 @@ foreach ($results as $result) {
 if ($count > 0) {
     $boxT = new Template("templates/dashboard/box.php");
     $boxT->title = l10n("admin_test_title", "Website Test");
+    $boxT->url = "sitetest.php";
     $boxT->content = "";
     $boxT->image = "images/test_black.png";
 
@@ -296,6 +409,7 @@ if ($count > 0) {
 if (Configuration::getControlPanel()->isWsx5Manager() == false) {
     $boxT = new Template("templates/dashboard/box.php");
     $boxT->title = l10n("wsx5manager_title", "WebSite X5 Manager");
+    $boxT->url = "wsx5-manager.php";
     $boxT->content = "";
     $boxT->dismissid = "manager-ads";
     $boxT->image = "images/manager_black.png";
@@ -326,4 +440,3 @@ foreach ($settings['admin']['extra-dashboard'] as $key => $item) {
 }
 
 echo $main->render();
-

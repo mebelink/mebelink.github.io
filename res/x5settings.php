@@ -11,7 +11,7 @@ $imSettings['general'] = array(
 	'url' => 'https://mebelink.ml/',
 	'homepage_url' => 'https://mebelink.ml/index.html',
 	'icon' => 'https://mebelink.ml/favImage.png',
-	'version' => '2020.3.7.0',
+	'version' => '2021.2.5.0',
 	'sitename' => 'Студия мебели «Mebelink»',
 	'lang_code' => 'ru-RU',
 	'public_folder' => '',
@@ -37,8 +37,8 @@ $imSettings['password_policy'] = array(
 |	Captcha
 |-------------------------------
 */ImTopic::$captcha_code = "		<div class=\"x5captcha-wrap\">
-			<label for=\"kmee3d23-imCpt\">Проверочное слово:</label><br />
-			<input type=\"text\" id=\"kmee3d23-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
+			<label for=\"a2j8vf9v-imCpt\">Проверочное слово:</label><br />
+			<input type=\"text\" id=\"a2j8vf9v-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
 		</div>
 ";
 
@@ -106,7 +106,26 @@ $ecommerce->setPriceFormatData(array(
 	'currency_name' => 'United States of America, Dollars',
 ));
 
+$ecommerce->setDigitalProductsData(array());
 $ecommerce->setProductsData(array());
+$ecommerce->setSlugToProductIdMap(array());
+$ecommerce->setCategoriesData(array(
+	'xewh6e6t' => array(
+		'id' => 'xewh6e6t',
+		'name' => 'Новая категория',
+		'containsProductsWithProductPage' => false,
+		'products' => array(),
+		'categories' => array()
+	)
+));
+$ecommerce->setCommentsData(array(
+	'enabled' => false,
+	'type' => "websitex5",
+	'db' => '',
+	'table' => '',
+	'prefix' => 'x5productPage_',
+	'comment_type' => "commentandstars"
+));
 $ecommerce->setPaymentData(array(
 	'8dkejfu5' => array(
 		'id' => '8dkejfu5',
