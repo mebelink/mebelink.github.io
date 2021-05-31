@@ -54,7 +54,7 @@ if (isset($imSettings['analytics']) && $imSettings['analytics']['type'] == 'wsx5
 // ---------------
 // E-Commerce Cart
 // ---------------
-
+$countComments = 0;
 if (isset($imSettings['ecommerce']) && isset($imSettings['ecommerce']['database'])) {
     $ecommerce = Configuration::getCart();
     // Clean the temp files
@@ -110,13 +110,10 @@ if (isset($imSettings['ecommerce']) && isset($imSettings['ecommerce']['database'
         if ($ecommerce->getCommentsData()['enabled'] &&  $ecommerce->getCommentsData()['type'] == 'websitex5') { 
             // Comments Last 7 days
             $param = array("from" => date("Y-m-d", strtotime("-7 days")) . " 00:00:01", "to" => date("Y-m-d") . " 23:59:59");
-            $countComments = 0;
             $cartComments = $ecommerce->getComments($param);
-
             foreach ($cartComments as $productId => $productCommentsData) {
                 $countComments += count($productCommentsData['comments']);
             }
-
             $rowT = new Template("templates/dashboard/summary-row.php");
             $rowT->icon = "fa-comment";
             $rowT->iconColoredClass = "background-color-6";
@@ -168,11 +165,12 @@ if (isset($ecommerce) && $ecommerce->getCommentsData()['enabled'] &&  $ecommerce
     $boxT->content .= $rowT->render();
 
     // Latest comments
+    $totalComments = array();
     $commentT = new Template("templates/dashboard/comment-row.php");
     foreach ($cartComments as $productId => $productCommentsData) {
         $prod = $ecommerce->getProductsData($productId);
         foreach ($productCommentsData['comments'] as $c) {
-            $comment = [];
+            $comment = array();
             $comment['name'] = $c['name'];
             $comment['body'] = $c['text'];
             $comment['title'] = $prod[$productId]["name"];
@@ -183,7 +181,8 @@ if (isset($ecommerce) && $ecommerce->getCommentsData()['enabled'] &&  $ecommerce
     }
     if(count($totalComments)) {
         usort($totalComments, "sortCommentsByDate");
-        for ($i = 0; $i < count($totalComments) && $i < 3; $i++) {
+        $countTotalComments = count($totalComments);
+        for ($i = 0; $i < $countTotalComments && $i < 3; $i++) {
             $commentT->name = $totalComments[$i]['name'];
             $commentT->body = $totalComments[$i]['body'];
             $commentT->title = $totalComments[$i]["title"];

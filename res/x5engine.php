@@ -709,7 +709,7 @@ class imBlog
      *
      * @return void
      */
-    function showPost($id, $ext=0)
+    function showPost($id, $ext=0, $isHighlighted = false)
     {
         global $imSettings;
 
@@ -851,7 +851,7 @@ class imBlog
         else {
             echo "<article class=\"imBlogPostCard" . ($bp['cardCover'] !== "" ? " imBlogPostCardWithCover" : "") . "\">";
             if ($bp['cardCover'] !== "") {
-                echo "<div id=\"imBlogPostCardCover_" . $id . "\" class=\"imBlogPostCardCover\" onclick=\"window.location='" . $bp['rel_url'] . "';\"></div>";
+                echo "<div class=\"imBlogPostWrapperCardCover\"><img id=\"imBlogPostCardCover_" . $id . "\" class=\"imBlogPostCardCover\" src=\"../" . ($isHighlighted ? $bp['cover'] : $bp['cardCover']) . "\" onclick=\"window.location='" . $bp['rel_url'] . "';\"/></div>";
             }
             if ($imSettings['blog']['show_card_title']) {
                 echo "<header class=\"imBlogPostCardTitle\"><h1><a href=\"" . $bp['rel_url'] . "\">" . $bp['title'] . "</a></h1></header>";
@@ -1078,7 +1078,7 @@ class imBlog
             // Highlighted posts as card - if more than max posts per page, they'll appears also in next pages...
             echo "<div class=\"imBlogHighlightedCards\">";
             for ($i = $start; $i < min($imSettings['blog']['highlighted_count'], $end); $i++) {
-                echo $this->showPost($posts[$i]['id'], 0);
+                echo $this->showPost($posts[$i]['id'], 0, true);
                 $start += 1;
             }
             echo "</div>";
@@ -1087,7 +1087,7 @@ class imBlog
             // Highlighted posts as slideshow - they are repeated also as cards
             echo "<div class=\"imBlogHighlightedCards\">";
             for ($i = 0; $i < min($imSettings['blog']['highlighted_count'], $count); $i++) {
-                echo $this->showPost($posts[$i]['id'], 0);
+                echo $this->showPost($posts[$i]['id'], 0, true);
             }
             if ($imSettings['blog']['highlighted_count'] > 1) {
                 echo "<div class=\"imBlogHighlightedBefore\">&laquo;</div>";
@@ -1099,6 +1099,33 @@ class imBlog
         for ($i = $start; $i < $end; $i++) {
             echo $this->showPost($posts[$i]['id'], 0);
         }
+
+        echo "<script>\n";
+        echo "\tx5engine.boot.push(function() {\n";
+        echo "\t\tif (!x5engine.responsive.isMobileDevice()) {\n";
+        echo "\t\t\tvar currentBrowser = x5engine.utils.getCurrentBrowser();\n";
+        echo "\t\t\t$('.imBlogPostCardDescription').css({'overflow': 'hidden'});\n";
+        echo "\t\t\t$('.imBlogPostCardDescription').hover(function() {\n";
+        echo "\t\t\t\t$(this).css(\"overflow\", \"auto\");\n";
+        echo "\t\t\t\t$(this).children('.imBlogPostCardDescriptionFade').hide();\n";
+        echo "\t\t\t}, function() {\n";
+        echo "\t\t\t\t$(this).css(\"overflow\", \"hidden\");\n";
+        echo "\t\t\t\t$(this).children('.imBlogPostCardDescriptionFade').show();\n";
+        echo "\t\t\t});\n";
+        echo "\t\t\tif (currentBrowser == \"Microsoft Edge\" || currentBrowser == \"Microsoft Internet Explorer\") {\n";
+        echo "\t\t\t\t$('.imBlogPostCardDescription').hover(function() {\n";
+        echo "\t\t\t\t\t$(this).css(\"overflow-y\", \"auto\");\n";
+        echo "\t\t\t\t}, function() {\n";
+        echo "\t\t\t\t\t$(this).css(\"overflow-y\", \"hidden\");\n";
+        echo "\t\t\t\t});\n";
+        echo "\t\t\t\t$('.imBlogPostCardDescription .imBlogPostCardDescriptionFade').remove();\n";
+        echo "\t\t\t}\n";
+        echo "\t\t}\n";
+        echo "\t\telse {\n";
+        echo "\t\t\t$('.imBlogPostCardDescription .imBlogPostCardDescriptionFade').remove();\n";
+        echo "\t\t}";
+        echo "\t});\n";
+        echo "</script>\n";
     }
 
     /**
@@ -3641,6 +3668,7 @@ class ImCart {
                                               MONTH(`o`.`ts`) AS `month`,
                                               `o`.`shipping_price_plus_vat` AS `shipping_price`,
                                               `o`.`payment_price_plus_vat` AS `payment_price`,
+                                              `o`.`coupon_value` AS `coupon_value`,
                                               SUM(`p`.`price_plus_vat`) AS `products_amount`
                                        FROM " . $otable . " AS `o`
                                        INNER JOIN " . $ptable . " AS `p`
@@ -3663,7 +3691,7 @@ class ImCart {
                     if (!isset($results["" . $queryRow['year']]["" . $queryRow['month']])) {
                         $results["" . $queryRow['year']]["" . $queryRow['month']] = 0;
                     }
-                    $results["" . $queryRow['year']]["" . $queryRow['month']] += $queryRow['products_amount'] + $queryRow['shipping_price'] + $queryRow['payment_price'];
+                    $results["" . $queryRow['year']]["" . $queryRow['month']] += $queryRow['products_amount'] + $queryRow['shipping_price'] + $queryRow['payment_price'] - $queryRow['coupon_value'];
                 }
                 // Fill the empty months
                 foreach ($results as $year => $data) {
@@ -3702,6 +3730,7 @@ class ImCart {
                                               MONTH(`o`.`ts`) AS `month`,
                                               `o`.`shipping_price_plus_vat` AS `shipping_price`,
                                               `o`.`payment_price_plus_vat` AS `payment_price`,
+                                              `o`.`coupon_value` AS `coupon_value`,
                                               SUM(`p`.`price_plus_vat`) AS `products_amount`
                                        FROM " . $otable . " AS `o`
                                        INNER JOIN " . $ptable . " AS `p`
@@ -3722,7 +3751,7 @@ class ImCart {
                     if (!isset($results[$queryRow['year']])) {
                         $amountCounter = 0;
                     }
-                    $amountCounter += $queryRow['products_amount'] + $queryRow['shipping_price'] + $queryRow['payment_price'];
+                    $amountCounter += $queryRow['products_amount'] + $queryRow['shipping_price'] + $queryRow['payment_price'] - $queryRow['coupon_value'];
                     $results[$queryRow['year']]["" . $queryRow['month']] = $amountCounter;
                 }
                 // Fill the empty months
@@ -8113,6 +8142,7 @@ class imPrivateArea
             }
         }
         $ids_count = count($ids);
+        $where_conditions = array();
         $id_condition = $ids_count == 1 ? intval($ids[0]) : ($ids_count > 1 ? array_map('intval', $ids) : false);
         if ($id_condition) {
             $where_conditions['id'] = $id_condition;
@@ -8844,6 +8874,9 @@ class imSearch {
     {
         $this->setScope();
         $this->results_per_page = 10;
+        if (function_exists("mb_internal_encoding")) {
+            mb_internal_encoding("UTF-8");
+        }
     }
 
     /**
@@ -8891,58 +8924,58 @@ class imSearch {
                     $file_content = html_entity_decode($file_content, ENT_COMPAT, 'UTF-8');
 
                 // Remove contents wrapped between "<!-- UNSEARCHABLE --><!-- UNSEARCHABLE END -->" comments
-                while (stristr($file_content, "<!-- UNSEARCHABLE -->") !== false) {
+                while (imstristr($file_content, "<!-- UNSEARCHABLE -->") !== false) {
                     $unsearchable_start = imstripos($file_content, "<!-- UNSEARCHABLE -->");
-                    $unsearchable_end = imstripos($file_content, "<!-- UNSEARCHABLE END -->", $unsearchable_start) + strlen("<!-- UNSEARCHABLE END -->");
-                    $unsearchable = substr($file_content, $unsearchable_start, $unsearchable_end - $unsearchable_start);
+                    $unsearchable_end = imstripos($file_content, "<!-- UNSEARCHABLE END -->", $unsearchable_start) + imstrlen("<!-- UNSEARCHABLE END -->");
+                    $unsearchable = imsubstr($file_content, $unsearchable_start, $unsearchable_end - $unsearchable_start);
                     $file_content = str_replace($unsearchable, "", $file_content);
                 }
 
                 // Remove the breadcrumbs
-                while (stristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
+                while (imstristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
                     $imbreadcrumb_start = imstripos($file_content, "<div id=\"imBreadcrumb\"");
-                    $imbreadcrumb_end = imstripos($file_content, "</div>", $imbreadcrumb_start) + strlen("</div>");
-                    $imbreadcrumb = substr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
+                    $imbreadcrumb_end = imstripos($file_content, "</div>", $imbreadcrumb_start) + imstrlen("</div>");
+                    $imbreadcrumb = imsubstr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
                     $file_content = str_replace($imbreadcrumb, "", $file_content);
                 }
 
                 // Remove CSS
-                while (stristr($file_content, "<style") !== false) {
+                while (imstristr($file_content, "<style") !== false) {
                     $style_start = imstripos($file_content, "<style");
-                    $style_end = imstripos($file_content, "</style>", $style_start) + strlen("</style>");
-                    $style = substr($file_content, $style_start, $style_end - $style_start);
+                    $style_end = imstripos($file_content, "</style>", $style_start) + imstrlen("</style>");
+                    $style = imsubstr($file_content, $style_start, $style_end - $style_start);
                     $file_content = str_replace($style, "", $file_content);
                 }
 
                 // Remove JS
-                while (stristr($file_content, "<script") !== false) {
+                while (imstristr($file_content, "<script") !== false) {
                     $script_start = imstripos($file_content, "<script");
-                    $script_end = imstripos($file_content, "</script>", $script_start) + strlen("</script>");
-                    $script = substr($file_content, $script_start, $script_end - $script_start);
+                    $script_end = imstripos($file_content, "</script>", $script_start) + imstrlen("</script>");
+                    $script = imsubstr($file_content, $script_start, $script_end - $script_start);
                     $file_content = str_replace($script, "", $file_content);
                 }
 
                 // Remove noscript tag
-                while (stristr($file_content, "<noscript") !== false) {
+                while (imstristr($file_content, "<noscript") !== false) {
                     $noscript_start = imstripos($file_content, "<noscript");
-                    $noscript_end = imstripos($file_content, "</noscript>", $noscript_start) + strlen("</noscript>");
-                    $noscript = substr($file_content, $noscript_start, $noscript_end - $noscript_start);
+                    $noscript_end = imstripos($file_content, "</noscript>", $noscript_start) + imstrlen("</noscript>");
+                    $noscript = imsubstr($file_content, $noscript_start, $noscript_end - $noscript_start);
                     $file_content = str_replace($noscript, "", $file_content);
                 }
 
                 // Remove the hidden spans
-                while (stristr($file_content, "<span class=\"imHidden\"") !== false) {
+                while (imstristr($file_content, "<span class=\"imHidden\"") !== false) {
                     $imhidden_start = imstripos($file_content, "<span class=\"imHidden\"");
-                    $imhidden_end = imstripos($file_content, "</span>", $imhidden_start) + strlen("</span>");
-                    $imhidden = substr($file_content, $imhidden_start, $imhidden_end - $imhidden_start);
+                    $imhidden_end = imstripos($file_content, "</span>", $imhidden_start) + imstrlen("</span>");
+                    $imhidden = imsubstr($file_content, $imhidden_start, $imhidden_end - $imhidden_start);
                     $file_content = str_replace($imhidden, "", $file_content);
                 }
 
                 // Remove PHP
-                while (stristr($file_content, "<?php") !== false) {
+                while (imstristr($file_content, "<?php") !== false) {
                     $php_start = imstripos($file_content, "<?php");
-                    $php_end = imstripos($file_content, "?>", $php_start) !== false ? imstripos($file_content, "?>", $php_start) + 2 : strlen($file_content);
-                    $php = substr($file_content, $php_start, $php_end - $php_start);
+                    $php_end = imstripos($file_content, "?>", $php_start) !== false ? imstripos($file_content, "?>", $php_start) + 2 : imstrlen($file_content);
+                    $php = imsubstr($file_content, $php_start, $php_end - $php_start);
                     $file_content = str_replace($php, "", $file_content);
                 }
 
@@ -8966,9 +8999,9 @@ class imSearch {
                         // Replace the content
                         $needle_start = "<!-- search-tag " . $object['ObjectId'] . " start -->";
                         $needle_end = "<!-- search-tag " . $object['ObjectId'] . " end -->";
-                        $find_start = strpos($file_content, $needle_start);
-                        $find_end = strpos($file_content, $needle_end) + strlen($needle_end);
-                        $file_content = substr($file_content, 0, $find_start) . $dynobj->getContent() . substr($file_content, $find_end);
+                        $find_start = imstrpos($file_content, $needle_start);
+                        $find_end = imstrpos($file_content, $needle_end) + imstrlen($needle_end);
+                        $file_content = imsubstr($file_content, 0, $find_start) . $dynobj->getContent() . imsubstr($file_content, $find_end);
                     }
                 }
                 // Get the title of the page
@@ -8980,10 +9013,10 @@ class imSearch {
                 foreach ($file_titles as $file_title) {
                     foreach ($queries as $query) {
                         $title = imstrtolower($file_title);
-                        while (($title = stristr($title, $query)) !== false) {
+                        while (($title = imstristr($title, $query)) !== false) {
                             $weight += 3;
                             $count++;
-                            $title = substr($title, strlen($query));
+                            $title = imsubstr($title, imstrlen($query));
                         }
                     }
                 }
@@ -8994,10 +9027,10 @@ class imSearch {
                     $keywords = $matches[1];
                     foreach ($queries as $query) {
                         $tkeywords = imstrtolower($keywords);
-                        while (($tkeywords = stristr($tkeywords, $query)) !== false) {
+                        while (($tkeywords = imstristr($tkeywords, $query)) !== false) {
                             $weight += 4;
                             $count++;
-                            $tkeywords = substr($tkeywords, strlen($query));
+                            $tkeywords = imsubstr($tkeywords, imstrlen($query));
                         }
                     }
                 }
@@ -9008,29 +9041,29 @@ class imSearch {
                     $keywords = $matches[1];
                     foreach ($queries as $query) {
                         $tkeywords = imstrtolower($keywords);
-                        while (($tkeywords = stristr($tkeywords, $query)) !== false) {
+                        while (($tkeywords = imstristr($tkeywords, $query)) !== false) {
                             $weight += 3;
                             $count++;
-                            $tkeywords = substr($tkeywords, strlen($query));
+                            $tkeywords = imsubstr($tkeywords, imstrlen($query));
                         }
                     }
                 }
 
-                $page_pos = strpos($file_content, "<main id=\"imContent\">") + strlen("<main id=\"imContent\">");
+                $page_pos = imstrpos($file_content, "<main id=\"imContent\">") + imstrlen("<main id=\"imContent\">");
                 if ($page_pos == false)
-                    $page_pos = strpos($file_content, "<body>") + strlen("<body>");
-                $page_end = strpos($file_content, "</main>") + strlen("</main>");
+                    $page_pos = imstrpos($file_content, "<body>") + imstrlen("<body>");
+                $page_end = imstrpos($file_content, "</main>") + imstrlen("</main>");
                 if ($page_end == false)
-                    $page_end = strpos($file_content, "</body>") + strlen("</body>");
-                $file_content = strip_tags(substr($file_content, $page_pos, $page_end-$page_pos));
+                    $page_end = imstrpos($file_content, "</body>") + imstrlen("</body>");
+                $file_content = strip_tags(imsubstr($file_content, $page_pos, $page_end-$page_pos));
                 $t_file_content = imstrtolower($file_content);
 
                 foreach ($queries as $query) {
                     $file = $t_file_content;
-                    while (($file = stristr($file, $query)) !== false) {
+                    while (($file = imstristr($file, $query)) !== false) {
                         $count++;
                         $weight++;
-                        $file = substr($file, strlen($query));
+                        $file = imsubstr($file, imstrlen($query));
                     }
                 }
 
@@ -9057,30 +9090,30 @@ class imSearch {
                     $file = $found_content[$name];
                     $file = strip_tags($file);
                     $ap = 0;
-                    $filelen = strlen($file);
+                    $filelen = imstrlen($file);
                     $text = "";
                     for ($j=0; $j < ($count > 6 ? 6 : $count); $j++) {
                         $minpos = $filelen;
                         $word = "";
                         foreach ($queries as $query) {
-                            if ($ap < $filelen && ($pos = strpos(strtoupper($file), strtoupper($query), $ap)) !== false) {
+                            if ($ap < $filelen && ($pos = imstrpos(imstrtoupper($file), imstrtoupper($query), $ap)) !== false) {
                                 if ($pos < $minpos) {
                                     $minpos = $pos;
                                     $word = $query;
                                 }
                             }
                         }
-                        $prev = explode(" ", substr($file, $ap, $minpos-$ap));
+                        $prev = explode(" ", imsubstr($file, $ap, $minpos-$ap));
                         if (count($prev) > ($ap > 0 ? 9 : 8))
                             $prev = ($ap > 0 ? implode(" ", array_slice($prev, 0, 8)) : "") . " ... " . implode(" ", array_slice($prev, -8));
                         else
                             $prev = implode(" ", $prev);
-                        if (strlen($word)) {
-                            $text .= $prev . "<strong>" . substr($file, $minpos, strlen($word)) . "</strong>";
-                            $ap = $minpos + strlen($word);
+                        if (imstrlen($word)) {
+                            $text .= $prev . "<strong>" . imsubstr($file, $minpos, imstrlen($word)) . "</strong>";
+                            $ap = $minpos + imstrlen($word);
                         }
                     }
-                    $next = explode(" ", substr($file, $ap));
+                    $next = explode(" ", imsubstr($file, $ap));
                     if (count($next) > 9)
                         $text .= implode(" ", array_slice($next, 0, 8)) . "...";
                     else
@@ -9091,7 +9124,7 @@ class imSearch {
                     $text = str_replace("\n", " ", $text);
                     $text = str_replace("\t", " ", $text);
                     $text = trim($text);
-                    $html .= "<div class=\"imSearchPageResult\"><h3><a class=\"imCssLink\" href=\"" . $name . "\">" . strip_tags($title, "<b><strong>") . "</a></h3>" . strip_tags($text, "<b><strong>") . "<div class=\"imSearchLink\"><a class=\"imCssLink\" href=\"" . $name . "\">" . (substr($imSettings['general']['url'], -1) != "/" ? $imSettings['general']['url'] . "/" : $imSettings['general']['url']) . $name . "</a></div></div>\n";
+                    $html .= "<div class=\"imSearchPageResult\"><h3><a class=\"imCssLink\" href=\"" . $name . "\">" . strip_tags($title, "<b><strong>") . "</a></h3>" . strip_tags($text, "<b><strong>") . "<div class=\"imSearchLink\"><a class=\"imCssLink\" href=\"" . $name . "\">" . (imsubstr($imSettings['general']['url'], -1) != "/" ? $imSettings['general']['url'] . "/" : $imSettings['general']['url']) . $name . "</a></div></div>\n";
                 }
             }
             $html = preg_replace_callback('/\\s+/', function ($matches) {
@@ -9128,26 +9161,26 @@ class imSearch {
                 $file_content = $value['body'];
 
                 // Rimuovo le briciole dal contenuto
-                while (stristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
+                while (imstristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
                     $imbreadcrumb_start = imstripos($file_content, "<div id=\"imBreadcrumb\"");
-                    $imbreadcrumb_end = imstripos($file_content, "</div>", $imbreadcrumb_start) + strlen("</div>");
-                    $imbreadcrumb = substr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
+                    $imbreadcrumb_end = imstripos($file_content, "</div>", $imbreadcrumb_start) + imstrlen("</div>");
+                    $imbreadcrumb = imsubstr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
                     $file_content = str_replace($imbreadcrumb, "", $file_content);
                 }
 
                 // Rimuovo gli stili dal contenuto
-                while (stristr($file_content, "<style") !== false) {
+                while (imstristr($file_content, "<style") !== false) {
                     $style_start = imstripos($file_content, "<style");
-                    $style_end = imstripos($file_content, "</style>", $style_start) + strlen("</style>");
-                    $style = substr($file_content, $style_start, $style_end - $style_start);
+                    $style_end = imstripos($file_content, "</style>", $style_start) + imstrlen("</style>");
+                    $style = imsubstr($file_content, $style_start, $style_end - $style_start);
                     $file_content = str_replace($style, "", $file_content);
                 }
 
                 // Rimuovo i JS dal contenuto
-                while (stristr($file_content, "<script") !== false) {
+                while (imstristr($file_content, "<script") !== false) {
                     $script_start = imstripos($file_content, "<script");
-                    $script_end = imstripos($file_content, "</script>", $script_start) + strlen("</script>");
-                    $script = substr($file_content, $script_start, $script_end - $script_start);
+                    $script_end = imstripos($file_content, "</script>", $script_start) + imstrlen("</script>");
+                    $script = imsubstr($file_content, $script_start, $script_end - $script_start);
                     $file_content = str_replace($script, "", $file_content);
                 }
 
@@ -9217,34 +9250,34 @@ class imSearch {
                     $file = $found_content[$name];
                     $file = strip_tags($file);
                     $ap = 0;
-                    $filelen = strlen($file);
+                    $filelen = imstrlen($file);
                     $text = "";
                     for ($j = 0; $j < ($count > 6 ? 6 : $count); $j++) {
                         $minpos = $filelen;
                         $word = "";
                         foreach ($queries as $query) {
-                            if ($ap < $filelen && ($pos = strpos(strtoupper($file), strtoupper($query), $ap)) !== false) {
+                            if ($ap < $filelen && ($pos = imstrpos(imstrtoupper($file), imstrtoupper($query), $ap)) !== false) {
                                 if ($pos < $minpos) {
                                     $minpos = $pos;
                                     $word = $query;
                                 }
                             }
                         }
-                        $prev = explode(" ", substr($file, $ap, $minpos-$ap));
+                        $prev = explode(" ", imsubstr($file, $ap, $minpos-$ap));
                         if(count($prev) > ($ap > 0 ? 9 : 8))
                             $prev = ($ap > 0 ? implode(" ", array_slice($prev, 0, 8)) : "") . " ... " . implode(" ", array_slice($prev, -8));
                         else
                             $prev = implode(" ", $prev);
-                        $text .= $prev . "<strong>" . substr($file, $minpos, strlen($word)) . "</strong> ";
-                        $ap = $minpos + strlen($word);
+                        $text .= $prev . "<strong>" . imsubstr($file, $minpos, imstrlen($word)) . "</strong> ";
+                        $ap = $minpos + imstrlen($word);
                     }
-                    $next = explode(" ", substr($file, $ap));
+                    $next = explode(" ", imsubstr($file, $ap));
                     if(count($next) > 9)
                         $text .= implode(" ", array_slice($next, 0, 8)) . "...";
                     else
                         $text .= implode(" ", $next);
                     $text = str_replace("|", "", $text);
-                    $html .= "<div class=\"imSearchBlogResult\"><h3><a class=\"imCssLink\" href=\"" . $name . "\">" . strip_tags($title, "<b><strong>") . "</a></h3>" . strip_tags($found_breadcrumbs[$name], "<b><strong>") . "\n" . strip_tags($text, "<b><strong>") . "<div class=\"imSearchLink\"><a class=\"imCssLink\" href=\"" . $name . "\">" . (substr($imSettings['general']['url'], -1) != "/" ? $imSettings['general']['url'] . "/" : $imSettings['general']['url']) . $name . "</a></div></div>\n";
+                    $html .= "<div class=\"imSearchBlogResult\"><h3><a class=\"imCssLink\" href=\"" . $name . "\">" . strip_tags($title, "<b><strong>") . "</a></h3>" . strip_tags($found_breadcrumbs[$name], "<b><strong>") . "\n" . strip_tags($text, "<b><strong>") . "<div class=\"imSearchLink\"><a class=\"imCssLink\" href=\"" . $name . "\">" . (imsubstr($imSettings['general']['url'], -1) != "/" ? $imSettings['general']['url'] . "/" : $imSettings['general']['url']) . $name . "</a></div></div>\n";
                 }
             }
             echo "  <div class=\"imSLabel\">&nbsp;</div>\n";
@@ -10648,8 +10681,15 @@ class ImTopic
 
                     //check to make sure that the text does not exceed the maximum font size. If it passes I cut the text
                     $body = $comment['body'];
-                    if ( strlen( $comment['body']) > 1500 ) {
-                        $body = substr($comment['body'], 0, 1500) . '...';
+                    if ( function_exists("mb_strlen") ) {
+                        if ( mb_strlen( $comment['body']) > 1500 ) {
+                            $body = mb_substr($comment['body'], 0, 1500) . '...';
+                        }
+                    }
+                    else {
+                        if ( strlen( $comment['body']) > 1500 ) {
+                            $body = substr($comment['body'], 0, 1500) . '...';
+                        }
                     }
                     //avatar setting
                     $gravatar = new X5Gravatar($comment['email']);
@@ -11157,7 +11197,7 @@ function shuffleAssoc($list)
 }
 
 /**
- * If you want to support PHP 4 code, use this function instead of stripos.
+ * If you want to support Multibyte Languages, use this function instead of stripos.
  *
  * @method imstripos
  *
@@ -11167,13 +11207,107 @@ function shuffleAssoc($list)
  *
  * @return {integer}          The position of the searched string
  */
-function imstripos($haystack, $needle , $offset = 0)
+function imstripos($haystack, $needle, $offset = 0)
 {
-    if (function_exists('stripos')) // Is PHP5+
-        return stripos($haystack, $needle, $offset);
+    if (function_exists('mb_stripos'))
+        return mb_stripos($haystack, $needle, $offset);
 
-    // PHP4 fallback
-    return strpos(strtolower($haystack), strtolower($needle), $offset);
+    return stripos($haystack, $needle, $offset);
+}
+
+/**
+ * If you want to support Multibyte Languages, use this function instead of strpos.
+ *
+ * @method imstrpos
+ *
+ * @param {string}  $haystack Where to search
+ * @param {string}  $needle   What to replace
+ * @param {integer} $offset   Start searching from here
+ *
+ * @return {integer}          The position of the searched string
+ */
+function imstrpos($haystack, $needle, $offset = 0)
+{
+    if (function_exists('mb_strpos'))
+        return mb_strpos($haystack, $needle, $offset);
+
+    return strpos($haystack, $needle, $offset);
+}
+
+/**
+ * If you want to support Multibyte Languages, use this function instead of stristr.
+ *
+ * @method imstristr
+ *
+ * @param {string}  $haystack Where to search
+ * @param {string}  $needle   What to replace
+ *
+ * @return {string}           Haystack starting from needle
+ */
+function imstristr($haystack, $needle)
+{
+    if (function_exists('mb_stristr'))
+        return mb_stristr($haystack, $needle);
+
+    return stristr($haystack, $needle);
+}
+
+/**
+ * If you want to support Multibyte Languages, use this function instead of substr.
+ *
+ * @method imsubstr
+ *
+ * @param {string}   $string   String to extract the substring from
+ * @param {integer}  $start    Starting position
+ * @param {integer}  $length   Substring length
+ *
+ * @return {string}           Substring
+ */
+function imsubstr($string, $start, $length = NULL)
+{
+    if (function_exists('mb_substr'))
+        return mb_substr($string, $start, $length);
+
+    return substr($string, $start, $length);
+}
+
+/**
+ * If you want to support Multibyte Languages, use this function instead of strtolower.
+ *
+ * @param  string $str
+ *
+ * @return string
+ */
+function imstrtolower($str)
+{
+    return (function_exists("mb_strtolower") ? mb_strtolower($str) : strtolower($str));
+}
+
+/**
+ * If you want to support Multibyte Languages, use this function instead of strtoupper.
+ *
+ * @param  string $str
+ *
+ * @return string
+ */
+function imstrtoupper($str)
+{
+    return (function_exists("mb_strtoupper") ? mb_strtoupper($str) : strtoupper($str));
+}
+
+/**
+ * If you want to support Multibyte Languages, use this function instead of strlen.
+ *
+ * @param  string $str
+ *
+ * @return integer
+ */
+function imstrlen($str)
+{
+    if (function_exists('mb_strlen'))
+        return mb_strlen($str);
+
+    return strlen($str);
 }
 
 /**
@@ -11225,18 +11359,6 @@ function pathCombine($paths = array())
 function isEmail($email)
 {
     return strpos($email, "@") > 0 && preg_match('/^([a-z0-9])(([-a-z0-9._])*([a-z0-9]))*\@([a-z0-9])' . '(([a-z0-9-])*([a-z0-9]))+' . '(\.([a-z0-9])([-a-z0-9_-])?([a-z0-9])+)+$/i', $email);
-}
-
-/**
- * Try to convert a string to lowercase using multibyte encoding
- *
- * @param  string $str
- *
- * @return string
- */
-function imstrtolower($str)
-{
-    return (function_exists("mb_convert_case") ? mb_convert_case($str, MB_CASE_LOWER, "UTF-8") : strtolower($str));
 }
 
 if (!function_exists('htmlspecialchars_decode')) {
