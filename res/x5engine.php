@@ -230,6 +230,50 @@ class imBlog
     }
 
     /**
+     * Provide the page header title tag to be shown in the h1 header
+     * Keep track of the page using the $_GET vars provided:
+     *     - id
+     *     - category
+     *     - author
+     *     - tag
+     *     - month
+     *     - search
+     *
+     * @param string $basetitle The base title of the blog, to be appended after the specific page title
+     * @param string $separator The separator char, default "-"
+     *
+     * @return string The page title
+     */
+    function pageHeaderTitle($basetitle, $separator = "-") {
+        global $imSettings;
+
+        $urlData = $this->parseUrlArray(@$_GET);
+
+        if (isset($urlData['id']) && isset($imSettings['blog']['posts'][$urlData['id']])) {
+            // Post
+            return htmlspecialchars($imSettings['blog']['posts'][$urlData['id']]['title']) ;
+        } else if (isset($urlData['category']) && isset($imSettings['blog']['posts_cat'][$urlData['category']])) {
+            // Category
+            return htmlspecialchars($urlData['category']);
+        } else if (isset($urlData['author']) && isset($imSettings['blog']['posts_author'][$urlData['author']])) {
+            // Author
+            return htmlspecialchars($urlData['author']);
+        } else if (isset($urlData['tag'])) {
+            // Tag
+            return htmlspecialchars(strip_tags($urlData['tag']));
+        } else if (isset($urlData['month']) && is_numeric($urlData['month']) && strlen($urlData['month']) == 6) {
+            // Month
+            return htmlspecialchars(substr($urlData['month'], 4, 2) . "/" . substr($urlData['month'], 0, 4));
+        } else if (isset($urlData['search'])) {
+            // Search
+            return htmlspecialchars(strip_tags(urldecode($urlData['search'])));
+        }
+
+        // Default (Home page): Show the blog description
+        return htmlspecialchars($basetitle);
+    }
+
+    /**
      * Get the open graph tags for a post
      * @param  $id   The post id
      * @param  $tabs The tabs (String) to prepend to each tag
@@ -1085,7 +1129,7 @@ class imBlog
         }
         else if ($isBlogHome && $imSettings['blog']['highlight_mode'] == 'slideshow' && $start == 0) {
             // Highlighted posts as slideshow - they are repeated also as cards
-            echo "<div class=\"imBlogHighlightedCards\">";
+            echo "<div class=\"imBlogHighlightedCards slideshow\">";
             for ($i = 0; $i < min($imSettings['blog']['highlighted_count'], $count); $i++) {
                 echo $this->showPost($posts[$i]['id'], 0, true);
             }
@@ -1961,7 +2005,7 @@ class CartRouter
                 header('Content-type: application/json');
                 echo json_encode(array(
                     'status' => 'ok',
-                    'data' => $params['cart']->getProductsData(isset($_POST['products']) ? $_POST['products'] : array())
+                    'data' => $params['cart']->getProductsData(isset($_POST['products']) ? $_POST['products'] : array(), true)
                 ));
             }
         );
@@ -2837,9 +2881,14 @@ class ImCart {
      */
     private function streamDownload($file, $size)
     {
+        $filename = basename($file);
+        $chunks = explode('?', $filename);
+        if (is_array($chunks) && count($chunks) > 1) {
+            $filename = $chunks[0];
+        }
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
@@ -4432,7 +4481,7 @@ class ImCart {
         return $this->commentsData;
     }
 
-    public function getComments($params = array())
+    public function getComments($params = array(), $forJson = false)
     {
         if (!$this->commentsData['enabled'] || $this->commentsData['type'] !== 'websitex5') {
             return null;
@@ -4461,8 +4510,12 @@ class ImCart {
             $where_flat[] = "`timestamp` <= '" . $db->escapeString($params['to']) . "'";
         }
 
+        $columns = array('postid', 'commentid', 'name', 'body', 'timestamp', 'abuse', 'approved', 'rating');
+        if (!$forJson) {
+            $columns[] = 'email';
+        }
         $resultSet = $db->select(array(
-            'select' =>  array('postid', 'commentid', 'email', 'name', 'body', 'timestamp', 'abuse', 'approved', 'rating'),
+            'select' =>  $columns,
             'from' => $this->commentsData['table'],
             'where' => $where,
             'where_flat' => $where_flat
@@ -4488,12 +4541,14 @@ class ImCart {
                 }
                 $posts[$prodId]['comments'][$row['commentid']] = array(
                     'id' => $row['commentid'],
-                    'email' => $row['email'],
                     'name' => $row['name'],
                     'publishDate' => $row['timestamp'],
                     'abuse' => $row['abuse'] != 0,
                     'approved' => $row['approved'] != 0
                 );
+                if (isset($row['email'])) {
+                    $posts[$prodId]['comments'][$row['commentid']]['email'] = $row['email'];
+                }
                 if (isset($row['body']) && is_string($row['body']) && strlen($row['body'])) {
                     $posts[$prodId]['comments'][$row['commentid']]['text'] = $row['body'];
                 }
@@ -4559,14 +4614,14 @@ class ImCart {
         return $this;
     }
 
-    public function getProductsData($ids = array())
+    public function getProductsData($ids = array(), $forJson = false)
     {
         $productsData = array();
         foreach ($this->normalizeProductIdsInput($ids) as $id) {
             if (isset($this->products[$id])) {
                 $productsData[$id] = array_merge(
                     $this->products[$id],
-                    $this->getProductDynamicData($id),
+                    $this->getProductDynamicData($id, $forJson),
                     array('relatedProducts' => $this->getRelatedProducts($id))
                 );
             }
@@ -4613,7 +4668,7 @@ class ImCart {
         return $data;
     }
 
-    private function getProductDynamicData($id)
+    private function getProductDynamicData($id, $forJson = false)
     {
         if (!isset($this->products[$id])) {
             return array();
@@ -4623,7 +4678,7 @@ class ImCart {
         $additionalData = array();
 
         // Comments
-        $comments = $this->getComments(array('products' => $id));
+        $comments = $this->getComments(array('products' => $id), $forJson);
         if (is_array($comments) && isset($comments[$id])) {
             $additionalData['comments'] = $comments[$id];
         }
@@ -5063,7 +5118,7 @@ class ImComment
                     'email' => (isset($comment['email']) ? $comment['email'] : ''),
                     'name' => (isset($comment['name']) ? $comment['name'] : ''),
                     'url' => (isset($comment['url']) ? $comment['url'] : ''),
-                    'body' => (isset($comment['body']) ? $comment['body'] : ''),
+                    'body' => (isset($comment['body']) ? preg_replace('/[\n\r\t]*/', '', nl2br($comment['body'])) : ''),
                     'ip' => (isset($comment['ip']) ? $comment['ip'] : ''),
                     'timestamp' => (isset($comment['timestamp']) ? $comment['timestamp'] : date("Y-m-d H:i:s")),
                     'abuse' => (isset($comment['abuse']) ? $comment['abuse'] : '0'),
@@ -6500,7 +6555,7 @@ class ImDb implements DatabaseAccess
         return $this->driver->affectedRows();
     }
 
-    static function clone_tables(ImDb $db, array $table_names_map): array
+    static function clone_local_tables(ImDb $db, array $table_names_map, bool $overwrite = false): array
     {
         $results = array();
         if ($db->testConnection()) {
@@ -6515,12 +6570,52 @@ class ImDb implements DatabaseAccess
                         'exist' => $db->tableExists($clone_table),
                     )
                 );
-                if ($res['clone']['exist']) {
+                if ($res['clone']['exist'] && $overwrite) {
                     $db->deleteTable($clone_table);
                 }
-                if ($res['master']['exist']) {
+                if ($res['master']['exist'] && (!$res['clone']['exist'] || $overwrite)) {
                     $db->query('CREATE TABLE ' . $db->table($clone_table) . ' LIKE ' . $db->table($master_table));
                     $db->query('INSERT INTO ' . $db->table($clone_table) . ' SELECT * FROM ' . $db->table($master_table));
+                }
+                $results[] = $res;
+            }
+        }
+        return $results;
+    }
+
+    static function clone_remote_tables(ImDb $master_db, ImDb $clone_db, array $table_names_map, bool $overwrite = false): array
+    {
+        $results = array();
+        if ($master_db->testConnection() && $clone_db->testConnection()) {
+            foreach ($table_names_map as $master_table => $clone_table) {
+                $res = array(
+                    'master' => array(
+                        'name' => $master_table,
+                        'exist' => $master_db->tableExists($master_table),
+                    ),
+                    'clone' => array(
+                        'name' => $clone_table,
+                        'exist' => $clone_db->tableExists($clone_table),
+                    )
+                );
+                if ($res['clone']['exist'] && $overwrite) {
+                    $clone_db->deleteTable($clone_table);
+                }
+                if ($res['master']['exist'] && (!$res['clone']['exist'] || $overwrite)) {
+                    $create_table = $master_db->query('SHOW CREATE TABLE ' . $master_db->table($master_table));
+                    if (is_array($create_table)) {
+                        // Using preg_replace to replace just the first occurrency
+                        $create_table_query = preg_replace('/`' . preg_quote($master_table, '/') . '`/', $clone_db->table($clone_table), $create_table[0]['Create Table'], 1);
+                        $clone_db->query($create_table_query);
+
+                        $master_rows = $master_db->select(array('from' => $master_table));
+                        foreach ($master_rows as $master_row) {
+                            $clone_db->insert(array(
+                                'into' => $clone_table,
+                                'values' => $master_row
+                            ));
+                        }
+                    }
                 }
                 $results[] = $res;
             }
@@ -7113,7 +7208,7 @@ class ImForm
      */
     function checkAnswer($questionId, $answer)
     {
-        $questionId += "";
+        $questionId = strval($questionId);
         return (isset($this->answers[$questionId]) && trim(strtolower($this->answers[$questionId])) == trim(strtolower($answer)));
     }
 
@@ -8924,58 +9019,58 @@ class imSearch {
                     $file_content = html_entity_decode($file_content, ENT_COMPAT, 'UTF-8');
 
                 // Remove contents wrapped between "<!-- UNSEARCHABLE --><!-- UNSEARCHABLE END -->" comments
-                while (imstristr($file_content, "<!-- UNSEARCHABLE -->") !== false) {
-                    $unsearchable_start = imstripos($file_content, "<!-- UNSEARCHABLE -->");
-                    $unsearchable_end = imstripos($file_content, "<!-- UNSEARCHABLE END -->", $unsearchable_start) + imstrlen("<!-- UNSEARCHABLE END -->");
-                    $unsearchable = imsubstr($file_content, $unsearchable_start, $unsearchable_end - $unsearchable_start);
+                while (stristr($file_content, "<!-- UNSEARCHABLE -->") !== false) {
+                    $unsearchable_start = stripos($file_content, "<!-- UNSEARCHABLE -->");
+                    $unsearchable_end = stripos($file_content, "<!-- UNSEARCHABLE END -->", $unsearchable_start) + strlen("<!-- UNSEARCHABLE END -->");
+                    $unsearchable = substr($file_content, $unsearchable_start, $unsearchable_end - $unsearchable_start);
                     $file_content = str_replace($unsearchable, "", $file_content);
                 }
 
                 // Remove the breadcrumbs
-                while (imstristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
-                    $imbreadcrumb_start = imstripos($file_content, "<div id=\"imBreadcrumb\"");
-                    $imbreadcrumb_end = imstripos($file_content, "</div>", $imbreadcrumb_start) + imstrlen("</div>");
-                    $imbreadcrumb = imsubstr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
+                while (stristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
+                    $imbreadcrumb_start = stripos($file_content, "<div id=\"imBreadcrumb\"");
+                    $imbreadcrumb_end = stripos($file_content, "</div>", $imbreadcrumb_start) + strlen("</div>");
+                    $imbreadcrumb = substr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
                     $file_content = str_replace($imbreadcrumb, "", $file_content);
                 }
 
                 // Remove CSS
-                while (imstristr($file_content, "<style") !== false) {
-                    $style_start = imstripos($file_content, "<style");
-                    $style_end = imstripos($file_content, "</style>", $style_start) + imstrlen("</style>");
-                    $style = imsubstr($file_content, $style_start, $style_end - $style_start);
+                while (stristr($file_content, "<style") !== false) {
+                    $style_start = stripos($file_content, "<style");
+                    $style_end = stripos($file_content, "</style>", $style_start) + strlen("</style>");
+                    $style = substr($file_content, $style_start, $style_end - $style_start);
                     $file_content = str_replace($style, "", $file_content);
                 }
 
                 // Remove JS
-                while (imstristr($file_content, "<script") !== false) {
-                    $script_start = imstripos($file_content, "<script");
-                    $script_end = imstripos($file_content, "</script>", $script_start) + imstrlen("</script>");
-                    $script = imsubstr($file_content, $script_start, $script_end - $script_start);
+                while (stristr($file_content, "<script") !== false) {
+                    $script_start = stripos($file_content, "<script");
+                    $script_end = stripos($file_content, "</script>", $script_start) + strlen("</script>");
+                    $script = substr($file_content, $script_start, $script_end - $script_start);
                     $file_content = str_replace($script, "", $file_content);
                 }
 
                 // Remove noscript tag
-                while (imstristr($file_content, "<noscript") !== false) {
-                    $noscript_start = imstripos($file_content, "<noscript");
-                    $noscript_end = imstripos($file_content, "</noscript>", $noscript_start) + imstrlen("</noscript>");
-                    $noscript = imsubstr($file_content, $noscript_start, $noscript_end - $noscript_start);
+                while (stristr($file_content, "<noscript") !== false) {
+                    $noscript_start = stripos($file_content, "<noscript");
+                    $noscript_end = stripos($file_content, "</noscript>", $noscript_start) + strlen("</noscript>");
+                    $noscript = substr($file_content, $noscript_start, $noscript_end - $noscript_start);
                     $file_content = str_replace($noscript, "", $file_content);
                 }
 
                 // Remove the hidden spans
-                while (imstristr($file_content, "<span class=\"imHidden\"") !== false) {
-                    $imhidden_start = imstripos($file_content, "<span class=\"imHidden\"");
-                    $imhidden_end = imstripos($file_content, "</span>", $imhidden_start) + imstrlen("</span>");
-                    $imhidden = imsubstr($file_content, $imhidden_start, $imhidden_end - $imhidden_start);
+                while (stristr($file_content, "<span class=\"imHidden\"") !== false) {
+                    $imhidden_start = stripos($file_content, "<span class=\"imHidden\"");
+                    $imhidden_end = stripos($file_content, "</span>", $imhidden_start) + strlen("</span>");
+                    $imhidden = substr($file_content, $imhidden_start, $imhidden_end - $imhidden_start);
                     $file_content = str_replace($imhidden, "", $file_content);
                 }
 
                 // Remove PHP
-                while (imstristr($file_content, "<?php") !== false) {
-                    $php_start = imstripos($file_content, "<?php");
-                    $php_end = imstripos($file_content, "?>", $php_start) !== false ? imstripos($file_content, "?>", $php_start) + 2 : imstrlen($file_content);
-                    $php = imsubstr($file_content, $php_start, $php_end - $php_start);
+                while (stristr($file_content, "<?php") !== false) {
+                    $php_start = stripos($file_content, "<?php");
+                    $php_end = stripos($file_content, "?>", $php_start) !== false ? stripos($file_content, "?>", $php_start) + 2 : strlen($file_content);
+                    $php = substr($file_content, $php_start, $php_end - $php_start);
                     $file_content = str_replace($php, "", $file_content);
                 }
 
@@ -8999,9 +9094,9 @@ class imSearch {
                         // Replace the content
                         $needle_start = "<!-- search-tag " . $object['ObjectId'] . " start -->";
                         $needle_end = "<!-- search-tag " . $object['ObjectId'] . " end -->";
-                        $find_start = imstrpos($file_content, $needle_start);
-                        $find_end = imstrpos($file_content, $needle_end) + imstrlen($needle_end);
-                        $file_content = imsubstr($file_content, 0, $find_start) . $dynobj->getContent() . imsubstr($file_content, $find_end);
+                        $find_start = strpos($file_content, $needle_start);
+                        $find_end = strpos($file_content, $needle_end) + strlen($needle_end);
+                        $file_content = substr($file_content, 0, $find_start) . $dynobj->getContent() . substr($file_content, $find_end);
                     }
                 }
                 // Get the title of the page
@@ -9049,13 +9144,13 @@ class imSearch {
                     }
                 }
 
-                $page_pos = imstrpos($file_content, "<main id=\"imContent\">") + imstrlen("<main id=\"imContent\">");
+                $page_pos = strpos($file_content, "<main id=\"imContent\">") + imstrlen("<main id=\"imContent\">");
                 if ($page_pos == false)
-                    $page_pos = imstrpos($file_content, "<body>") + imstrlen("<body>");
-                $page_end = imstrpos($file_content, "</main>") + imstrlen("</main>");
+                    $page_pos = strpos($file_content, "<body>") + strlen("<body>");
+                $page_end = strpos($file_content, "</main>") + strlen("</main>");
                 if ($page_end == false)
-                    $page_end = imstrpos($file_content, "</body>") + imstrlen("</body>");
-                $file_content = strip_tags(imsubstr($file_content, $page_pos, $page_end-$page_pos));
+                    $page_end = strpos($file_content, "</body>") + strlen("</body>");
+                $file_content = strip_tags(substr($file_content, $page_pos, $page_end-$page_pos));
                 $t_file_content = imstrtolower($file_content);
 
                 foreach ($queries as $query) {
@@ -9161,26 +9256,26 @@ class imSearch {
                 $file_content = $value['body'];
 
                 // Rimuovo le briciole dal contenuto
-                while (imstristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
-                    $imbreadcrumb_start = imstripos($file_content, "<div id=\"imBreadcrumb\"");
-                    $imbreadcrumb_end = imstripos($file_content, "</div>", $imbreadcrumb_start) + imstrlen("</div>");
-                    $imbreadcrumb = imsubstr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
+                while (stristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
+                    $imbreadcrumb_start = stripos($file_content, "<div id=\"imBreadcrumb\"");
+                    $imbreadcrumb_end = stripos($file_content, "</div>", $imbreadcrumb_start) + strlen("</div>");
+                    $imbreadcrumb = substr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
                     $file_content = str_replace($imbreadcrumb, "", $file_content);
                 }
 
                 // Rimuovo gli stili dal contenuto
-                while (imstristr($file_content, "<style") !== false) {
-                    $style_start = imstripos($file_content, "<style");
-                    $style_end = imstripos($file_content, "</style>", $style_start) + imstrlen("</style>");
-                    $style = imsubstr($file_content, $style_start, $style_end - $style_start);
+                while (stristr($file_content, "<style") !== false) {
+                    $style_start = stripos($file_content, "<style");
+                    $style_end = stripos($file_content, "</style>", $style_start) + strlen("</style>");
+                    $style = substr($file_content, $style_start, $style_end - $style_start);
                     $file_content = str_replace($style, "", $file_content);
                 }
 
                 // Rimuovo i JS dal contenuto
-                while (imstristr($file_content, "<script") !== false) {
-                    $script_start = imstripos($file_content, "<script");
-                    $script_end = imstripos($file_content, "</script>", $script_start) + imstrlen("</script>");
-                    $script = imsubstr($file_content, $script_start, $script_end - $script_start);
+                while (stristr($file_content, "<script") !== false) {
+                    $script_start = stripos($file_content, "<script");
+                    $script_end = stripos($file_content, "</script>", $script_start) + strlen("</script>");
+                    $script = substr($file_content, $script_start, $script_end - $script_start);
                     $file_content = str_replace($script, "", $file_content);
                 }
 
@@ -11163,12 +11258,19 @@ function showGuestBook($id, $filepath, $email, $captcha = true, $direct_approval
  *
  * @method getDbData
  *
- * @param  {string} $dbid The database id
+ * @param  {string} $dbid The database id, if not specified, will be used the first available database
  *
  * @return {array}        an array like array('description' => '', 'host' => '', 'database' => '', 'user' => '', 'password' => '')
  */
-function getDbData($dbid) {
+function getDbData($dbid = '') {
     global $imSettings;
+    if ($dbid == '') {
+        $dbs = array_values($imSettings['databases']);
+        if (!is_array($dbs) || count($dbs) == 0) {
+            return false;
+        }
+        return $dbs[0];
+    }
     if (!isset($imSettings['databases'][$dbid]))
         return false;
     return $imSettings['databases'][$dbid];
@@ -11197,7 +11299,26 @@ function shuffleAssoc($list)
 }
 
 /**
+ * Looks for function existence and caches the result
+ * 
+ * @method cached_function_exists
+ * 
+ * @param {string} $function The function name
+ * 
+ * @return {bool} Existence of the function
+ */
+$function_exists_cache = array();
+function cached_function_exists($function) {
+    global $function_exists_cache;
+    if (!isset($function_exists_cache[$function])) {
+        $function_exists_cache[$function] = function_exists($function);
+    }
+    return $function_exists_cache[$function];
+}
+
+/**
  * If you want to support Multibyte Languages, use this function instead of stripos.
+ * Use this function only if $needle can contain non latin chars.
  *
  * @method imstripos
  *
@@ -11209,7 +11330,7 @@ function shuffleAssoc($list)
  */
 function imstripos($haystack, $needle, $offset = 0)
 {
-    if (function_exists('mb_stripos'))
+    if (cached_function_exists('mb_stripos'))
         return mb_stripos($haystack, $needle, $offset);
 
     return stripos($haystack, $needle, $offset);
@@ -11217,6 +11338,7 @@ function imstripos($haystack, $needle, $offset = 0)
 
 /**
  * If you want to support Multibyte Languages, use this function instead of strpos.
+ * Use this function only if $needle can contain non latin chars.
  *
  * @method imstrpos
  *
@@ -11228,7 +11350,7 @@ function imstripos($haystack, $needle, $offset = 0)
  */
 function imstrpos($haystack, $needle, $offset = 0)
 {
-    if (function_exists('mb_strpos'))
+    if (cached_function_exists('mb_strpos'))
         return mb_strpos($haystack, $needle, $offset);
 
     return strpos($haystack, $needle, $offset);
@@ -11236,6 +11358,7 @@ function imstrpos($haystack, $needle, $offset = 0)
 
 /**
  * If you want to support Multibyte Languages, use this function instead of stristr.
+ * Use this function only if $needle can contain non latin chars.
  *
  * @method imstristr
  *
@@ -11246,7 +11369,7 @@ function imstrpos($haystack, $needle, $offset = 0)
  */
 function imstristr($haystack, $needle)
 {
-    if (function_exists('mb_stristr'))
+    if (cached_function_exists('mb_stristr'))
         return mb_stristr($haystack, $needle);
 
     return stristr($haystack, $needle);
@@ -11254,6 +11377,7 @@ function imstristr($haystack, $needle)
 
 /**
  * If you want to support Multibyte Languages, use this function instead of substr.
+ * Use this function only if using other imstr functions.
  *
  * @method imsubstr
  *
@@ -11265,7 +11389,7 @@ function imstristr($haystack, $needle)
  */
 function imsubstr($string, $start, $length = NULL)
 {
-    if (function_exists('mb_substr'))
+    if (cached_function_exists('mb_substr'))
         return mb_substr($string, $start, $length);
 
     return substr($string, $start, $length);
@@ -11273,6 +11397,7 @@ function imsubstr($string, $start, $length = NULL)
 
 /**
  * If you want to support Multibyte Languages, use this function instead of strtolower.
+ * Use this function only if $str can contain non latin chars.
  *
  * @param  string $str
  *
@@ -11280,11 +11405,12 @@ function imsubstr($string, $start, $length = NULL)
  */
 function imstrtolower($str)
 {
-    return (function_exists("mb_strtolower") ? mb_strtolower($str) : strtolower($str));
+    return (cached_function_exists("mb_strtolower") ? mb_strtolower($str) : strtolower($str));
 }
 
 /**
  * If you want to support Multibyte Languages, use this function instead of strtoupper.
+ * Use this function only if $str can contain non latin chars.
  *
  * @param  string $str
  *
@@ -11292,11 +11418,12 @@ function imstrtolower($str)
  */
 function imstrtoupper($str)
 {
-    return (function_exists("mb_strtoupper") ? mb_strtoupper($str) : strtoupper($str));
+    return (cached_function_exists("mb_strtoupper") ? mb_strtoupper($str) : strtoupper($str));
 }
 
 /**
  * If you want to support Multibyte Languages, use this function instead of strlen.
+ * Use this function only if $str can contain non latin chars or with other imstr functions.
  *
  * @param  string $str
  *
@@ -11304,7 +11431,7 @@ function imstrtoupper($str)
  */
 function imstrlen($str)
 {
-    if (function_exists('mb_strlen'))
+    if (cached_function_exists('mb_strlen'))
         return mb_strlen($str);
 
     return strlen($str);

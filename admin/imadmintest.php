@@ -89,11 +89,12 @@ class imAdminTest {
         @chdir("admin");
 
         // Databases
-        if (isset($imSettings['databases'])) {
-            foreach($imSettings['databases'] as $db) {
-                $database = ImDb::from_db_data($db);
+        if (isset($imSettings['databases']) && is_array($imSettings['databases']) && count($imSettings['databases']) > 0) {
+            $dbs = array_values($imSettings['databases']);
+            if (count($dbs) > 0) {
+                $database = ImDb::from_db_data($dbs[0]);
                 $results[] = array(
-                    "name"    => l10n('admin_test_database') . " (" . $db['description'] . ")",
+                    "name"    => l10n('admin_test_database'),
                     "message" => l10n("admin_test_database_suggestion"),
                     "success" => imTest::mysql_test($database)
                 );

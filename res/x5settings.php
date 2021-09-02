@@ -11,7 +11,7 @@ $imSettings['general'] = array(
 	'url' => 'https://mebelink.ml/',
 	'homepage_url' => 'https://mebelink.ml/index.html',
 	'icon' => 'https://mebelink.ml/favImage.png',
-	'version' => '2021.2.8.0',
+	'version' => '2021.3.4.0',
 	'sitename' => 'Студия мебели «Mebelink»',
 	'lang_code' => 'ru-RU',
 	'public_folder' => '',
@@ -37,8 +37,8 @@ $imSettings['password_policy'] = array(
 |	Captcha
 |-------------------------------
 */ImTopic::$captcha_code = "		<div class=\"x5captcha-wrap\">
-			<label for=\"r22msd4f-imCpt\">Проверочное слово:</label><br />
-			<input type=\"text\" id=\"r22msd4f-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
+			<label for=\"hj7egk2m-imCpt\">Проверочное слово:</label><br />
+			<input type=\"text\" id=\"hj7egk2m-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
 		</div>
 ";
 
@@ -122,7 +122,7 @@ $ecommerce->setCommentsData(array(
 	'enabled' => false,
 	'type' => "websitex5",
 	'db' => '',
-	'table' => '',
+	'table' => 'w5_ecf324b5_products_comments',
 	'prefix' => 'x5productPage_',
 	'comment_type' => "commentandstars"
 ));
