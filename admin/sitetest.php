@@ -33,7 +33,7 @@ if (isset($_POST['send'])) {
 	} else {
 		$mailer->emailType = $_POST['type'];
 	}
-	$result = $mailer->send($_POST['from'], $_POST['to'], $_POST['subject'], strip_tags($_POST['body']), nl2br($_POST['body']), $attachment);
+	$result = $mailer->send($_POST['from'], '', $_POST['to'], $_POST['subject'], strip_tags($_POST['body']), nl2br($_POST['body']), $attachment);
 
 	// Save the test data for this session
 	$_SESSION['form_test_type'] = $_POST['type'];

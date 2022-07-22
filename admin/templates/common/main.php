@@ -25,7 +25,7 @@
     <script src="js/controlpanel.js?v=<?php echo md5($imSettings['general']['version']) ?>"></script>
 <?php if (isset($scripts) && is_array($scripts)):?>
 <?php     foreach ($scripts as $script): ?>
-    <script src="<?php echo $script ?>"></script>
+    <script src="<?php echo $script ?>?v=<?php echo md5($imSettings['general']['version']) ?>"></script>
 <?php endforeach; ?>
 <?php endif; ?>
 </head>

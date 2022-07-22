@@ -11,6 +11,9 @@
 			<th class="border-bottom-2 border-mute <?php echo $colorClass ?>"><?php echo l10n("cart_order_no", "Order") ?></th>
 			<th class="no-small-phone border-bottom-2 border-mute <?php echo $colorClass ?>"><?php echo l10n("cart_name", "User") ?></th>
 			<th class="no-tablet no-phone border-bottom-2 border-mute <?php echo $colorClass ?>"><?php echo l10n("cart_order_date", "Order Date") ?></th>
+			<?php if ($status=='evaded'): ?>
+			<th class="no-tablet no-phone border-bottom-2 border-mute <?php echo $colorClass ?>"><?php echo l10n("cart_processed_date", "Evaded Date") ?></th>
+			<?php endif; ?>
 			<th class="no-phone border-bottom-2 border-mute <?php echo $colorClass ?>"><?php echo l10n("cart_total", "Amount") ?></th>
 			<th class="no-tablet no-phone border-bottom-2 border-mute <?php echo $colorClass ?>"><?php echo l10n("cart_shipping", "Shipping") ?></th>
 			<th class="border-bottom-2 border-mute <?php echo $colorClass ?>" style="width: 160px;"><?php echo l10n("cart_actions", "Actions") ?></th>
@@ -47,6 +50,9 @@
 				?>
 			</td>
 			<td class="no-tablet no-phone"><?php echo date("Y/m/d", strtotime($order['ts'])) ?></td>
+			<?php if ($status=='evaded'): ?>
+			<td class="no-tablet no-phone"><?php echo $order['evaded_ts'] !== null ? date("Y/m/d", strtotime($order['evaded_ts'])) : ''?></td>
+			<?php endif; ?>
 			<td class="no-phone"><?php echo Configuration::getCart()->toCurrency($order['price_plus_vat'] - $order['coupon_value'], ' ' . $order['currency']) ?></td>
 			<td class="no-tablet no-phone">
 				<?php if ($order['contains_digital_products']): ?>
@@ -64,7 +70,7 @@
 				<a class="margin-left fore-color-6 fa icon-large fa-sign-in fa-rotate-180" href="cart-orders.php?inbox=<?php echo $order['id']?>&status=<?php echo $status ?>" title="<?php echo l10n('cart_move_to_inbox', 'Move to inbox') ?>"></a>
 				<?php endif; ?>
 				<?php if ($status=='inbox'): ?>
-				<a class="margin-left fore-color-6 fa icon-large fa-truck" href="cart-orders.php?evade=<?php echo $order['id']?>&status=<?php echo $status ?>" title="<?php echo l10n('cart_evade', 'Evade') ?>"></a>
+					<a class="margin-left fore-color-6 fa icon-large fa-truck" onclick="return orders.evadeOrder(this);" data-enable-tracking="<?php echo (isset($order['shipping_data']['enable_tracking']) && $order['shipping_data']['enable_tracking'] == true) ? 'true' : 'false' ?>" href="cart-orders.php?evade=<?php echo $order['id']?>&status=<?php echo $status?>" title="<?php echo l10n('cart_evade', 'Evade') ?>"></a>
 				<?php endif; ?>
 				<?php if ($status=='evaded'): ?>
 				<a class="margin-left fore-color-6 fa icon-large fa-sign-in fa-rotate-180" href="cart-orders.php?unevade=<?php echo $order['id']?>&status=<?php echo $status ?>" title="<?php echo l10n('cart_move_to_inbox', 'Move to inbox') ?>"></a>
@@ -96,4 +102,3 @@
 <?php endif; ?>
 		</div>
 <?php endif; ?>
-

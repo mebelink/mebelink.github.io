@@ -1,4 +1,74 @@
+<?php
+	if (!isset($order['vat_name']) || $order['vat_name'] == '') {
+		$order['vat_name'] = l10n('cart_vat');
+	}
+	if (!isset($order['shipping_vat_name']) || $order['shipping_vat_name'] == '') {
+		$order['shipping_vat_name'] = l10n('cart_vat');
+	}
+	if (!isset($order['payment_vat_name']) || $order['payment_vat_name'] == '') {
+		$order['payment_vat_name'] = l10n('cart_vat');
+	}
+
+	$products_id = array_column($orderArray['products'], 'product_id');
+	$products_data = Configuration::getCart()->getProductsData($products_id);
+	$products_with_sku = array();
+	if (sizeof($products_data) > 0) {
+		$products_with_sku = array_filter($products_data, function ($product) {
+			return $product['sku'] !== '';
+		});
+	}
+?>
 <h1 class="text-large uppercase border-bottom border-color-1"><span class="no-phone"><?php echo l10n('cart_order_no') ?>: </span><?php echo $order['id'] ?></h1>
+<!--_________________________
+	
+	Status data
+	_________________________
+-->
+<table class="width_50">
+	<thead>
+		<tr class="page-navbar">
+			<th class="border-bottom-2 border-mute fore-color-1"><span class="text-big"><?php echo l10n('order_status') ?></span></th>
+			<th class="border-bottom-2 border-mute fore-color-1"><span class="text-big"><?php echo l10n('cart_order_date') ?></span></th>
+			<?php if ($order['status'] === 'evaded'): ?>
+				<?php if ($order['evaded_ts'] !== null): ?>
+			<th class="border-bottom-2 border-mute fore-color-1"><span class="text-big"><?php echo l10n('cart_processed_date') ?></span></th>
+				<?php endif; ?>
+				<?php if ($order['tracking_code'] !== null && $order['tracking_code'] !== ''): ?>
+			<th class="border-bottom-2 border-mute fore-color-1"><span class="text-big"><?php echo l10n('tracking_code') ?></span></th>
+				<?php endif; ?>
+			<?php endif; ?>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="border-bottom border-mute-light">
+			<?php 
+			switch ($order['status']) {
+				case 'evaded':
+					$order_status_loc = 'order_status_evaded'; 
+					break;
+				case 'waiting':
+					$order_status_loc = 'order_status_waiting'; 
+					break;
+				default:
+					// default to inbox
+					$order_status_loc = 'order_status_inbox'; 
+					break;
+			}
+			?>
+			<td class="border-left border-right border-mute-light"><span class="text-big"><?php echo l10n($order_status_loc) ?></span></td>
+			<td class="border-right border-mute-light border-right"><span class="text-big"><?php echo date("Y/m/d", strtotime($order['ts'])) ?></span></td>
+			<?php if ($order['status'] === 'evaded'): ?>
+				<?php if ($order['evaded_ts'] !== null): ?>
+				<td class="border-right border-mute-light"><span class="text-big"><?php echo date("Y/m/d", strtotime($order['evaded_ts'])) ?></span></td>
+				<?php endif; ?>
+				<?php if ($order['tracking_code'] !== null && $order['tracking_code'] !== ''): ?>
+				<td class="border-right border-mute-light "><span class="text-big"><?php echo $order['tracking_code'] ?></span></td>
+				<?php endif; ?>
+			<?php endif; ?>
+		</tr>
+	</tbody>
+</table>
+
 <!--_________________________
 	
 	Invoice and shipping data
@@ -41,8 +111,12 @@
 			</td>
 			<?php if (count($orderArray['shipping']) > 0): ?>
 			<td class="top no-margin div-phone">
-				<div class="page-navbar"><?php echo l10n('cart_shipping_address') ?></div>
 				<table>
+				<thead>
+					<tr>
+						<th colspan="2" class="border-bottom-2 border-mute fore-color-1"><?php echo l10n('cart_shipping_address') ?></th>
+					</tr>
+				</thead>
 				<tbody class="border-bottom border-mute-light">
 				<?php foreach ($orderArray['shipping'] as $line): ?>
 					<tr>
@@ -67,11 +141,14 @@
 			<tr class="page-navbar">
 				<th class="border-bottom-2 border-mute fore-color-1"></th>
 				<th class="border-bottom-2 border-mute fore-color-1"><span class="text-big"><?php echo l10n('cart_product_list') ?></span></th>
+				<?php if (count($products_with_sku) > 0) : ?>
+				<th class="border-bottom-2 border-mute fore-color-1"><span class="text-big"><?php echo l10n('cart_sku') ?></span></th>
+				<?php endif ?>
 				<th class="border-bottom-2 border-mute fore-color-1"><?php echo l10n('cart_descr') ?></th>
 				<th class="border-bottom-2 border-mute fore-color-1"><?php echo l10n('cart_price') ?></th>
 				<th class="border-bottom-2 border-mute fore-color-1"><?php echo l10n('cart_qty') ?></th>
 				<?php if ($order['vat_type'] != "none"): ?>
-				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo l10n($order['vat_type'] == "excluded" ? 'cart_vat' : 'cart_vat_included') ?></th>
+				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo $order['vat_type'] == "excluded" ? $order['vat_name'] : str_replace('[NAME]', $order['vat_name'], l10n('cart_vat_included')) ?></th>
 				<?php endif; ?>
 				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo l10n('cart_subtot') ?></th>
 			</tr>
@@ -87,6 +164,13 @@
 					<?php endif; ?>
 				</td>
 				<td><?php echo $product['name'] ?></td>
+				<?php if (count($products_with_sku) > 0) : ?>
+					<?php if (isset($products_with_sku[$product['product_id']])) : ?>
+				<td><?php echo $products_with_sku[$product['product_id']]['sku'] ?></td>
+					<?php else : ?>
+				<td></td>
+					<?php endif ?>
+				<?php endif ?>
 				<td><?php echo ($product['option'] != "" ? " - " . $product['option'] . ($product['suboption'] != "" ? " - " . $product['suboption'] : "") : "") ?></td>
 				<td class="text-left"><?php echo Configuration::getCart()->toCurrency(($order['vat_type'] == "excluded" ? $product['price'] : $product['price_plus_vat']) / $product['quantity'], ' ' . $order['currency']) ?></td>
 				<td class="text-left"><?php echo $product['quantity'] ?></td>
@@ -106,7 +190,7 @@
 				<th class="border-bottom-2 border-mute fore-color-1"><span class="text-big"><?php echo l10n('cart_shipping') ?></span></th>
 				<th class="border-bottom-2 border-mute fore-color-1" colspan="4"></th>
 				<?php if ($order['vat_type'] != "none"): ?>
-				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo l10n($order['vat_type'] == "excluded" ? 'cart_vat' : 'cart_vat_included') ?></th>
+				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo $order['vat_type'] == "excluded" ? $order['shipping_vat_name'] : str_replace('[NAME]', $order['shipping_vat_name'], l10n('cart_vat_included')) ?></th>
 				<?php endif; ?>
 				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo l10n('cart_price') ?></th>
 			</tr>
@@ -128,7 +212,7 @@
 				<th class="border-bottom-2 border-mute fore-color-1"><span class="text-big"><?php echo l10n('cart_payment') ?></span></th>
 				<th class="border-bottom-2 border-mute fore-color-1" colspan="4"></th>
 				<?php if ($order['vat_type'] != "none"): ?>
-				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo l10n($order['vat_type'] == "excluded" ? 'cart_vat' : 'cart_vat_included') ?></th>
+				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo $order['vat_type'] == "excluded" ? $order['payment_vat_name'] : str_replace('[NAME]', $order['payment_vat_name'], l10n('cart_vat_included')) ?></th>
 				<?php endif; ?>
 				<th class="border-bottom-2 border-mute fore-color-1 print-text-right"><?php echo l10n('cart_price') ?></th>
 			</tr>
@@ -149,12 +233,12 @@
 case "included": ?>
 			<tr>
 				<td colspan="5"></td>
-				<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo l10n('cart_total_vat') ?></td>
+				<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo str_replace('[NAME]', $order['vat_name'], l10n('cart_total_vat')) ?></td>
 				<td class="border-bottom border-right border-mute-light text-left print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['price_plus_vat'], ' ' . $order['currency']) ?></b></td>
 			</tr>
 			<tr>
 				<td colspan="5"></td>
-				<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo l10n('cart_vat_included') ?></td>
+				<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo str_replace('[NAME]', $order['vat_name'], l10n('cart_vat_included')) ?></td>
 				<td class="border-bottom border-right border-mute-light text-left print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['vat'], ' ' . $order['currency']) ?></b></td>
 			</tr>
 <?php
@@ -167,12 +251,12 @@ case "excluded": ?>
 			</tr>
 			<tr>
 				<td colspan="5"></td>
-				<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo l10n('cart_vat') ?></td>
+				<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo $order['vat_name'] ?></td>
 				<td class="border-bottom border-right border-mute-light text-left print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['vat'], ' ' . $order['currency']) ?></b></td>
 			</tr>
 			<tr>
 				<td colspan="5"></td>
-				<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo l10n('cart_total_vat') ?></td>
+				<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo str_replace('[NAME]', $order['vat_name'], l10n('cart_total_vat')) ?></td>
 				<td class="border-bottom border-right border-mute-light text-left print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['price_plus_vat'], ' ' . $order['currency']) ?></b></td>
 			</tr>
 <?php
@@ -243,11 +327,11 @@ case "none":?>
 <?php switch($order['vat_type']) {
 case "included": ?>
 		<tr>
-			<td class="border-left border-bottom border-mute-light text-left" colspan="2"><?php echo l10n('cart_total_vat') ?></td>
+			<td class="border-left border-bottom border-mute-light text-left" colspan="2"><?php echo str_replace('[NAME]', $order['vat_name'], l10n('cart_total_vat')) ?></td>
 			<td class="border-right border-bottom border-mute-light text-right print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['price_plus_vat'], ' ' . $order['currency']) ?></b></td>
 		</tr>
 		<tr>
-			<td class="border-left border-bottom border-mute-light text-left" colspan="2"><?php echo l10n('cart_vat_included') ?></td>
+			<td class="border-left border-bottom border-mute-light text-left" colspan="2"><?php echo str_replace('[NAME]', $order['vat_name'], l10n('cart_vat_included')) ?></td>
 			<td class="border-right border-bottom border-mute-light text-right print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['vat'], ' ' . $order['currency']) ?></b></td>
 		</tr>
 <?php
@@ -258,11 +342,11 @@ case "excluded": ?>
 			<td class="border-right border-bottom border-mute-light text-right print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['price'], ' ' . $order['currency']) ?></b></td>
 		</tr>
 		<tr>
-			<td class="border-left border-bottom border-mute-light text-left" colspan="2"><?php echo l10n('cart_vat') ?></td>
+			<td class="border-left border-bottom border-mute-light text-left" colspan="2"><?php echo $order['vat_name'] ?></td>
 			<td class="border-right border-bottom border-mute-light text-right print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['vat'], ' ' . $order['currency']) ?></b></td>
 		</tr>
 		<tr>
-			<td class="border-left border-bottom border-mute-light text-left" colspan="2"><?php echo l10n('cart_total_vat') ?></td>
+			<td class="border-left border-bottom border-mute-light text-left" colspan="2"><?php echo str_replace('[NAME]', $order['vat_name'], l10n('cart_total_vat')) ?></td>
 			<td class="border-right border-bottom border-mute-light text-right print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['price_plus_vat'], ' ' . $order['currency']) ?></b></td>
 		</tr>
 <?php
@@ -296,7 +380,7 @@ case "none":?>
 	<div class="noprint text-center float-right ">
 		<a class="button background-color-1 fore-white no-phone no-tablet" href="#" onclick="window.print(); return false;"><?php echo l10n('cart_print', "Print") ?></a>
 		<?php if ($order['status'] == 'inbox'): ?>
-		<a class="button background-color-1 fore-white" href="cart-order.php?id=<?php echo $order['id'] ?>&amp;evade=true"><?php echo l10n('cart_evade', "Evade") ?></a>
+			<a class="button background-color-1 fore-white" onclick="return orders.evadeOrder(this);" data-enable-tracking="<?php echo (isset($orderArray['shipping_data']['enable_tracking']) && $orderArray['shipping_data']['enable_tracking'] == true) ? 'true' : 'false' ?>" href="cart-order.php?id=<?php echo $order['id'] ?>&amp;evade=true"><?php echo l10n('cart_evade', "Evade") ?></a>
 		<?php endif; ?>
 		<?php if (!Configuration::getControlPanel()->isWsx5Manager()): ?>
 		<a class="button background-color-1 fore-white" href="cart-order.php?id=<?php echo $order['id'] ?>&amp;exportcsv=true"><?php echo l10n('cart_export', "Export") ?></a>

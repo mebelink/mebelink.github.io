@@ -69,7 +69,7 @@ if (isset($orderData['products']) && is_array($orderData['products'])) {
         . (strlen($descr) ? " - " . $descr : "") . "\n"
         . "\t " . $value["quantity"] . " x " 
         . ( $settings['vat_type'] == "excluded" ?
-        "(" . $value["singlePrice"] . " + " . $l10n->get("cart_vat") . " " . $value["vat"] . ")"
+        "(" . $value["singlePrice"] . " + " . $value['vatName'] . " " . $value["vat"] . ")"
         :
         $value["singlePricePlusVat"]
         )
@@ -88,12 +88,12 @@ if (isset($orderData['products']) && is_array($orderData['products'])) {
     // Total Amount
     switch ($settings['vat_type']) {
         case "excluded":
-            echo "\n" . $l10n->get('cart_vat') . ": " . $orderData['totalVat'] . "\n";
-            echo $l10n->get('cart_total_vat') . ": " . $orderData['totalPricePlusVat'] . "\n";
+            echo "\n" . $orderData['vatName'] . ": " . $orderData['totalVat'] . "\n";
+            echo str_replace('[NAME]', $orderData['vatName'], $l10n->get('cart_total_vat')) . ": " . $orderData['totalPricePlusVat'] . "\n";
         break;
         case "included":
-            echo "\n" . $l10n->get('cart_total_vat') . ": " . $orderData['totalPricePlusVat'] . "\n";
-            echo $l10n->get('cart_vat_included') . ": " . $orderData['totalVat'] . "\n";
+            echo "\n" . str_replace('[NAME]', $orderData['vatName'], $l10n->get('cart_total_vat')) . ": " . $orderData['totalPricePlusVat'] . "\n";
+            echo str_replace('[NAME]', $orderData['vatName'], $l10n->get("cart_vat_included")) . ": " . $orderData['totalVat'] . "\n";
         break;
         case "none":
             echo "\n" . $l10n->get('cart_total_price') . ": " . $orderData['totalPricePlusVat'] . "\n";

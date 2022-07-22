@@ -11,12 +11,11 @@ $imSettings['general'] = array(
 	'url' => 'https://mebelink.ml/',
 	'homepage_url' => 'https://mebelink.ml/index.html',
 	'icon' => 'https://mebelink.ml/favImage.png',
-	'version' => '2021.3.5.0',
+	'version' => '2022.2.6.0',
 	'sitename' => 'Студия мебели «Mebelink»',
 	'lang_code' => 'ru-RU',
 	'public_folder' => '',
 	'salt' => 'vmztql83h0o37m362d12kf5fnodp5tknvksu4wtyk888sdp935l0',
-	'use_common_email_sender_address' => false,
 	'common_email_sender_addres' => ''
 );
 /*
@@ -37,8 +36,8 @@ $imSettings['password_policy'] = array(
 |	Captcha
 |-------------------------------
 */ImTopic::$captcha_code = "		<div class=\"x5captcha-wrap\">
-			<label for=\"uz643oow-imCpt\">Проверочное слово:</label><br />
-			<input type=\"text\" id=\"uz643oow-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
+			<label for=\"3pshipdc-imCpt\">Проверочное слово:</label><br />
+			<input type=\"text\" id=\"3pshipdc-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
 		</div>
 ";
 
@@ -143,13 +142,17 @@ $ecommerce->setShippingData(array(
 		'id' => 'j48dn4la',
 		'name' => 'почтой',
 		'description' => 'Товары будут доставлены в течение 3-5 дней.',
-		'email_text' => 'Доставка почтой.\\nТовары будут доставлены в течение 3-5 дней.'
+		'email_text' => 'Доставка почтой.\\nТовары будут доставлены в течение 3-5 дней.',
+		'enable_tracking' => false,
+		'tracking_url' => ''
 	),
 	'hdj47dut' => array(
 		'id' => 'hdj47dut',
 		'name' => 'службой экспресс-доставки',
 		'description' => 'Товары будут доставлены в течение 1-2 дней.',
-		'email_text' => 'Доставка службой экспресс-доставки.\\nТовары будут доставлены в течение 1-2 дней.'
+		'email_text' => 'Доставка службой экспресс-доставки.\\nТовары будут доставлены в течение 1-2 дней.',
+		'enable_tracking' => false,
+		'tracking_url' => ''
 	)));
 
 /*

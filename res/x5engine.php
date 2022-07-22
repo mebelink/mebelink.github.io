@@ -1333,7 +1333,7 @@ class imBlog
             $this->showPosts($results, $start, $length, $count);
             $this->paginate("?search=" . $search . "&", $start, $length, $count);
         } else {
-            echo "<div class=\"imBlogEmpty\">Empty search</div>";
+            echo "<div class=\"imBlogEmpty\">" . l10n('search_empty') . "</div>";
         }
     }
 
@@ -1756,7 +1756,7 @@ class X5Captcha {
           <body style=\"margin: 0; padding: 0; border-collapse: collapse;\">";
 
         for ($i = 0; $i < strlen($sCode); $i++) {
-            $text .= "<img style=\"margin:0; padding:0; border: 0; border-collapse: collapse; width: 24px; height: 24px; position: absolute; top: 0; left: " . (24 * $i) . "px;\" src=\"imcpa_".$this->nameList[substr($sCode, $i, 1)].".gif\" width=\"24\" height=\"24\">";
+            $text .= "<img style=\"margin:0; padding:0; border: 0; border-collapse: collapse; width: 32px; height: 32px; position: absolute; top: 0; left: " . (32 * $i) . "px;\" src=\"imcpa_".$this->nameList[substr($sCode, $i, 1)].".gif\" width=\"32\" height=\"32\">";
         }
 
         $text .= "</body></html>";
@@ -2512,7 +2512,7 @@ class ImCart {
      *
      * @return boolean
      */
-    private function sendOrderEmail($isOwner, $from, $to, $filters = array())
+    private function sendOrderEmail($isOwner, $from, $replyTo, $to, $filters = array())
     {
         global $imSettings;
         global $ImMailer;
@@ -2582,7 +2582,11 @@ class ImCart {
             $attachments[] = array("name" => "user_data.csv", "content" => $userDataCSV, "mime" => "text/csv");
             $attachments[] = array("name" => "order_data.csv", "content" => $orderDataCSV, "mime" => "text/csv");
         }
-        return $ImMailer->send($from, $to, l10n('cart_order_no') . " " . $this->orderData['orderNo'], $txtMsg, $htmlMsg, $attachments);
+        if ($isOwner) {
+            return $ImMailer->send($from, $replyTo, $to, l10n('cart_order_no') . " " . $this->orderData['orderNo'], $txtMsg, $htmlMsg, $attachments);
+        } else {
+            return $ImMailer->send($from, $replyTo, $to, str_replace('[ORDER_ID]', $this->orderData['orderNo'], l10n('cart_email_obj_order')), $txtMsg, $htmlMsg, $attachments);
+        }
     }
 
     /**
@@ -2593,7 +2597,11 @@ class ImCart {
     public function sendOwnerEmail()
     {
         global $imSettings;
-        return $this->sendOrderEmail(true, $imSettings['general']['use_common_email_sender_address'] ? $imSettings['general']['common_email_sender_addres'] : $this->settings['owner_email'], $this->settings['owner_email']);
+        $replyTo = '';
+        if (isset($this->orderData['userInvoiceData']['Email']['value'])) {
+            $replyTo = $this->orderData['userInvoiceData']['Email']['value'];
+        }
+        return $this->sendOrderEmail(true, $imSettings['general']['common_email_sender_addres'], $replyTo, $this->settings['owner_email']);
     }
 
     /**
@@ -2623,7 +2631,7 @@ class ImCart {
                 )
             )
         ) : array();
-        return $this->sendOrderEmail(false, $imSettings['general']['use_common_email_sender_address'] ? $imSettings['general']['common_email_sender_addres'] : $this->settings['owner_email'], $this->orderData['userInvoiceData']['Email']['value'], $filters);
+        return $this->sendOrderEmail(false, $imSettings['general']['common_email_sender_addres'], $this->settings['owner_email'], $this->orderData['userInvoiceData']['Email']['value'], $filters);
     }
 
 
@@ -2666,7 +2674,7 @@ class ImCart {
                 )
             )
         );
-        return $this->sendOrderEmail(false, $imSettings['general']['use_common_email_sender_address'] ? $imSettings['general']['common_email_sender_addres'] : $this->settings['owner_email'], $this->orderData['userInvoiceData']['Email']['value'], $filters);
+        return $this->sendOrderEmail(false, $imSettings['general']['common_email_sender_addres'], $this->settings['owner_email'], $this->orderData['userInvoiceData']['Email']['value'], $filters);
     }
 
     /**
@@ -2681,6 +2689,13 @@ class ImCart {
         $imSettings = Configuration::getSettings();
 
         $order = $this->getOrder($orderId);
+        $shipping_data = array();
+        if (isset($order['order']['shipping_id'])) {
+            $shipping_data = Configuration::getCart()->getShippingData([$order['order']['shipping_id']]);
+	        if (sizeof($shipping_data) > 0) {
+                $shipping_data = $shipping_data[$order['order']['shipping_id']];
+            }
+        }
 
         // Do not send if this order does not contain physical products
         $products = array();
@@ -2702,6 +2717,7 @@ class ImCart {
             $template->opening = $this->settings['email_physical_shipment_opening'];
             $template->closing = $this->settings['email_physical_shipment_closing'];
             $template->orderData = $order;
+            $template->shippingData = $shipping_data;
             $template->products = $products;
             $template->baseurl = $imSettings['general']['url'];
             $template->l10n = Configuration::getLocalizations();
@@ -2714,6 +2730,7 @@ class ImCart {
             $template->opening = $this->settings['email_physical_shipment_opening'];
             $template->closing = $this->settings['email_physical_shipment_closing'];
             $template->orderData = $order;
+            $template->shippingData = $shipping_data;
             $template->products = $products;
             $template->baseurl = $imSettings['general']['url'];
             $template->l10n = Configuration::getLocalizations();
@@ -2724,7 +2741,8 @@ class ImCart {
         if (!isset($imSettings['general'])) {
             return false;
         }
-        $from = $imSettings['general']['use_common_email_sender_address'] ? $imSettings['general']['common_email_sender_addres'] : $this->settings['owner_email'];
+        $from = $imSettings['general']['common_email_sender_addres'];
+        $replyTo = $this->settings['owner_email'];
         // Detect the user address
         $to = "";
         foreach ($order['invoice'] as $field) {
@@ -2736,7 +2754,7 @@ class ImCart {
         if (!strlen($to)) {
             return false;
         }
-        return $ImMailer->send($from, $to, l10n('cart_order_no') . " " . $orderId, $text, $html);
+        return $ImMailer->send($from, $replyTo, $to, str_replace('[ORDER_ID]', $orderId, l10n('cart_email_obj_processed')), $text, $html);
     }
 
     /**
@@ -2793,7 +2811,8 @@ class ImCart {
 
         // Send the email
 
-        $from = $imSettings['general']['use_common_email_sender_address'] ? $imSettings['general']['common_email_sender_addres'] : $this->settings['owner_email'];
+        $from = $imSettings['general']['common_email_sender_addres'];
+        $replyTo = $this->settings['owner_email'];
         // Detect the user address
         $to = "";
         foreach ($order['invoice'] as $field) {
@@ -2805,7 +2824,7 @@ class ImCart {
         if (!strlen($to)) {
             return false;
         }
-        return $ImMailer->send($from, $to, l10n('cart_order_no') . " " . $orderId, $text, $html);
+        return $ImMailer->send($from, $replyTo, $to, str_replace('[ORDER_ID]', $orderId, l10n('cart_email_obj_processed')), $text, $html);
     }
 
     private function getEncodedOrderDataAndCleanIt()
@@ -3010,17 +3029,22 @@ class ImCart {
                     "ip" => array('type' => 'VARCHAR(45)'),
                     "price" => array('type' => 'FLOAT'),
                     "vat" => array('type' => 'FLOAT'),
+                    "vat_name" => array('type' => 'VARCHAR(64)'),
                     "price_plus_vat" => array('type' => 'FLOAT'),
                     "currency" => array('type' => 'VARCHAR(4)'),
+                    "shipping_id" => array('type' => 'VARCHAR(16)'),
                     "shipping_name" => array('type' => 'VARCHAR(128)'),
                     "shipping_icon" => array('type' => 'VARCHAR(128)'),
                     "shipping_price" => array('type' => 'FLOAT'),
                     "shipping_vat" => array('type' => 'FLOAT'),
+                    "shipping_vat_name" => array('type' => 'VARCHAR(64)'),
                     "shipping_price_plus_vat" => array('type' => 'FLOAT'),
+                    "payment_id" => array('type' => 'VARCHAR(16)'),
                     "payment_name" => array('type' => 'VARCHAR(128)'),
                     "payment_icon" => array('type' => 'VARCHAR(128)'),
                     "payment_price" => array('type' => 'FLOAT'),
                     "payment_vat" => array('type' => 'FLOAT'),
+                    "payment_vat_name" => array('type' => 'VARCHAR(64)'),
                     "payment_price_plus_vat" => array('type' => 'FLOAT'),
                     "coupon" => array("type" => "VARCHAR(32)"),
                     "coupon_value" => array('type' => 'FLOAT'),
@@ -3028,7 +3052,9 @@ class ImCart {
                     "availability_reduction_type" => array("type" => "INT(11)"),
                     "status" => array("type" => "VARCHAR(16)", "more" => "DEFAULT 'inbox'"),
                     "contains_digital_products" => array("type" => "INT(1)"),
-                    "payment_data" => array("type" => "VARCHAR(128)", "more" => "DEFAULT ''")
+                    "payment_data" => array("type" => "VARCHAR(128)", "more" => "DEFAULT ''"),
+                    "tracking_code" => array('type' => 'VARCHAR(128)', "more" => "NULL"),
+                    "evaded_ts" => array('type' => 'TIMESTAMP', "more" => "NULL")
                 )
             );
             $this->db->createTable(
@@ -3040,6 +3066,7 @@ class ImCart {
                     "suboption" => array('type' => 'VARCHAR(128)', 'primary' => true),
                     "price" => array('type' => 'FLOAT'),
                     "vat" => array('type' => 'FLOAT'),
+                    "vat_name" => array('type' => 'VARCHAR(64)'),
                     "price_plus_vat" => array('type' => 'FLOAT'),
                     "quantity" => array('type' => 'INT(11)'),
                     "name" => array('type' => 'TEXT'),
@@ -3127,17 +3154,22 @@ class ImCart {
                 'vat_type' => $this->settings['vat_type'],
                 'price' => $this->orderData['rawTotalPrice'],
                 'vat' => $this->orderData['rawTotalVat'],
+                'vat_name' => $this->orderData['vatName'],
                 'price_plus_vat' => $this->orderData['rawTotalPricePlusVat'],
                 'currency' => $this->orderData['currency'],
+                'shipping_id' => (isset($this->orderData['shipping']) ? $this->orderData['shipping']['id'] : ''),
                 'shipping_name' => (isset($this->orderData['shipping']) ? $this->orderData['shipping']['name'] : ''),
                 'shipping_icon' => (isset($this->orderData['shipping']) ? $this->orderData['shipping']['icon'] : ''),
                 'shipping_price' => (isset($this->orderData['shipping']) ? $this->orderData['shipping']['rawPrice'] : 0),
                 'shipping_vat' => (isset($this->orderData['shipping']) ? $this->orderData['shipping']['rawVat'] : 0),
+                'shipping_vat_name' => (isset($this->orderData['shipping']) ? $this->orderData['shipping']['vatName'] : 0),
                 'shipping_price_plus_vat' => (isset($this->orderData['shipping']) ? $this->orderData['shipping']['rawPricePlusVat'] : 0),
+                'payment_id' => (isset($this->orderData['payment']) ? $this->orderData['payment']['id'] : ''),
                 'payment_name' => (isset($this->orderData['payment']) ? $this->orderData['payment']['name'] : ''),
                 'payment_icon' => (isset($this->orderData['payment']) ? $this->orderData['payment']['icon'] : ''),
                 'payment_price' => (isset($this->orderData['payment']) ? $this->orderData['payment']['rawPrice'] : 0),
                 'payment_vat' => (isset($this->orderData['payment']) ? $this->orderData['payment']['rawVat'] : 0),
+                'payment_vat_name' => (isset($this->orderData['payment']) ? $this->orderData['payment']['vatName'] : 0),
                 'payment_price_plus_vat' => (isset($this->orderData['payment']) ? $this->orderData['payment']['rawPricePlusVat'] : 0),
                 'coupon' => (isset($this->orderData['coupon']) ? $this->orderData['coupon'] : ''),
                 'coupon_value' => (isset($this->orderData['rawCouponDiscount']) ? $this->orderData['rawCouponDiscount'] : 0),
@@ -3174,6 +3206,7 @@ class ImCart {
                         'suboption' => (isset($product['suboption']) ? $product['suboption'] : ''),
                         'price' => $product['rawPrice'],
                         'vat' => $product['rawVat'],
+                        'vat_name' => $product['vatName'],
                         'price_plus_vat' => $product['rawPricePlusVat'],
                         'quantity' => $product['quantity'],
                         'name' => $product['name'],
@@ -3576,6 +3609,7 @@ class ImCart {
             'rawCouponDiscount' => $order['order']['coupon_value'],
             'currency' => $this->priceFormat['currency_code'],
             'shipping' => array(
+                'id' => $order['order']['shipping_id'],
                 'name' => $order['order']['shipping_name'],
                 'description' => $shipping['description'],
                 'icon' => $order['order']['shipping_icon'],
@@ -3585,6 +3619,7 @@ class ImCart {
                 'rawVat' => $order['order']['shipping_vat']
             ),
             'payment' => array(
+                'id' => $order['order']['payment_id'],
                 'name' => $order['order']['payment_name'],
                 'description' => $payment['description'],
                 'icon' => $order['order']['payment_icon'],
@@ -3595,7 +3630,8 @@ class ImCart {
                 'enableAfterPaymentEmail' => $payment['enableAfterPaymentEmail'],
             ),
             'userInvoiceData' => array(),
-            'products' => array()
+            'products' => array(),
+            'tracking_code' => $order['order']['tracking_code']
         );
         $orderData['totalPrice'] = $this->applyPriceFormat($orderData['rawTotalPrice']);
         $orderData['totalToPay'] = $this->applyPriceFormat($orderData['rawTotalPrice']); // FIXME idk diff between totalPrice and totalToPay... maybe coupon are applyed to totaltopay
@@ -4082,10 +4118,11 @@ class ImCart {
      * Evade the order
      *
      * @param  String $id The order id
-     *
+     * @param  String $payment_data 
+     * @param  String|null $tracking_code The tracking code
      * @return Void
      */
-    public function evadeOrder($id, $payment_data = '')
+    public function evadeOrder($id, $payment_data = '', $tracking_code = null)
     {
         // Check the order status
         $result = $this->db->select(array(
@@ -4099,7 +4136,7 @@ class ImCart {
         // Update the order status
         $this->db->update(array(
             'update' => $this->table_prefix . $this->settings['orders_table'],
-            'set' => array('status' => 'evaded', 'payment_data' => $payment_data),
+            'set' => array('status' => 'evaded', 'evaded_ts' => date("Y-m-d H:i:s"), 'payment_data' => $payment_data, 'tracking_code' => $tracking_code),
             'where' => array('id' => $id)
         ));
         // Send the emails
@@ -4143,7 +4180,7 @@ class ImCart {
         // Update the order status
         $this->db->update(array(
             'update' => $this->table_prefix . $this->settings['orders_table'],
-            'set' => array('status' => 'inbox'),
+            'set' => array('status' => 'inbox', 'evaded_ts' => null, 'tracking_code' => null),
             'where' => array('id' => $id)
         ));
         // If the availability reduction type is postponed, update the products quantity
@@ -4216,12 +4253,14 @@ class ImCart {
             'where' => array('id' => $id)
         ));
         if (count($count) > 0) {
-            $newQuantity = max(0, $count[0]['quantity'] + $quantity); // Make sure that the minimum quantity is always 0
-            $this->db->update(array(
-                'update' => $table,
-                'set' => array('quantity' => $newQuantity),
-                'where' => array('id' => $id)
-            ));
+            if ($quantity != 0) {
+                $newQuantity = max(0, $count[0]['quantity'] + $quantity); // Make sure that the minimum quantity is always 0
+                $this->db->update(array(
+                    'update' => $table,
+                    'set' => array('quantity' => $newQuantity),
+                    'where' => array('id' => $id)
+                ));
+            }
         } else {
             // Do not allow negative quantities at first
             $this->db->insert(array(
@@ -4458,7 +4497,7 @@ class ImCart {
                 'from' => $this->table_prefix . $this->settings['dynamicproducts_table'],
                 'where' => array('id' => $id)
             ));
-            if (count($result)) {
+            if (is_array($result) && count($result)) {
                 if ($result[0]['quantity'] > 0 && $result[0]['quantity'] >= $result[0]['warninglimit']) {
                     return "available";
                 }
@@ -4629,6 +4668,17 @@ class ImCart {
         return $productsData;
     }
 
+    public function getShippingData($ids = array())
+    {
+        $shippingData = array();
+        foreach ($ids as $id) {
+            if (isset($this->shippings[$id])) {
+                $shippingData[$id] = $this->shippings[$id];
+            }
+        }
+        return $shippingData;
+    }
+
     private function normalizeProductIdsInput($ids)
     {
         if (is_string($ids) && strlen($ids) > 0) {
@@ -4695,6 +4745,11 @@ class ImCart {
                 $additionalData['dynamicAvailValue'] = $row['quantity'] <= 0 ? 'notavailable' : ($row['quantity'] < $row['warninglimit'] ? 'lacking' : 'available');
                 $additionalData['availableItems'] = $row['quantity'];
                 $additionalData['availablilityWarningLimit'] = $row['warninglimit'];
+            }
+            else {
+                $additionalData['dynamicAvailValue'] = 'notavailable';
+                $additionalData['availableItems'] = 0;
+                $additionalData['availablilityWarningLimit'] = 0;
             }
         }
 
@@ -7311,6 +7366,7 @@ class ImForm
      * Send the email to the site's owner
      * 
      * @param  string  $from
+     * @param  string  $replyTo
      * @param  string  $to
      * @param  string  $subject
      * @param  string  $text    The email body
@@ -7318,7 +7374,7 @@ class ImForm
      * 
      * @return boolean
      */
-    function mailToOwner($from, $to, $subject, $text, $csv = false)
+    function mailToOwner($from, $replyTo, $to, $subject, $text, $csv = false)
     {
         global $ImMailer;
 
@@ -7389,13 +7445,14 @@ class ImForm
                 'mime' => $file['value']['type']
             );
         }
-        return $ImMailer->send($from, $to, $subject, $txtData, $htmData, $attachments);
+        return $ImMailer->send($from, $replyTo, $to, $subject, $txtData, $htmData, $attachments);
     }
 
     /**
      * Send the email to the site's customer
      * 
      * @param  string  $from
+     * @param  string  $reolyTo
      * @param  string  $to
      * @param  string  $subject
      * @param  string  $text    The email body
@@ -7403,7 +7460,7 @@ class ImForm
      * 
      * @return boolean
      */
-    function mailToCustomer($from, $to, $subject, $text, $csv = false)
+    function mailToCustomer($from, $replyTo, $to, $subject, $text, $csv = false)
     {
         global $ImMailer;
 
@@ -7461,7 +7518,7 @@ class ImForm
             $htmData .= "</table>\n";
         }
         
-        return $ImMailer->send($from, $to, $subject, $txtData, $htmData);
+        return $ImMailer->send($from, $replyTo, $to, $subject, $txtData, $htmData);
     }
 }
 
@@ -8588,13 +8645,8 @@ class imPrivateArea
             return;
 
         // ---------------------------------------------------
-        //  WSXELE-898: Find the correct email sender address
-        $from = $this->admin_email;
-        if ($imSettings['general']['use_common_email_sender_address']) {
-            $from = $imSettings['general']['common_email_sender_addres'];
-        } else if (strlen($user['email'])) {
-            $from = $user['email'];
-        }
+        $from = $imSettings['general']['common_email_sender_addres'];
+        $replyTo = $user['email'];
         // ---------------------------------------------------
 
         $subject = str_replace("[FIELD]", $imSettings['general']['url'], l10n("private_area_newregistration_subject", "A new user registered to your private area at [FIELD]"));
@@ -8609,7 +8661,7 @@ class imPrivateArea
         $html .= "<b>" . l10n("private_area_ip", "IP") . ":</b> " . $user['ip'] . "<br />\n";
         $html .= "<b>" . l10n("private_area_ts", "Time") . ":</b> " . $user['ts'] . "<br />\n";
 
-        $ImMailer->send($from, $this->admin_email, $subject, strip_tags($html), $html);
+        $ImMailer->send($from, $replyTo, $this->admin_email, $subject, strip_tags($html), $html);
     }
 
     /**
@@ -8632,11 +8684,8 @@ class imPrivateArea
             return;
 
         // ---------------------------------------------------
-        //  WSXELE-898: Find the correct email sender address
-        $from = $this->admin_email;
-        if ($imSettings['general']['use_common_email_sender_address']) {
-            $from = $imSettings['general']['common_email_sender_addres'];
-        }
+        $replyTo = $this->admin_email;
+        $from = $imSettings['general']['common_email_sender_addres'];
         // ---------------------------------------------------
 
         $subject = str_replace("[FIELD]", $imSettings['general']['url'], l10n("private_area_validation_subject", "Validate your account on [FIELD]"));
@@ -8645,7 +8694,7 @@ class imPrivateArea
         $html .= $imSettings['general']['url'] . "imlogin.php?validate=" . $user['key'];
         $html .= "</a>";
 
-        $ImMailer->send($from, $user['email'], $subject, strip_tags($html), $html);
+        $ImMailer->send($from, $replyTo, $user['email'], $subject, strip_tags($html), $html);
     }
 
     /**
@@ -8666,11 +8715,8 @@ class imPrivateArea
 
         if ($user) {
             // ---------------------------------------------------
-            //  WSXELE-898: Find the correct email sender address
-            $from = $this->admin_email;
-            if ($imSettings['general']['use_common_email_sender_address']) {
-                $from = $imSettings['general']['common_email_sender_addres'];
-            }
+            $replyTo = $this->admin_email;
+            $from = $imSettings['general']['common_email_sender_addres'];
             // ---------------------------------------------------
 
             if ($user['db_stored']) {
@@ -8699,7 +8745,7 @@ class imPrivateArea
                 ));
             }
 
-            $ImMailer->send($from, $emailTo, $subject, strip_tags($html), $html);
+            $ImMailer->send($from, $replyTo, $emailTo, $subject, strip_tags($html), $html);
             return true;
         }
         return false;
@@ -9403,6 +9449,7 @@ class imSearch {
             $weight = 0;
             $t_title = strip_tags(imstrtolower($product['name']));
             $t_description = strip_tags(imstrtolower($product['description']));
+            $t_sku = strip_tags(imstrtolower($product['sku']));
 
             // Conto il numero di match nel titolo
             foreach ($queries as $query) {
@@ -9416,6 +9463,15 @@ class imSearch {
             // Conto il numero di match nella descrizione
             foreach ($queries as $query) {
                 $t_count = preg_match_all('/' . preg_quote($query, '/') . '/', $t_description, $matches);
+                if ($t_count !== false) {
+                    $weight++;
+                    $count += $t_count;
+                }
+            }
+
+            // Conto il numero di match nello SKU
+            foreach ($queries as $query) {
+                $t_count = preg_match_all('/' . preg_quote($query, '/') . '/', $t_sku, $matches);
                 if ($t_count !== false) {
                     $weight++;
                     $count += $t_count;
@@ -9862,7 +9918,7 @@ class ImSendEmail
      *
      * @return boolean
      */
-    function send($from = "", $to = "", $subject = "", $text = "", $html = "", $attachments = array())
+    function send($from = "", $replyTo = "", $to = "", $subject = "", $text = "", $html = "", $attachments = array())
     {
         /*
         |--------------
@@ -9890,6 +9946,11 @@ class ImSendEmail
             $email->Subject = $subject;
             $email->From = addressFromEmail($from);
             $email->FromName = nameFromEmail($from);
+            $replyTo = addressFromEmail($replyTo);
+            if (strlen($replyTo) !== 0 && $email->From !== $replyTo) {
+                $email->addReplyTo($replyTo);
+            }
+
             // WSXELE-1120: Split the email addresses if necessary
             $to = str_replace(";", ",", $to); // Make sure it works for both "," and ";" separators
             foreach (explode(",", $to) as $addr) {
@@ -9919,7 +9980,7 @@ class ImSendEmail
         |--------------
          */
 
-        $email = new imEMail($from, $to, $subject, "utf-8");
+        $email = new imEMail($from, $replyTo, $to, $subject, "utf-8");
         $email->setExpose($this->exposeWsx5);
         $email->setText($text);
         $email->setHTML($this->header . $this->styleHTML($html) . $this->footer);
@@ -10352,15 +10413,8 @@ class ImTopic
         // Send the notification email
         if ($to != "") {
             // ---------------------------------------------------
-            //  WSXELE-898: Find the correct email sender address
-            $from = "";
-            if ($imSettings['general']['use_common_email_sender_address']) {
-                $from = $imSettings['general']['common_email_sender_addres'];
-            } else if (strlen($comment['email'])) {
-                $from = $comment['email'];
-            } else {
-                $from = $to;
-            }
+            $from = $imSettings['general']['common_email_sender_addres'];
+            $replyTo = $comment['email'];
             // ---------------------------------------------------
 
             if ($type == "guestbook")
@@ -10386,7 +10440,7 @@ class ImTopic
                 $subject = str_replace(array("Blog", "blog"), array($this->title, $this->title), l10n('blog_new_comment_object'));
             else
                 $subject = l10n('blog_new_comment_object');
-            $ImMailer->send($from, $to, $subject, strip_tags($html), $html);
+            $ImMailer->send($from, $replyTo, $to, $subject, strip_tags($html), $html);
         }
 
         // Redirect
@@ -10777,12 +10831,12 @@ class ImTopic
                     //check to make sure that the text does not exceed the maximum font size. If it passes I cut the text
                     $body = $comment['body'];
                     if ( function_exists("mb_strlen") ) {
-                        if ( mb_strlen( $comment['body']) > 1500 ) {
+                        if ( mb_strlen( str_replace(array("<br>", "<br />"), "", $comment['body']) ) > 1500 ) {
                             $body = mb_substr($comment['body'], 0, 1500) . '...';
                         }
                     }
                     else {
-                        if ( strlen( $comment['body']) > 1500 ) {
+                        if ( strlen( str_replace(array("<br>", "<br />"), "", $comment['body']) ) > 1500 ) {
                             $body = substr($comment['body'], 0, 1500) . '...';
                         }
                     }
@@ -10854,7 +10908,7 @@ class ImTopic
         }
 
         echo "<div class=\"pagination-container\">\n";
-        $anchor = "?#" .$this->id . "-topic-summary";
+        $anchor = "#" .$this->id . "-topic-summary";
         $interval = floor($this->paginationNumbers / 2);
         
         if ( $currentPage > 0 ) {
@@ -11183,7 +11237,8 @@ class imXML
  */
 function imPrintJsError($docType = true)
 {
-    return imPrintError(l10n('form_js_error'), $docType);
+    $message = l10n('form_js_error') . "<br />" . l10n('form_js_error_redirect');
+    return imPrintError($message, $docType);
 }
 
 /**

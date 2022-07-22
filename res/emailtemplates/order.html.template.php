@@ -123,7 +123,7 @@
                     </td>
                     <?php if ($vat): ?>
                         <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; min-width: 70px; color: [email:bodyTextColorOdd]">
-                            <b><?php echo ($settings['vat_type'] == "included" ? $l10n->get("cart_vat_included") : $l10n->get("cart_vat")) ?></b>
+                            <b><?php echo ($settings['vat_type'] == "included" ? str_replace('[NAME]', $orderData['vatName'], $l10n->get("cart_vat_included")) : $orderData['vatName']) ?></b>
                         </td>
                     <?php endif; ?>
                     <td  style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; color: [email:bodyTextColorOdd]">
@@ -189,21 +189,21 @@
                         <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;"><?php echo $orderData['totalPrice'] ?></td>
                     </tr>
                     <tr>
-                        <td colspan="<?php echo $colspan; ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo $l10n->get('cart_vat') ?></td>
+                        <td colspan="<?php echo $colspan; ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo $orderData['vatName'] ?></td>
                         <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;"><?php echo $orderData['totalVat'] ?></td>
                     </tr>
                     <tr>
-                        <td colspan="<?php echo $colspan; ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo $l10n->get('cart_total_vat') ?></td>
+                        <td colspan="<?php echo $colspan; ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo str_replace('[NAME]', $orderData['vatName'], $l10n->get('cart_total_vat')) ?></td>
                         <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;"><?php echo $orderData['totalPricePlusVat'] ?></td>
                     </tr>
                         <?php break;
                         case "included": ?>
                     <tr>
-                        <td colspan="<?php echo $colspan; ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo $l10n->get('cart_total_vat') ?></td>
+                        <td colspan="<?php echo $colspan; ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo str_replace('[NAME]', $orderData['vatName'], $l10n->get('cart_total_vat')) ?></td>
                         <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;"><?php echo $orderData['totalPricePlusVat'] ?></td>
                     </tr>
                     <tr>
-                        <td colspan="<?php echo $colspan; ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo $l10n->get('cart_vat_included') ?></td>
+                        <td colspan="<?php echo $colspan; ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo str_replace('[NAME]', $orderData['vatName'], $l10n->get("cart_vat_included")) ?></td>
                         <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;"><?php echo $orderData['totalVat'] ?></td>
                     </tr>
                         <?php break;

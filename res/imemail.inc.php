@@ -3,6 +3,7 @@
   
 	class imEMail {
 		var $from;
+		var $replyTo;
 		var $to;
 		var $subject;
 		var $charset;
@@ -14,8 +15,11 @@
 		
 		var $attachments;
 		
-		function __construct($from,$to,$subject,$charset) {
+		function __construct($from,$replyTo,$to,$subject,$charset) {
 			$this->from = $from;
+			if (strlen($replyTo) !== 0 && $from !== $replyTo) {
+				$this->replyTo = $replyTo;
+			}
 			$this->to = $to;
 			$this->charset = $charset;
 			$this->subject = strlen($subject) ? "=?" . strtoupper($this->charset) . "?B?". base64_encode($subject) . "?=" : "";
@@ -36,6 +40,10 @@
 		
 		function setFrom($from) {
 			$this->from = $from;
+		}
+
+		function setReplyTo($replyTo) {
+			$this->replyTo = $replyTo;
 		}
 		
 		function setTo($to) {
@@ -89,6 +97,9 @@
 				$boundary_alt = md5(time() . "_alternative");			
 
 				$headers .= "From: " . $this->from . $this->newline;
+				if (strlen($this->replyTo) !== 0) {
+					$headers .= "Reply-To: " . $this->replyTo . $this->newline;
+				}
 				$headers .= "Message-ID: <" . time() . rand(0,9) . rand(0,9) . "@" . ($this->exposeWsx5 ? "websitex5" : rand(100,200)) . ".users>" . $this->newline;
 				$headers .= "X-Mailer: " . ($this->exposeWsx5 ? "WebSiteX5 Mailer" : "PHP") . $this->newline;
 				

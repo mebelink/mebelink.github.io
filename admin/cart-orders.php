@@ -19,7 +19,8 @@ if (isset($_GET['inbox'])) {
 	$ecommerce->moveOrderToInbox($_GET['inbox']);
 }
 if (isset($_GET['evade'])) {
-	$ecommerce->evadeOrder($_GET['evade']);
+	$tracking_code = (isset($_GET['track_code']) && $_GET['track_code'] !== '') ? $_GET['track_code'] : null;
+	$ecommerce->evadeOrder($_GET['evade'], '', $tracking_code);
 }
 if (isset($_GET['unevade'])) {
 	$ecommerce->unevadeOrder($_GET['unevade']);
@@ -39,9 +40,21 @@ $pagination_length = 15;
 $pagination_start = (isset($_GET['page']) ? $_GET['page'] * $pagination_length : 0);
 $orders = $ecommerce->getOrders($pagination_start, $pagination_length, @$_GET['search'], $status);
 
+// load the shipping data from the configuration
+foreach ($orders['orders'] as &$order) {
+	if (isset($order['shipping_id'])) {
+		$shipping_data = Configuration::getCart()->getShippingData([$order['shipping_id']]);
+		if (count($shipping_data) > 0 && isset($shipping_data[$order['shipping_id']])) {
+			$order['shipping_data'] = $shipping_data[$order['shipping_id']];
+		}
+	}
+}
+
+
 // Load the main template
 $mainT = Configuration::getControlPanel()->getMainTemplate();
 $mainT->stylesheets = array("css/cart.css");
+$mainT->scripts = array("js/orders.js");
 $mainT->pagetitle = l10n("admin_cart_title", "E-Commerce");
 $contentT = new Template("templates/common/box.php");
 $contentT->cssClass = "cart";
@@ -68,3 +81,4 @@ $contentT->content .= $tableT->render();
 $mainT->content = $contentT->render();
 
 echo $mainT->render();
+

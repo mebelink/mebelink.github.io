@@ -11,6 +11,7 @@ $ecommerce->deleteTemporaryFiles("../");
 // Load the main template
 $mainT = Configuration::getControlPanel()->getMainTemplate();
 $mainT->stylesheets = array("css/cart.css");
+$mainT->scripts = array("js/orders.js");
 $mainT->pagetitle = l10n("admin_cart_title", "E-Commerce");
 $contentT = new Template("templates/common/box.php");
 $contentT->cssClass = "cart";
@@ -28,7 +29,8 @@ if (isset($_GET['id'])) {
 
 	// Evade the order
 	if (isset($_GET['evade'])) {
-		$ecommerce->evadeOrder($_GET['id']);
+		$tracking_code = (isset($_GET['track_code']) && $_GET['track_code'] !== '') ? $_GET['track_code'] : null;
+		$ecommerce->evadeOrder($_GET['id'], '', $tracking_code);
 		header('Location: cart-order.php?id=' . $_GET['id']);
 		exit();
 	}
@@ -82,6 +84,13 @@ if (isset($_GET['id'])) {
 	// Show the order table
 	$orderArray = $ecommerce->getOrder($_GET['id']);
 	if (count($orderArray)) {
+		if (isset($orderArray['order']['shipping_id'])) {
+			// load the shipping data from the configuration
+			$shipping_data = Configuration::getCart()->getShippingData([$orderArray['order']['shipping_id']]);
+			if (count($shipping_data) > 0 && isset($shipping_data[$orderArray['order']['shipping_id']])) {
+				$orderArray['shipping_data'] = $shipping_data[$orderArray['order']['shipping_id']];
+			}
+		}
 		$orderT = new Template("templates/cart/order.php");
 		$orderT->publicFolder = $imSettings['general']['public_folder'];
 		$orderT->order = $orderArray['order'];

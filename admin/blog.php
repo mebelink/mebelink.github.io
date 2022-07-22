@@ -98,8 +98,8 @@ if (isset($_GET['category'])) {
 }
 $contentT->content .= $selectorsT->render();
 
-$category = isset($_GET['category']) ? $_GET['category'] : "";
-$post = isset($_GET['post']) ? $_GET['post'] : "";
+$category = isset($_GET['category']) ? $_GET['category'] : null;
+$post = isset($_GET['post']) ? $_GET['post'] : null;
 $data = $imSettings['blog'];
 
 //load new template of comments
@@ -114,7 +114,7 @@ $totalComments = [];
 
 $topic = false;
 
-if ($category != "" && $post != "") {
+if ($category !== null && $post !== null) {
     $category = urlencode($category);
 	$topic = new ImTopic($data['file_prefix'] . 'pc' . $post, "", "../");
 	$posturl = $commentsT->baseposturlcategory . $category . $commentsT->baseposturlpost . $post;
@@ -142,7 +142,7 @@ else {
 	$commentsT->showObjectTitle = true;
 	foreach ($data["posts"] as $postid => $currentpost) {
         $currentcategory = $currentpost["category"];
-        if (($post == "" && $category == "") || $currentcategory == $category) {
+        if (($post === null && $category === null) || $currentcategory == $category) {
             $title = $currentpost["title"];
             $topic = new ImTopic($data['file_prefix'] . 'pc' . $postid, "", "../");
             $posturl = $commentsT->baseposturlcategory . $currentcategory . $commentsT->baseposturlpost . $postid;
