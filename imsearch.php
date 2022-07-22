@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="style/print.css?2022-2-6-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?2022-2-6-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?2022-2-6-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?2022-2-6-0-637941082340929014" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?2022-2-6-0-637941092317258444" media="screen,print" />
 		<script src="res/jquery.js?2022-2-6-0"></script>
 		<script src="res/x5engine.js?2022-2-6-0" data-files-version="2022-2-6-0"></script>
 		<script>
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.ico?2022-2-6-0-637941082340858994" type="image/vnd.microsoft.icon" />
+		<link rel="icon" href="favicon.ico?2022-2-6-0-637941092317188435" type="image/vnd.microsoft.icon" />
 		<style>
 		h1, h2, h3, h4, h5, h6 {
 		    font-weight: normal;
@@ -245,6 +245,12 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 
 </div>
 </div><div id="imFooter_imObjectImage_03_wrapper" class="template-object-wrapper"><div id="imFooter_imObjectImage_03"><div id="imFooter_imObjectImage_03_container"><img src="images/metroui1.png" title="" alt="" />
+
+<script>
+	x5engine.boot.push(function () {
+		 x5engine.imagefx.jump('#imFooter_imObjectImage_03_container img', '#imFooter_imObjectImage_03', 10, false);
+	});
+</script>
 </div></div></div><div id="imFooter_imObjectTitle_04_wrapper" class="template-object-wrapper"><div id="imFooter_imObjectTitle_04"><span id ="imFooter_imObjectTitle_04_text" >(097) 527-00-00</span></div></div><div id="imFooter_imObjectTitle_05_wrapper" class="template-object-wrapper"><div id="imFooter_imObjectTitle_05"><span id ="imFooter_imObjectTitle_05_text" >(097) 527-00-00</span></div></div></div>
 					</footer>
 				</div>
