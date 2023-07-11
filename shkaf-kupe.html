@@ -33,7 +33,7 @@
 		<link rel="stylesheet" href="pluginAppObj/pluginAppObj_11_20/custom.css" media="screen, print" />
 		<link rel="stylesheet" href="pluginAppObj/pluginAppObj_11_21/custom.css" media="screen, print" />
 		<link rel="stylesheet" href="pluginAppObj/pluginAppObj_11_22/custom.css" media="screen, print" />
-		<link rel="stylesheet" href="pcss/shkaf-kupe.css?2023-1-5-0-638247087564754497" media="screen,print" />
+		<link rel="stylesheet" href="pcss/shkaf-kupe.css?2023-1-5-0-638247114273655674" media="screen,print" />
 		<script src="res/jquery.js?2023-1-5-0"></script>
 		<script src="res/x5engine.js?2023-1-5-0" data-files-version="2023-1-5-0"></script>
 		<script src="pluginAppObj/pluginAppObj_11_16/main.js"></script>
@@ -46,7 +46,7 @@
 			x5engine.boot.push(function () { x5engine.parallax.start(); });
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.ico?2023-1-5-0-638247087561905741" type="image/vnd.microsoft.icon" />
+		<link rel="icon" href="favicon.ico?2023-1-5-0-638247114272034180" type="image/vnd.microsoft.icon" />
 		<style>
 		h1, h2, h3, h4, h5, h6 {
 		    font-weight: normal;
@@ -393,7 +393,7 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							var w = $('#imObjectGallery_11_24').css('width', '100%').width();
 							$('#imObjectGallery_11_24 img').add('#imObjectGallery_11_24 .imRunner').add('#imObjectGallery_11_24 .imGlContent').add('#imObjectGallery_11_24').css({ width: '', height: '' });
 							$('#imObjectGallery_11_24 .imLeftArrow').add('#imObjectGallery_11_24 .imRightArrow').css('height', '');
-							var imGlContentWidth =  w - 40;
+							var imGlContentWidth =  w - 24;
 							var thumbsSize = Math.round( imGlContentWidth / 3) - 2;
 							if( thumbsSize < 64) { thumbsSize = 64;};
 							if( thumbsSize > 368) { thumbsSize = 368;};
@@ -401,7 +401,7 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							$('#imObjectGallery_11_24 img').width(thumbsSize).height(thumbsSize);
 							$('#imObjectGallery_11_24 .imRunner').width( (thumbsSize + 2) * 8).height(thumbsSize);
 							$('#imObjectGallery_11_24 .imGlContent').css('width', imGlContentWidth);
-							$('#imObjectGallery_11_24 .imRightArrow, #imObjectGallery_11_24 .imLeftArrow').css({ 'width': '40px', height: thumbsSize });
+							$('#imObjectGallery_11_24 .imRightArrow, #imObjectGallery_11_24 .imLeftArrow').css({ 'width': '24px', height: thumbsSize });
 							$('#imObjectGallery_11_24 .imRunner').css('left', 0);
 							x5engine.imSlider.Horizontal("#imObjectGallery_11_24", { "visibleImagesCount": Math.floor(w/(thumbsSize + 2)) });
 						}
