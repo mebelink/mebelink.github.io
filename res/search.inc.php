@@ -34,7 +34,7 @@ $imSettings['search']['images'] = array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_13m4e0xr.webp',
+		'src' => 'images/22.webp',
 		'page' => 'index.html'
 	),
 	array(
