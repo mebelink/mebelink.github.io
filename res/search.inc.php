@@ -41,7 +41,7 @@ $imSettings['search']['images'] = array(
 		'title' => 'Мебель для кабинета',
 		'description' => 'Мебель для кабинета',
 		'location' => '',
-		'src' => 'images/mebel-dlya-kabineta.svg',
+		'src' => 'images/mebel-dlya-kabineta.webp',
 		'page' => 'index.html'
 	),
 	array(
@@ -55,42 +55,42 @@ $imSettings['search']['images'] = array(
 		'title' => 'Кухни',
 		'description' => 'Кухни',
 		'location' => '',
-		'src' => 'images/kuhni.svg',
+		'src' => 'images/kuhni.webp',
 		'page' => 'index.html'
 	),
 	array(
 		'title' => 'Шкафы-купе',
 		'description' => 'Шкафы-купе',
 		'location' => '',
-		'src' => 'images/shkafy-kupe.svg',
+		'src' => 'images/shkafy-kupe.webp',
 		'page' => 'index.html'
 	),
 	array(
 		'title' => 'Мебель для спальни',
 		'description' => 'Мебель для спальни',
 		'location' => '',
-		'src' => 'images/mebel-dlya-spalni.svg',
+		'src' => 'images/mebel-dlya-spalni.webp',
 		'page' => 'index.html'
 	),
 	array(
 		'title' => 'Мебель для детской',
 		'description' => 'Мебель для детской',
 		'location' => '',
-		'src' => 'images/detskaya.svg',
+		'src' => 'images/detskaya.webp',
 		'page' => 'index.html'
 	),
 	array(
 		'title' => 'Прихожие',
 		'description' => 'Прихожие',
 		'location' => '',
-		'src' => 'images/prihozhie.svg',
+		'src' => 'images/prihozhie.webp',
 		'page' => 'index.html'
 	),
 	array(
 		'title' => 'Стенки в гостиную',
 		'description' => 'Стенки в гостиную',
 		'location' => '',
-		'src' => 'images/stenki-v-gostinuyu.svg',
+		'src' => 'images/stenki-v-gostinuyu.webp',
 		'page' => 'index.html'
 	),
 	array(
