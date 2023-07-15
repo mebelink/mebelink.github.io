@@ -48,7 +48,7 @@ $imSettings['search']['images'] = array(
 		'title' => 'Компьютерные столы',
 		'description' => 'Компьютерные столы',
 		'location' => '',
-		'src' => 'images/kompyuternye-stoly.svg',
+		'src' => 'images/kompyuternye-stoly.webp',
 		'page' => 'index.html'
 	),
 	array(
