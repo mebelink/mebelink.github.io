@@ -97,14 +97,14 @@ $imSettings['search']['images'] = array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_13m4e0xr.webp',
+		'src' => 'images/22.webp',
 		'page' => 'mebel-na-zakaz.html'
 	),
 	array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_13m4e0xr.webp',
+		'src' => 'images/22.webp',
 		'page' => 'kuhni.html'
 	),
 	array(
@@ -139,21 +139,21 @@ $imSettings['search']['images'] = array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_13m4e0xr.webp',
+		'src' => 'images/22.webp',
 		'page' => 'shkaf-kupe.html'
 	),
 	array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_3lsfbrg1.webp',
+		'src' => 'images/22_la768gyh.webp',
 		'page' => 'prihozhie.html'
 	),
 	array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_13m4e0xr.webp',
+		'src' => 'images/22.webp',
 		'page' => 'mebel-dlya-detskoj.html'
 	),
 	array(
@@ -174,21 +174,21 @@ $imSettings['search']['images'] = array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_13m4e0xr.webp',
+		'src' => 'images/22.webp',
 		'page' => 'dizajnerskaya-mebel.html'
 	),
 	array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_13m4e0xr.webp',
+		'src' => 'images/22.webp',
 		'page' => 'ceny.html'
 	),
 	array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
-		'src' => 'images/22_13m4e0xr.webp',
+		'src' => 'images/22.webp',
 		'page' => 'foto-mebel.html'
 	)
 );
