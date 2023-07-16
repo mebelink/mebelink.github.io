@@ -23,7 +23,7 @@
 		<link rel="stylesheet" href="style/template.css?2023-1-5-0" media="screen" />
 		
 		<link rel="stylesheet" href="pluginAppObj/imFooter_pluginAppObj_10/custom.css" media="screen, print" />
-		<link rel="stylesheet" href="pcss/imsearch.css?2023-1-5-0-638251424285756943" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?2023-1-5-0-638251427441222885" media="screen,print" />
 		<script src="res/jquery.js?2023-1-5-0"></script>
 		<script src="res/x5engine.js?2023-1-5-0" data-files-version="2023-1-5-0"></script>
 		
@@ -33,7 +33,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.ico?2023-1-5-0-638251424285600700" type="image/vnd.microsoft.icon" />
+		<link rel="icon" href="favicon.ico?2023-1-5-0-638251427440910390" type="image/vnd.microsoft.icon" />
 		<style>
 		h1, h2, h3, h4, h5, h6 {
 		    font-weight: normal;
