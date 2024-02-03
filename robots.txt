@@ -3,4 +3,4 @@ Disallow: /admin
 Disallow: /captcha
 Disallow: /imemail
 
-Sitemap: https://mebelink.ml/sitemap.xml
+Sitemap: https://mebelink.github.io/sitemap.xml
