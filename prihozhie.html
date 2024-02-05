@@ -26,7 +26,7 @@
 		<style type="text/css">#pluginAppObj_12_06 { width: 100%; }</style>
 		<style type="text/css">#pluginAppObj_12_09 { width: 100%; }</style>
 		<style type="text/css">#pluginAppObj_12_10 { width: 100%; }</style>
-		<link rel="stylesheet" href="pcss/prihozhie.css?2023-1-5-0-638426496969078150" media="screen,print" />
+		<link rel="stylesheet" href="pcss/prihozhie.css?2023-1-5-0-638427341825434056" media="screen,print" />
 		<script src="res/jquery.js?2023-1-5-0"></script>
 		<script src="res/x5engine.js?2023-1-5-0" data-files-version="2023-1-5-0"></script>
 		<script>
@@ -34,7 +34,7 @@
 			x5engine.utils.currentPagePath = 'prihozhie.html';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.ico?2023-1-5-0-638426496966403905" type="image/vnd.microsoft.icon" />
+		<link rel="icon" href="favicon.ico?2023-1-5-0-638427341823703421" type="image/vnd.microsoft.icon" />
 		<style>
 		h1, h2, h3, h4, h5, h6 {
 		    font-weight: normal;
@@ -210,61 +210,15 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 						{type: "image", url: "gallery/54.webp", width: 617, height: 414, description: "", thumbUrl: "gallery/54_sb_thumb.webp" },
 						{type: "image", url: "gallery/55.webp", width: 617, height: 414, description: "", thumbUrl: "gallery/55_sb_thumb.webp" }
 						]};
-						function loadimObjectGallery_12_13() {
-							var w = $('#imObjectGallery_12_13').css('width', '100%').width();
-							$('#imObjectGallery_12_13 img').add('#imObjectGallery_12_13 .imRunner').add('#imObjectGallery_12_13 .imGlContent').add('#imObjectGallery_12_13').css({ width: '', height: '' });
-							$('#imObjectGallery_12_13 .imLeftArrow').add('#imObjectGallery_12_13 .imRightArrow').css('height', '');
-							var imObjectGallery_12_13_settings = {};
-							w = Math.min(w, 1150);
-							var hRow = w / 4 - 2;
-								var hGallery = hRow * 2;
-								var wGallery = Math.floor(w/hRow) * hRow ;
-								$('#imObjectGallery_12_13').removeAttr('style').css({ 'width': 'auto' });
-								$('#imObjectGallery_12_13 .imChidGallery').removeAttr('style').removeAttr('style').css({ 'width': wGallery, 'height': hGallery, 'overflow': 'hidden', 'position': 'relative', 'text-align': 'center', 'margin': '0 auto'});
-								$('#imObjectGallery_12_13 .imRunner').removeAttr('style').css({ 'position': 'absolute', 'left': 0, 'top': 0 });
-								$('#imObjectGallery_12_13 .imRunner img').removeAttr('style').css({ 'display': 'block', 'float': 'left', 'min-width': hRow, 'max-width': '276px', 'min-height': hRow, 'max-height': '276px', 'width': hRow , 'height': hRow });
-								$('#imObjectGallery_12_13 .imRunner .imSPage').removeAttr('style').css({ 'float': 'left',	'width': wGallery, 'max-width': '1150px' });
-								imObjectGallery_12_13_settings.fluidMode = false;
-						
-						}
-						x5engine.boot.push(function() {
-							var imObjectGallery_12_13_resizeTo = null,
-								imObjectGallery_12_13_width = 0,
-								isFirstTime = true;
-							loadimObjectGallery_12_13();
-							x5engine.utils.onElementResize(document.getElementById('imObjectGallery_12_13').parentNode, function (rect, target) {
-								if (imObjectGallery_12_13_width == rect.width) {
-									return;
-								}
-								imObjectGallery_12_13_width = rect.width;
-								if (!!imObjectGallery_12_13_resizeTo) {
-									clearTimeout(imObjectGallery_12_13_resizeTo);
-								}
-								imObjectGallery_12_13_resizeTo = setTimeout(function() {
-									if(!isFirstTime) {
-										loadimObjectGallery_12_13();
-									}
-									else {
-										isFirstTime = false;
-									}
-								}, 50);
-							});
-						});
 						</script><div id="imObjectGallery_12_13">
-							<div class="imChidGallery">
-							<div class="imRunner">
-								<div class="imSPage">
-									<a href="gallery/48.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 0, this)"><img src="gallery/48_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
-									<a href="gallery/49.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 1, this)"><img src="gallery/49_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
-									<a href="gallery/50.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 2, this)"><img src="gallery/50_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
-									<a href="gallery/51.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 3, this)"><img src="gallery/51_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
-									<a href="gallery/52.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 4, this)"><img src="gallery/52_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
-									<a href="gallery/53.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 5, this)"><img src="gallery/53_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
-									<a href="gallery/54.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 6, this)"><img src="gallery/54_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
-									<a href="gallery/55.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 7, this)"><img src="gallery/55_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
-								</div>
-							</div>
-							</div>
+							<a href="gallery/48.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 0, this)"><img src="gallery/48_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
+							<a href="gallery/49.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 1, this)"><img src="gallery/49_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
+							<a href="gallery/50.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 2, this)"><img src="gallery/50_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
+							<a href="gallery/51.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 3, this)"><img src="gallery/51_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
+							<a href="gallery/52.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 4, this)"><img src="gallery/52_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
+							<a href="gallery/53.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 5, this)"><img src="gallery/53_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
+							<a href="gallery/54.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 6, this)"><img src="gallery/54_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
+							<a href="gallery/55.webp" onclick="return x5engine.imShowBox(showbox_imObjectGallery_12_13, 7, this)"><img src="gallery/55_thumb.webp" alt="" style="" alt="" width="276" height="276" /></a>
 						</div>
 						</div><div id="imPageRow_5" class="imPageRow">
 						
