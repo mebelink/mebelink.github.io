@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="style/print.css?2023-1-5-0" media="print" />
 		<link rel="stylesheet" href="style/style.css?2023-1-5-0" media="screen,print" />
 		<link rel="stylesheet" href="style/template.css?2023-1-5-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?2023-1-5-0-638443253957183544" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?2023-1-5-0-638443258238086169" media="screen,print" />
 		<script src="res/jquery.js?2023-1-5-0"></script>
 		<script src="res/x5engine.js?2023-1-5-0" data-files-version="2023-1-5-0"></script>
 		<script>
@@ -29,7 +29,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.ico?2023-1-5-0-638443253956856750" type="image/vnd.microsoft.icon" />
+		<link rel="icon" href="favicon.ico?2023-1-5-0-638443258237806340" type="image/vnd.microsoft.icon" />
 		<style>
 		h1, h2, h3, h4, h5, h6 {
 		    font-weight: normal;
@@ -314,7 +314,7 @@ $(function () {$('#imFooter_imMenuObject_03_container > ul > li').not('.imMnMnSe
 </div><div id="imFooter_imTextObject_08_wrapper" class="template-object-wrapper"><div id="imFooter_imTextObject_08">
 	<div data-index="0"  class="text-tab-content grid-prop current-tab "  id="imFooter_imTextObject_08_tab0" style="opacity: 1; ">
 		<div class="text-inner">
-			<div class="imTACenter"><span class="fs11lh1-5 cf1">Более 15 лет в сфере мебельного производства. Стабильное развитие. Внимание и уважение к клиентам. Выверенный ассортимент. Профессионализм всего коллектива. Сотни клиентов по Одессе. Мы оправдываем свое название.</span></div><div class="imTACenter"><span class="fs11lh1-5 cf1"><b>Ваше доверие - лучшее тому доказательство.</b></span></div>
+			<div class="imTACenter"><span class="fs11lh1-5 cf1">Более 15 лет в сфере мебельного производства. Стабильное развитие. Внимание и уважение к клиентам. Выверенный ассортимент. Профессионализм всего коллектива. Сотни клиентов по Одессе. Мы оправдываем свое название.</span></div><div class="imTACenter"><span class="fs11lh1-5 cf2"><b>Ваше доверие - лучшее тому доказательство.</b></span></div>
 		</div>
 	</div>
 
