@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 	<url>
 		<loc>https://mebelink.github.io/index.html</loc>
-		<lastmod>2024-02-23</lastmod>
+		<lastmod>2024-03-16</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>1.0</priority>
 		<image:image>
@@ -31,6 +31,12 @@
 		</image:image>
 		<image:image>
 			<image:loc>https://mebelink.github.io/images/stenki-v-gostinuyu.webp</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>https://mebelink.github.io/images/18_obojpgdo.webp</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>https://mebelink.github.io/images/20_nm2nd3vt_ljtw1f3s.webp</image:loc>
 		</image:image>
 	</url>
 	<url>

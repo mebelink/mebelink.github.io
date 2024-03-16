@@ -94,6 +94,20 @@ $imSettings['search']['images'] = array(
 		'page' => 'index.html'
 	),
 	array(
+		'title' => 'Дизайн интерьера от Студии Мебели &quot;Mebelink&quot;',
+		'description' => 'Дизайн интерьера от Студии Мебели &quot;Mebelink&quot;',
+		'location' => '',
+		'src' => 'images/18_obojpgdo.webp',
+		'page' => 'index.html'
+	),
+	array(
+		'title' => 'Преимущества работы со Студией дизайнерской Мебели &quot;Mebelink&quot; ',
+		'description' => 'Преимущества работы со Студией дизайнерской Мебели &quot;Mebelink&quot; ',
+		'location' => '',
+		'src' => 'images/20_nm2nd3vt_ljtw1f3s.webp',
+		'page' => 'index.html'
+	),
+	array(
 		'title' => '&quot;Mebelink&quot;',
 		'description' => '&quot;Mebelink&quot;',
 		'location' => '',
