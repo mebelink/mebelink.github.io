@@ -104,7 +104,7 @@ $imSettings['search']['images'] = array(
 		'title' => 'Преимущества работы со Студией дизайнерской Мебели &quot;Mebelink&quot; ',
 		'description' => 'Преимущества работы со Студией дизайнерской Мебели &quot;Mebelink&quot; ',
 		'location' => '',
-		'src' => 'images/20_nm2nd3vt_ljtw1f3s.webp',
+		'src' => 'images/20_nm2nd3vt.webp',
 		'page' => 'index.html'
 	),
 	array(
