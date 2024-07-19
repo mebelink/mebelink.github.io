@@ -11,12 +11,17 @@ $imSettings['general'] = array(
 	'url' => 'https://mebelink.github.io/',
 	'homepage_url' => 'https://mebelink.github.io/index.html',
 	'icon' => 'https://mebelink.github.io/favImage.png',
-	'version' => '2023.1.5.0',
+	'version' => '2024.2.7.1',
 	'sitename' => 'Студия мебели «Mebelink»',
 	'lang_code' => 'ru-RU',
 	'public_folder' => '',
 	'salt' => 'vmztql83h0o37m362d12kf5fnodp5tknvksu4wtyk888sdp935l0',
-	'common_email_sender_addres' => 'vannavam2015@gmail.com'
+	'common_email_sender_addres' => 'vannavam2015@gmail.com',
+	'enable_sender_header' => true,
+	'date_format' => 'dd MMM yyyy',
+	'date_format_ext' => 'dddd dd MMM yyyy',
+	'date_format_no_day' => 'MMM yyyy',
+	'date_format_no_day_ext' => 'MMM yyyy'
 );
 /*
 |-------------------------------
@@ -36,17 +41,18 @@ $imSettings['password_policy'] = array(
 |	Captcha
 |-------------------------------
 */ImTopic::$captcha_code = "		<div class=\"x5captcha-wrap\">
-			<label for=\"wmatrgs0-imCpt\">Проверочное слово:</label><br />
-			<input type=\"text\" id=\"wmatrgs0-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
+			<label for=\"3ah6qtrt-imCpt\">Проверочное слово:</label><br />
+			<input type=\"text\" id=\"3ah6qtrt-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
 		</div>
 ";
 
 
 $imSettings['admin'] = array(
-	'icon' => 'admin/images/logo_owa7m73k.webp',
-	'notification_public_key' => '4baff899e0c8c328',
-	'notification_private_key' => '63927fea6a9e7fc1',
-	'enable_manager_notifications' => false,
+	'icon' => 'admin/images/logo.webp',
+	'notification_public_key' => 'BNBzLlEFOCvn1sA4JFPVn_aPOXWexiLtiy5QjtJj2z0CSbz0Vrh0iFBwOhll9dqIN6paO04t_GHuCXb80osaKUw',
+	'notification_private_key' => 'w5jqIhfE08HiQnnfMfeJaMmzkhbjNNirmdruSsM-xls',
+	'notification_dbprefix' => 'w5_ecf324b5_notifications_',
+	'enable_notifications' => false,
 	'theme' => 'orange',
 	'extra-dashboard' => array(),
 	'extra-links' => array()
@@ -143,16 +149,14 @@ $ecommerce->setShippingData(array(
 		'name' => 'почтой',
 		'description' => 'Товары будут доставлены в течение 3-5 дней.',
 		'email_text' => 'Доставка почтой.\\nТовары будут доставлены в течение 3-5 дней.',
-		'enable_tracking' => false,
-		'tracking_url' => ''
+		'tracking_type' => 'none'
 	),
 	'hdj47dut' => array(
 		'id' => 'hdj47dut',
 		'name' => 'службой экспресс-доставки',
 		'description' => 'Товары будут доставлены в течение 1-2 дней.',
 		'email_text' => 'Доставка службой экспресс-доставки.\\nТовары будут доставлены в течение 1-2 дней.',
-		'enable_tracking' => false,
-		'tracking_url' => ''
+		'tracking_type' => 'none'
 	)));
 
 /*
@@ -184,8 +188,8 @@ $imSettings['dynamicobjects'] = array(	'template' => array(
 
 $ImMailer->emailType = 'phpmailer';
 $ImMailer->exposeWsx5 = false;
-$ImMailer->header = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' . "\n" . '<html>' . "\n" . '<head>' . "\n" . '<meta http-equiv="content-type" content="text/html; charset=utf-8">' . "\n" . '</head>' . "\n" . '<body bgcolor="#37474F" style="background-color: #37474F;">' . "\n\t" . '<table border="0" cellpadding="0" align="center" cellspacing="0" style="padding: 0; margin: 0 auto; width: 700px;">' . "\n\t" . '<tr><td id="imEmailContent" style="min-height: 300px; padding: 10px; font: normal normal normal 12pt \'Arial\'; color: #000000; background-color: #FFFFFF; text-decoration: none; text-align: left; width: 700px; border-style: solid; border-color: #000000; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; background-color: #FFFFFF" width="700px">' . "\n\t\t";
-$ImMailer->footer = "\n\t" . '</td></tr>' . "\n\t" . '</table>' . "\n" . '<table width="100%"><tr><td id="imEmailFooter" style="font: normal normal normal 9pt \'Arial\'; color: #FFFFFF; background-color: transparent; text-decoration: none; text-align: center;  padding: 10px; margin-top: 5px;background-color: transparent">' . "\n\t\t" . 'Это письмо-подтверждение предназначено для исключения несанкционированного использования вашего адреса электронной почты.<br>Если вы получили это сообщение по ошибке, пожалуйста, сообщите об этом отправителю и удалите это письмо, не делая копий.' . "\n\t" . '</td></tr></table>' . "\n\t" . '</body>' . "\n" . '</html>';
+$ImMailer->header = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' . "\n" . '<html>' . "\n" . '<head>' . "\n" . '<meta http-equiv="content-type" content="text/html; charset=utf-8">' . "\n" . '</head>' . "\n" . '<body bgcolor="#37474F" style="background-color: #37474F;">' . "\n\t" . '<table border="0" cellpadding="0" align="center" cellspacing="0" style="padding: 0; margin: 0 auto; width: 700px; border-collapse: separate; ">' . "\n\t" . '<tr><td id="imEmailContent" style="min-height: 300px; padding: 10px; font: normal normal normal 12pt \'Arial\'; color: #000000; background-color: #FFFFFF; text-decoration: none; text-align: left; width: 700px; border-style: solid; border-color: #000000 #000000 #000000 #000000; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 0; border-bottom: none; border-left-width: 1px; margin-top: 25px;  margin-bottom: 25px;  margin-left: 25px;  margin-right: 25px;  background-color: #FFFFFF" width="700px">' . "\n\t\t";
+$ImMailer->footer = "\n\t" . '</td></tr>' . "\n\t" . '<tr><td id="imEmailIcons" style="background-color: #FFFFFF;border-left-style: solid; border-left-color: #000000; border-left-width: 1px; border-right-style: solid; border-right-color: #000000; border-right-width: 1px; border-bottom-style: solid; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;  padding-top: 25px;  padding-bottom: 25px;  padding-left: 15px;  padding-right: 15px;  text-align: center;  min-height: 300px; " width="700"></td></tr>' . "\n\t" . '</table>' . "\n" . '<table width="100%"><tr><td id="imEmailFooter" style="font: normal normal normal 9pt \'Arial\'; color: #FFFFFF; background-color: transparent; text-decoration: none; text-align: center;  padding: 10px; margin-top: 5px;background-color: transparent">' . "\n\t\t" . 'Это письмо-подтверждение предназначено для исключения несанкционированного использования вашего адреса электронной почты.<br>Если вы получили это сообщение по ошибке, пожалуйста, сообщите об этом отправителю и удалите это письмо, не делая копий.' . "\n\t" . '</td></tr></table>' . "\n\t" . '</body>' . "\n" . '</html>';
 $ImMailer->bodyBackground = '#FFFFFF';
 $ImMailer->bodyBackgroundEven = '#FFFFFF';
 $ImMailer->bodyBackgroundOdd = '#F0F0F0';

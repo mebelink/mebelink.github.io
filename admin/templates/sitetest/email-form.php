@@ -138,7 +138,5 @@ $( document ).ready(function () {
 		<input type="reset" class="button background-color-1 fore-white" value="<?php echo l10n('form_reset'); ?>">	
 	</div>				
 </form>
-<?php if (!Configuration::getControlPanel()->isWsx5Manager()): ?>
 <script>$(document).ready(function () { $("#from").focus(); });</script>
-<?php endif; ?>
 <?php 

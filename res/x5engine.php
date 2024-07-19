@@ -299,6 +299,7 @@ class imBlog
             foreach ($og['images'] as $image) {
                 $html .= $tabs . '<meta property="og:image" content="' . htmlspecialchars($image) . '" />' . "\n";
             }
+			if (count($og['images']) > 0) $html .= $tabs . '<meta name="twitter:card" content="summary_large_image" />' . "\n";
         }
         return $html;
     }
@@ -766,11 +767,6 @@ class imBlog
             return;
 
         if ($ext) {
-            $text = l10n('date_full_months');
-            $timestamp = explode('/', $bp['timestamp']);
-            $timestamp[1] = $text[$timestamp[1] - 1];
-            $timestamp = implode(' ', $timestamp);
-
             $cover_html = ($bp['cover'] !== '' ? "<div id=\"imBlogPostCover_" . $id . "\" class=\"imBlogPostCover\"></div>\n" : '');
 
             if (isset($bs['article_type']) && $bs['article_type'] == 'covertitlecontents') {
@@ -800,7 +796,7 @@ class imBlog
                 }
                 echo "&middot; ";
             }
-            echo $timestamp . "</span>";
+            echo $bp['timestampExt'] . "</span>";
 
             if (count($bp['tag']) > 0) {
                 echo "<br />Tags: ";
@@ -851,7 +847,7 @@ class imBlog
 
                 echo "\t\t</ul>\n\t</div>\n";
             }
-            echo (isset($imSettings['blog']['addThis']) ? "<br />" . $imSettings['blog']['addThis'] : "") . "<br /><br /></div>\n";
+            echo "<br /><br /></div>\n";
             if (isset($bp['foo_html'])) {
                 echo "<div class=\"imBlogPostFooHTML\">" . $bp['foo_html'] . "</div>\n";
             }
@@ -878,10 +874,10 @@ class imBlog
                         $this->comments->showComments($bs['comment_type'] != "comment", $bs["comments_order"], $bs["abuse"], $bs["comments_on_multiple_columns"]);
                         $newMessage = $this->comments->checkNewMessages($bs['moderate'], $bs['email'], "blog", $imSettings['general']['url'] . "admin/blog.php?category=" . str_replace(" ", "_", $imSettings['blog']['posts'][$id]['category']) . "&post=" . $id);
                         // Send the notification
-                        if ($newMessage && $imSettings['admin']['enable_manager_notifications']) {
-                            $notificationType = strtoupper("blog_" . ($bs['moderate'] ? "approve" : "new") . "_comment");
-                            $queryString = "redirect=blog-comment&post=" . $id . "&category=" . urlencode(str_replace(' ', '_', $imSettings['blog']['posts'][$id]['category']));
-                            Configuration::getNotifier()->sendNotification($notificationType, '{ "controlPanelQueryString": "' . $queryString . '"}');
+                        if ($newMessage && $imSettings['admin']['enable_notifications']) {
+                            $notificationType = "blog_" . ($bs['moderate'] ? "approve" : "new") . "_comment";
+                            $url = "blog.php?post=" . $id . "&category=" . urlencode(str_replace(' ', '_', $imSettings['blog']['posts'][$id]['category']));
+                            Configuration::getNotifier()->sendNotification('blog_comments', $imSettings['blog']['posts'][$id]['title'], l10n($notificationType . '_notification_body', 'You received a new comment'), $url);
                         }
                     } else {
                         $this->comments->showRating();
@@ -1483,7 +1479,8 @@ class imBlog
             rsort($months);
             echo "<ul>";
             for ($i = 0; $i < count($months) && $i < $n; $i++) {
-                echo "<li><a href=\"?month=" . urlencode($months[$i]) . "\">" . (strlen($months[$i]) == 6 ? substr($months[$i], 4, 2) . "/" . substr($months[$i], 0, 4) : $months[$i]) . "</a></li>";
+                $formattedDate = strlen($months[$i]) == 6 ? formatDate(DateTimeImmutable::createFromFormat("d/m/Y", "01/" . substr($months[$i], 4, 2) . "/" . substr($months[$i], 0, 4)), false, false) : $months[$i];
+                echo "<li><a href=\"?month=" . urlencode($months[$i]) . "\">" . $formattedDate . "</a></li>";
             }
             echo "</ul>";
         }
@@ -1602,7 +1599,7 @@ class Configuration
             self::$privateArea = new imPrivateArea();
             if (isset($imSettings['access']['dbid'])) {
                 $db = getDbData($imSettings['access']['dbid']);
-                self::$privateArea->setDbData(ImDb::from_db_data($db), $imSettings['access']['dbtable']);
+                self::$privateArea->setDbData(ImDb::from_db_data($db), $imSettings['access']['dbtable'], $imSettings['access']['datadbtable']);
             }
         }
         return self::$privateArea;
@@ -1644,26 +1641,16 @@ class Configuration
 
     static public function getNotifier()
     {
+        global $imSettings;
+
         if (self::$notifier === false) {
             $settings = self::getSettings();
-            $serverUrl = "https://notifications.incomedia.eu/wsx5manager/";
             $publicKey = $settings['admin']['notification_public_key'];
             $privateKey = $settings['admin']['notification_private_key'];
-            self::$notifier = new Notifier($settings['general']['url'], $serverUrl, $privateKey, $publicKey);
+            self::$notifier = new Notifier($settings['general']['url'], $privateKey, $publicKey);
             self::$notifier->siteTitle = $settings['general']['sitename'];
-            $icon = "";
-            if (isset($settings['admin']['icon'])) {
-                $icon = $settings['admin']['icon'];
-            }
-            else if (isset($settings['general']['icon'])) {
-                $icon = $settings['general']['icon'];
-            }
-            if (strlen($icon)) {
-                if (strpos($icon, "http") !== 0) {
-                    $icon = pathCombine(array($settings['general']['url'], $icon));
-                }
-                self::$notifier->siteImage = $icon;
-            }
+            $db = getDbData();
+            self::$notifier->setDbData(ImDb::from_db_data($db), $imSettings['admin']['notification_dbprefix']);
         }
         return self::$notifier;
     }
@@ -1858,6 +1845,36 @@ class CartRouter
     public static function handleRoute($params)
     {
         $router = new Router();
+
+        $router->addRoute( 
+            function() {
+                return $_GET['action'] == 'alignwl';
+            } , 
+            function( $params ) {
+
+                $user_id = $params['private_area']->whoIsLogged()["uid"];
+
+                if ( isset ( $user_id ) ) {
+
+                    $received_str = file_get_contents( "php://input" );
+                    $decoded_obj = json_decode( $received_str, true );
+                    $state = $decoded_obj["localwl"];
+
+                    $result = $params['cart']->elaborateWishlistState( $user_id, $state );
+
+                    $response = json_encode( $result );
+
+                    header('Content-type: application/json');
+                    echo ( $response );
+
+                } else {
+
+                    http_response_code( 403 );
+                    
+                }
+
+            } 
+        );
 
         $router->addRoute(function () {
             return $_GET['action'] == 'chkcpn' && isset($_POST['coupon']);
@@ -2211,7 +2228,9 @@ class ImCart {
      * @var array
      */
     public $settings = array(
+	'wishlist_table' => 'wishlist', 
         'orders_table' => 'orders',
+	'payment_reminders_table' => 'payment_reminders' , 
         'shipping_addresses_table' => 'shipping_addresses',
         'invoice_addresses_table' => 'invoice_addresses',
         'products_table' => 'products',
@@ -2365,6 +2384,169 @@ class ImCart {
             'becauseOfQuantity' => $discounted_prds_because_of_quantity
         );
     }
+
+
+
+	public function getStoredWishlistForUser ( $user_id ) {
+
+		$tableName = $this->table_prefix . $this->settings['wishlist_table'];
+
+		if ( 
+			!$this->db || 
+			!$this->db->tableExists( $tableName ) 
+		) {
+			return array ();
+		}
+
+		$DBresults = $this->db->select( array(
+			'select' => array( "row_id", "user_id", "ts", "prod_id" ) ,
+			'from' => $tableName ,
+			'where_flat' => "`user_id`='" . $user_id . "'"
+		) );
+
+		if ( $DBresults === false ) {
+			return array();
+		}
+
+		$result = array();
+		for ( $i = 0 ; $i < count( $DBresults ) ; $i++ ) {
+			$result[] = array( 
+				"user_id" => $DBresults[$i]["user_id"], 
+				"ts" => $DBresults[$i]["ts"], 
+				"prod_id" => $DBresults[$i]["prod_id"] 
+			);
+
+		}
+
+		return $result;
+
+	}
+
+	public function writeRowOnWLTable ( $user_id, $currentTs, $prod_id ) {
+
+		$tableName = $this->table_prefix . $this->settings['wishlist_table'];
+
+		$this->db->insert( array( 
+			'into' => $tableName, 
+			'values' => array(
+				'user_id' => $user_id, 
+				'ts' => $currentTs, 
+				'prod_id' => $prod_id 
+			)
+		) );
+
+	}
+
+	public function deleteRowFromWLTable ( $user_id, $prod_id ) {
+
+		$tableName = $this->table_prefix . $this->settings['wishlist_table'];
+
+		$this->db->delete(
+			array( 
+				'from' => $tableName, 
+				'where' => array( 
+					'user_id' => $user_id, 
+					'prod_id' => $prod_id 
+				) 
+			)
+		);
+
+	}
+
+
+
+	public function elaborateWishlistState ( $user_id, $state ) {
+
+		// Recreate the state stored on the server, overwriting the one sent by the client
+
+		// Fetch from db even the elements having ts grater than the client ts
+		//     and add those elements to the state we are building
+
+		$currentTs = time();
+		$resultList = array();
+
+		$dbTable = $this->getStoredWishlistForUser( $user_id );
+
+		for ( $i = 0 ; $i < count( $dbTable ) ; $i++ ) {
+
+			$row = $dbTable[$i];
+
+			// colonne: userID,ts,prodID
+			$row_ts = $row["ts"];
+			$row_prodId = $row["prod_id"];
+
+			if ( !in_array( $row_prodId, $resultList ) ) {
+
+				$resultList[] = $row_prodId;
+
+			}
+
+		}
+
+		// Take the elements added by the client and add them to the state
+
+		for ( $i = 0 ; isset( $state["add"] ) && $i < count( $state["add"] ) ; $i++ ) {
+
+			if ( !in_array( $state["add"][$i], $resultList ) ) {
+
+				array_push( $resultList, $state["add"][$i] );
+
+				array_push( $dbTable, array ( 
+					"user_id" => $user_id, 
+					"ts"      => $currentTs, 
+					"prod_id" => $state["add"][$i] 
+				) );
+
+				// Add the row permanently on the db
+				$this->writeRowOnWLTable( $user_id, $currentTs, $state["add"][$i] );
+
+			}
+
+		}
+
+		// Take the elements in 'remove' and remove the ones that are in the db
+		//   prior to the client's ts
+		// They will also be removed from the db
+		// Can't remove the elements that are inside remove and in the db have ts greater than
+		//   the one sent by the client, ignore them
+
+		$storedElemTSs = array ();
+		if ( isset( $state["remove"] ) ) {
+			for ( $j = 0 ; $j < count( $dbTable ) ; $j++ ) {
+				$row = $dbTable[$j];
+				$row_ts = $row["ts"];
+				$row_prodId = $row["prod_id"];
+				$storedElemTSs[$row_prodId] = $row_ts;
+			}
+		}
+
+		for ( $i = 0 ; isset( $state["remove"] ) && $i < count( $state["remove"] ) ; $i++ ) {
+
+			$storedElemTs = -1;
+
+			if ( array_key_exists( $state["remove"][$i], $storedElemTSs ) ) {
+				$storedElemTs = $storedElemTSs[$state["remove"][$i]];
+			}
+
+			if ( $storedElemTs > 0 && $storedElemTs <= $state["ts"] ) {
+
+				// Removing state->remove[$i] from $resultList
+				array_splice( $resultList, array_search ( $state["remove"][$i], $resultList ), 1 );
+
+				// Removing the corresponding row from the db
+				$this->deleteRowFromWLTable( $user_id, $state["remove"][$i] );
+
+			}
+
+		}
+
+		return array ( 
+			"ts" => $currentTs, 
+			"list" => $resultList
+		);
+
+	}
+
 
 
     public function setOrderDataFromDB($orderId, $paymentId, $shippingId)
@@ -2634,7 +2816,6 @@ class ImCart {
         ) : array();
         return $this->sendOrderEmail(false, $imSettings['general']['common_email_sender_addres'], $this->settings['owner_email'], $this->orderData['userInvoiceData']['Email']['value'], $filters);
     }
-
 
     public function sendPaymentCompletedEmail($paymentOk, $orderId, $paymentId, $shippingId)
     {
@@ -3022,6 +3203,15 @@ class ImCart {
         if (!$this->db || !$this->db->testConnection()) {
             return false;
         } else {
+		$this->db->createTable (
+			$this->table_prefix . $this->settings['wishlist_table'], 
+			array ( 
+				"row_id" => array( 'type' => 'INT(11)', 'primary' => true, 'auto_increment' => true ), 
+				"user_id" => array( 'type' => 'VARCHAR(16)' ), 
+				"ts" => array( 'type' => 'INT' ), 
+				"prod_id" => array( 'type' => 'VARCHAR(32)' ) 
+			)
+		);
             $this->db->createTable(
                 $this->table_prefix . $this->settings['orders_table'],
                 array(
@@ -3047,8 +3237,10 @@ class ImCart {
                     "payment_vat" => array('type' => 'FLOAT'),
                     "payment_vat_name" => array('type' => 'VARCHAR(64)'),
                     "payment_price_plus_vat" => array('type' => 'FLOAT'),
+                    "payment_enc" => array('type' => 'TEXT'),
                     "coupon" => array("type" => "VARCHAR(32)"),
                     "coupon_value" => array('type' => 'FLOAT'),
+                    "total_discount_value" => array('type' => 'FLOAT'),
                     "vat_type" => array("type" => "VARCHAR(8)"),
                     "availability_reduction_type" => array("type" => "INT(11)"),
                     "status" => array("type" => "VARCHAR(16)", "more" => "DEFAULT 'inbox'"),
@@ -3056,6 +3248,14 @@ class ImCart {
                     "payment_data" => array("type" => "VARCHAR(128)", "more" => "DEFAULT ''"),
                     "tracking_code" => array('type' => 'VARCHAR(128)', "more" => "NULL"),
                     "evaded_ts" => array('type' => 'TIMESTAMP', "more" => "NULL")
+                )
+            );
+            $this->db->createTable(
+                $this->table_prefix . $this->settings['payment_reminders_table'],
+                array(
+                    "id"       => array( 'type' => 'INT(11)' , 'primary' => true , 'auto_increment' => true ) ,
+                    "order_id" => array( 'type' => 'VARCHAR(16)' ) ,
+                    "ts"       => array( 'type' => 'TIMESTAMP',   "more" => "NULL")
                 )
             );
             $this->db->createTable(
@@ -3172,8 +3372,10 @@ class ImCart {
                 'payment_vat' => (isset($this->orderData['payment']) ? $this->orderData['payment']['rawVat'] : 0),
                 'payment_vat_name' => (isset($this->orderData['payment']) ? $this->orderData['payment']['vatName'] : 0),
                 'payment_price_plus_vat' => (isset($this->orderData['payment']) ? $this->orderData['payment']['rawPricePlusVat'] : 0),
+                'payment_enc' => (isset($this->orderData['payment']) ? $this->orderData['payment']['enc'] : ''),
                 'coupon' => (isset($this->orderData['coupon']) ? $this->orderData['coupon'] : ''),
                 'coupon_value' => (isset($this->orderData['rawCouponDiscount']) ? $this->orderData['rawCouponDiscount'] : 0),
+                'total_discount_value' => (isset($this->orderData['rawOrderTotalDiscount']) ? $this->orderData['rawOrderTotalDiscount'] : 0),
                 'availability_reduction_type' => $this->settings['availability_reduction_type'],
                 'contains_digital_products' => 0
             )
@@ -3342,6 +3544,165 @@ class ImCart {
         $this->db->delete(array('from' => $this->table_prefix . $this->settings['shipping_addresses_table'], 'where' => array('order_id' => $id)));
         $this->db->delete(array('from' => $this->table_prefix . $this->settings['products_table'], 'where' => array('order_id' => $id)));
     }
+
+
+
+	public function sendPaymentReminder ( $order_id ) {
+
+		$order = $this->getOrder( $order_id );
+
+		$order_paym_id = $order["order"]["payment_id"];
+		$order_ship_id = $order["order"]["shipping_id"];
+
+		$this->setOrderDataFromDB( $order_id , $order_paym_id , $order_ship_id );
+		$this->sendBeforePaymentEmail();
+
+		$currentTs = date("Y-m-d H:i:s");
+
+		$this->db->insert( array( 
+			'into' => $this->table_prefix . $this->settings['payment_reminders_table'] , 
+			'values' => array(
+				'order_id' => $order_id, 
+				'ts' => $currentTs 
+			)
+		) );
+
+	}
+
+	/** Retrieves the value for the specified field name from 
+	  * the invoice (or invoice-like) data structure.
+	  * 
+	  *  @param  Array   $db_info     data structure as stored in the db invoice addresses table
+	  *  @param  String  $field_name  the field name
+	  *  @return    the field value
+	  */
+	public function getInvoiceFieldValue ( $db_info , $field_name ) {
+		for ( $i = 0 ; $i < count( $db_info ) ; $i++ ) {
+			if ( $db_info[$i]["field_id"] === $field_name ) {
+				return $db_info[$i]["value"];
+			}
+		}
+		return "";
+	}
+
+	public function loadDBDataForPaymentReminders ( $order_id ) {
+
+		$result = $this->db->select(array(
+			'select' => array( 'id' , 'order_id' , 'ts' ) ,
+			'from' => $this->table_prefix . $this->settings['payment_reminders_table'] ,
+			'where' => array( 'order_id' => $order_id )
+		) );
+		if ( !$result || !count( $result ) ) {
+			$result = array ();
+		}
+
+		return $result;
+
+	}
+
+	public function getIconColorForPaymentReminders ( $order_reminders ) {
+
+		if ( count( $order_reminders ) > 3 ) {
+			return "fore-color-2";
+		} else {
+			return "fore-color-3";
+		}
+
+	}
+
+	public function getTitleAttributeForPaymentReminders ( $order_reminders ) {
+
+		$result = "";
+
+		if ( count( $order_reminders ) > 0 ) {
+			for ( $i = 0 ; $i < count( $order_reminders ) ; $i++ ) {
+				$result .= formatDate( DateTimeImmutable::createFromFormat( "Y-m-d H:i:s", $order_reminders[$i]['ts'] ), true );
+				if ( $i < count( $order_reminders ) - 1 ) {
+					$result .= '&#10;';
+				}
+			}
+		} else {
+			$result .= l10n( 'cart_send_payment_reminder_title' , 'Send payment reminder' );
+		}
+
+		return $result;
+
+	}
+
+	public function getConfirmTextForPaymentReminders ( $order_reminders , $order_id , $name , $last_name ) {
+
+		$result = "";
+
+		$result .= str_replace(
+			"[ORDERID]" , 
+			"" . ( count( $order_reminders ) + 1 ) , 
+			l10n( 
+				'cart_send_payment_reminder_confirm_line_1' , 
+				'Email reminder number [ORDERID]' 
+			)
+		);
+
+		$result .= "\\n\\n";
+
+		$line_2 = l10n( 
+			'cart_send_payment_reminder_confirm_line_2' , 
+			'Do you want to send a reminder e-mail to [NAME] [SURNAME] for the order number [ORDERID] ?' 
+		);
+		$line_2 = str_replace(
+			"[SURNAME]" , 
+			$last_name , 
+			$line_2 
+		);
+		$line_2 = str_replace(
+			"[NAME]" , 
+			$name , 
+			$line_2 
+		);
+		$line_2 = str_replace(
+			"[ORDERID]" , 
+			$order_id , 
+			$line_2 
+		);
+		$result .= $line_2;
+
+		$result = str_replace( "'" , "\\'" , $result );
+
+		return $result;
+
+	}
+
+	public function getPaymentReminders ( $orders ) {
+
+		$result = array ();
+
+		for ( $i = 0 ; $i < count( $orders["orders"] ) ; $i++ ) {
+
+			$order = $orders["orders"][$i];
+
+			$order_id = $order["id"];
+
+			$order_inv_name = $this->getInvoiceFieldValue( $order["invoice"] , "Name" );
+			$order_inv_last_name = $this->getInvoiceFieldValue( $order["invoice"] , "LastName" );
+
+			$order_reminders = $this->loadDBDataForPaymentReminders( $order_id );
+
+			$icon_color = $this->getIconColorForPaymentReminders( $order_reminders );
+			$title_attr = $this->getTitleAttributeForPaymentReminders( $order_reminders );
+			$conf_txt = $this->getConfirmTextForPaymentReminders( $order_reminders , $order_id , $order_inv_name , $order_inv_last_name );
+
+			$result["".$order_id] = array (
+				"iconcolor" => $icon_color , 
+				"titleattrib" => $title_attr , 
+				"confirmtext" => $conf_txt , 
+			);
+
+		}
+
+		return $result;
+
+	}
+
+
 
     /**
      * Get a list of the orders in the DB
@@ -3541,7 +3902,7 @@ class ImCart {
         $diff = $toTime - $fromTime;
         $days = $diff / (60 * 60 * 24);
         for ($i = 0; $i < $days; $i++) {
-            $data[date("Y-m-d", $fromTime + $i * 60 * 60 * 24)] = 0;
+            $data[formatDate(DateTimeImmutable::createFromFormat('U', $fromTime + $i * 60 * 60 * 24))] = 0;
         }
 
         if (!$this->db) {
@@ -3565,7 +3926,7 @@ class ImCart {
         }
 
         foreach ($results as $row) {
-            $data[$row['date']] = $row['count'];
+            $data[formatDate(DateTimeImmutable::createFromFormat("Y-m-d", $row['date']))] = $row['count'];
         }
         return $data;
     }
@@ -3605,9 +3966,11 @@ class ImCart {
             'orderNo' => $order['order']['id'],
             'rawTotalPrice' => $order['order']['price'],
             'rawTotalVat' => $order['order']['vat'],
+            'vatName' => $order['order']['vat_name'],
             'rawTotalPricePlusVat' => $order['order']['price_plus_vat'],
             'coupon' => $order['order']['coupon'],
             'rawCouponDiscount' => $order['order']['coupon_value'],
+            'rawOrderTotalDiscount' => $order['order']['total_discount_value'],
             'currency' => $this->priceFormat['currency_code'],
             'shipping' => array(
                 'id' => $order['order']['shipping_id'],
@@ -3629,16 +3992,18 @@ class ImCart {
                 'rawPricePlusVat' => $order['order']['payment_price_plus_vat'],
                 'rawVat' => $order['order']['payment_vat'],
                 'enableAfterPaymentEmail' => $payment['enableAfterPaymentEmail'],
+                'enc' => $order['order']['payment_enc']
             ),
             'userInvoiceData' => array(),
             'products' => array(),
             'tracking_code' => $order['order']['tracking_code']
         );
         $orderData['totalPrice'] = $this->applyPriceFormat($orderData['rawTotalPrice']);
-        $orderData['totalToPay'] = $this->applyPriceFormat($orderData['rawTotalPrice']); // FIXME idk diff between totalPrice and totalToPay... maybe coupon are applyed to totaltopay
+        $orderData['totalToPay'] = $this->applyPriceFormat( $orderData['rawTotalPricePlusVat'] - $orderData['rawCouponDiscount'] );
         $orderData['totalVat'] = $this->applyPriceFormat($orderData['rawTotalVat']);
         $orderData['totalPricePlusVat'] = $this->applyPriceFormat($orderData['rawTotalPricePlusVat']);
         $orderData['couponDiscount'] = $this->applyPriceFormat($orderData['rawCouponDiscount']);
+        $orderData['orderTotalDiscount'] = $this->applyPriceFormat($orderData['rawOrderTotalDiscount']);
         $orderData['shipping']['price'] = $this->applyPriceFormat($orderData['shipping']['rawPrice']);
         $orderData['shipping']['pricePlusVat'] = $this->applyPriceFormat($orderData['shipping']['rawPricePlusVat']);
         $orderData['shipping']['vat'] = $this->applyPriceFormat($orderData['shipping']['rawVat']);
@@ -3755,6 +4120,7 @@ class ImCart {
                                               `o`.`shipping_price_plus_vat` AS `shipping_price`,
                                               `o`.`payment_price_plus_vat` AS `payment_price`,
                                               `o`.`coupon_value` AS `coupon_value`,
+                                              `o`.`total_discount_value` AS `total_discount_value`,
                                               SUM(`p`.`price_plus_vat`) AS `products_amount`
                                        FROM " . $otable . " AS `o`
                                        INNER JOIN " . $ptable . " AS `p`
@@ -3777,7 +4143,7 @@ class ImCart {
                     if (!isset($results["" . $queryRow['year']]["" . $queryRow['month']])) {
                         $results["" . $queryRow['year']]["" . $queryRow['month']] = 0;
                     }
-                    $results["" . $queryRow['year']]["" . $queryRow['month']] += $queryRow['products_amount'] + $queryRow['shipping_price'] + $queryRow['payment_price'] - $queryRow['coupon_value'];
+                    $results["" . $queryRow['year']]["" . $queryRow['month']] += $queryRow['products_amount'] + $queryRow['shipping_price'] + $queryRow['payment_price'] - $queryRow['coupon_value'] - $queryRow['total_discount_value'] ;
                 }
                 // Fill the empty months
                 foreach ($results as $year => $data) {
@@ -3817,6 +4183,7 @@ class ImCart {
                                               `o`.`shipping_price_plus_vat` AS `shipping_price`,
                                               `o`.`payment_price_plus_vat` AS `payment_price`,
                                               `o`.`coupon_value` AS `coupon_value`,
+                                              `o`.`total_discount_value` AS `total_discount_value`,
                                               SUM(`p`.`price_plus_vat`) AS `products_amount`
                                        FROM " . $otable . " AS `o`
                                        INNER JOIN " . $ptable . " AS `p`
@@ -3837,7 +4204,7 @@ class ImCart {
                     if (!isset($results[$queryRow['year']])) {
                         $amountCounter = 0;
                     }
-                    $amountCounter += $queryRow['products_amount'] + $queryRow['shipping_price'] + $queryRow['payment_price'] - $queryRow['coupon_value'];
+                    $amountCounter += $queryRow['products_amount'] + $queryRow['shipping_price'] + $queryRow['payment_price'] - $queryRow['coupon_value'] - $queryRow['total_discount_value'];
                     $results[$queryRow['year']]["" . $queryRow['month']] = $amountCounter;
                 }
                 // Fill the empty months
@@ -4115,16 +4482,33 @@ class ImCart {
         header('Location: ' . $this->payments[$paymentId][$ok ? 'page_ok' : 'page_ko']);
     }
 
+	/** Retrieves the value for the specified field name from 
+	  * the db-like data structure.
+	  * 
+	  *  @param  Array   $db_info     data structure as stored in the db invoice addresses table
+	  *  @param  String  $field_name  the field name
+	  *  @return    the field value
+	  */
+	public function fieldValue ( $db_info , $field_name ) {
+		for ( $i = 0 ; $i < count ( $db_info ) ; $i++ ) {
+			if ( $db_info[$i]["field_id"] === $field_name ) {
+				return $db_info[$i]["value"];
+			}
+		}
+		return "";
+	}
+
     /**
-     * Evade the order
+     * Evade the order.
+     * If Qaplà tracking is selected the order will also be pushed to their platform.
      *
      * @param  String $id The order id
      * @param  String $payment_data 
      * @param  String|null $tracking_code The tracking code
-     * @return Void
+     * @return String|null 
      */
-    public function evadeOrder($id, $payment_data = '', $tracking_code = null)
-    {
+    public function evadeOrder($id, $payment_data = '', $tracking_code = null, $force = false ) {
+
         // Check the order status
         $result = $this->db->select(array(
             'select' => array('status', 'availability_reduction_type'),
@@ -4132,8 +4516,92 @@ class ImCart {
             'where' => array('id' => $id)
         )); 
         if (!$result || !count($result) || $result[0]['status'] != "inbox") { // Allow only inbox orders to be evaded
-            return;
+            return null;
         }
+
+	if ( $force == false ) {
+		// upload order on qaplà (if selected by the user)
+		$order = $this->getOrder( $id );
+		$shipping_data = Configuration::getCart()->getShippingData( [$order['order']['shipping_id']] );
+
+		$qapla_checked = 
+			count( $shipping_data ) > 0 && 
+			isset( $shipping_data[$order['order']['shipping_id']]["tracking_type"] ) && 
+			$shipping_data[$order['order']['shipping_id']]["tracking_type"] == "qapla";
+
+		if ( $qapla_checked ) {
+
+			$api_url = 'https://api.qapla.it/1.2/pushOrder/';
+
+			$api_key = $shipping_data[$order['order']['shipping_id']]["qapla_api_key"];
+
+			$order_db_generic_data = $this->db->select(array(
+				'select' => array( 'id' , 'ts' , 'price_plus_vat' , 'currency' ) , 
+				'from' => $this->table_prefix . $this->settings['orders_table'] , 
+				'where' => array( 'id' => $id )
+			) );
+			$order_db_shipping_data = $this->db->select(array(
+				'select' => array( 'order_id' , 'field_id' , 'label' , 'index' , 'value' ) , 
+				'from' => $this->table_prefix . $this->settings['invoice_addresses_table'] , 
+				'where' => array( 'order_id' => $id )
+			) );
+
+			$api_data_obj = array (
+
+				"apiKey" => $api_key , 
+
+				"pushOrder" => array(
+
+					array (
+						"reference" => $order_db_generic_data[0]["id"] , 
+						"courierService" => $shipping_data[$order['order']['shipping_id']]["qapla_courier_service"] , 
+						"createdAt" => $order_db_generic_data[0]["ts"] , 
+						"updatedAt" => date( "Y-m-d H:i:s" ) , 
+
+						"name" => $this->fieldValue ( $order_db_shipping_data , "Name" ) . " " . $this->fieldValue ( $order_db_shipping_data , "LastName" ) , 
+						"street" => $this->fieldValue ( $order_db_shipping_data , "Address1" ) , 
+						"city" => $this->fieldValue ( $order_db_shipping_data , "City" ) , 
+						"state" => $this->fieldValue ( $order_db_shipping_data , "StateRegion" ) , 
+						"postCode" => $this->fieldValue ( $order_db_shipping_data , "ZipPostalCode" ) , 
+						"country" => $this->fieldValue ( $order_db_shipping_data , "CountryCode" ) , 
+						"email" => $this->fieldValue ( $order_db_shipping_data , "Email" ) , 
+						"telephone" => $this->fieldValue ( $order_db_shipping_data , "Phone" ) , 
+
+						"amount" => $order_db_generic_data[0]["price_plus_vat"] , 
+						"currencyCode" => $order_db_generic_data[0]["currency"] , 
+					)
+				)
+
+			);
+
+			$api_data = json_encode( $api_data_obj );
+
+			$crl = curl_init($api_url);
+			curl_setopt($crl, CURLOPT_POST, 1);
+			curl_setopt($crl, CURLOPT_POSTFIELDS, $api_data );
+			curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+			curl_setopt($crl, CURLOPT_RETURNTRANSFER, 1);
+			$api_result = curl_exec($crl);
+			if ( $api_result === false ) {
+				return "CURL error: " . curl_error( $crl );
+			}
+			$http_status = curl_getinfo( $crl, CURLINFO_HTTP_CODE );
+			if ( $http_status != 200 ) {
+				return "HTTP error: " . $http_status;
+			} else {
+
+				$api_result_obj = json_decode( $api_result );
+
+				if ( $api_result_obj->pushOrder->result == "KO" ) {
+					return "API error: " . $api_result_obj->pushOrder->error;
+				}
+
+			}
+
+		}
+
+	}
+
         // Update the order status
         $this->db->update(array(
             'update' => $this->table_prefix . $this->settings['orders_table'],
@@ -4143,6 +4611,7 @@ class ImCart {
         // Send the emails
         $this->sendPhysicalDeliveryEmail($id);
         $this->sendDigitalDeliveryEmail($id);
+
         // If the availability reduction type is postponed, update the products quantity
         if ($result[0]['availability_reduction_type'] == 2) {
             $products = $this->db->select(array(
@@ -4150,7 +4619,7 @@ class ImCart {
                 'where' => array('order_id' => $id)
             ));
             if (!$products || !count($products)) {
-                return;
+                return null;
             }
             for ($i = 0; $i < count($products); $i++) {
                 if ($this->isDynamicProduct($products[$i]['product_id'])) {
@@ -4158,7 +4627,12 @@ class ImCart {
                 }
             }
         }
+
+        return null;
+
     }
+
+
 
     /**
      * Remove an order from the evaded ones and move it to the inbox
@@ -4924,10 +5398,10 @@ class ImCart {
                 $this->sendCustomerEmail();
 
                 // Send the notification
-                if ($this->sendManagerNotification) {
-                    $notifier->sendNotification('ECOMMERCE_ORDER', '{ "orderNumber": "' . $orderNo . '", "controlPanelQueryString": "redirect=cart-order&order_id=' . $orderNo . '" }');
+                if ($notifier !== null && $this->sendManagerNotification) {
+                    $notifier->sendNotification('ecommerce', str_replace('{{order_number}}', $orderNo, l10n('ecommerce_new_order_notification_title', 'New Order {{order_number}}')), str_replace('{{order_number}}', $orderNo, l10n('ecommerce_new_order_notification_body', 'You received a new order')), 'cart-order.php?id=' . $orderNo);
                     if (count($this->getDynamicProductsAlertStatus()) > 0) {
-                        $notifier->sendNotification('ECOMMERCE_LOW_STOCK', '{ "controlPanelQueryString": "redirect=cart-low-stock" }');
+                        $notifier->sendNotification('low_stock', l10n('ecommerce_low_stock_notification_title', 'Low Stock'), l10n('ecommerce_low_stock_notification_body', 'Some products have reached a low stock level'), 'cart-availability.php');
                     }
                 }
             }
@@ -5731,7 +6205,7 @@ class MySQLDriver implements DatabaseAccess
                             if ($type == "int") {
                                 $fixAutoIncrement = false;
                                 // WSX5-2950: This fix some situations where an existing field lost his "auto increment" property. If there is a row with this field set to 0, update it to the next highest value.
-                                if ($value["auto_increment"] && !strpos($act_field["Extra"], "auto_increment")) {
+                                if (isset($value["auto_increment"]) && $value["auto_increment"] && !strpos($act_field["Extra"], "auto_increment")) {
                                     $fixAutoIncrement = true;
                                     $q = mysql_query("SELECT * FROM `" . $this->db_name . "`.`" . $name . "` WHERE `" . $key . "` = 0", $this->conn);
                                     $res = mysql_num_rows($q);
@@ -6060,7 +6534,7 @@ class MySQLiDriver implements DatabaseAccess
                             if ($type == "int") {
                                 $fixAutoIncrement = false;
                                 // WSX5-2950: This fix some situations where an existing field lost his "auto increment" property. If there is a row with this field set to 0, update it to the next highest value.
-                                if ($value["auto_increment"] && !strpos($act_field["Extra"], "auto_increment")) {
+                                if (isset($value["auto_increment"]) && $value["auto_increment"] && !strpos($act_field["Extra"], "auto_increment")) {
                                     $fixAutoIncrement = true;
                                     $q = $this->db->query("SELECT * FROM `" . $this->db_name . "`.`" . $name . "` WHERE `" . $key . "` = 0");
                                     if ($q->num_rows > 0) {
@@ -6788,13 +7262,13 @@ class Analytics
         $data = array();
 		// First create the empty array
 		while ($curDate <= $endDate) {
-			$data[$curDate->format("Y-m-d")] = 0;
+			$data[formatDate($curDate)] = 0;
 			$curDate->modify("+1 day");
 		}
         if (is_array($results)) {
             // Then fill it with the known data
             foreach ($results as $entry) {
-                $data[$entry['date']] = $entry['count'];
+                $data[formatDate(DateTimeImmutable::createFromFormat("Y-m-d", $entry['date']))] = $entry['count'];
             }
         }
         return $data;
@@ -6827,13 +7301,13 @@ class Analytics
         $data = array();
 		// First create the empty array
 		while ($curDate <= $endDate) {
-			$data[$curDate->format("Y-m-d")] = 0;
+			$data[formatDate($curDate)] = 0;
 			$curDate->modify("+1 day");
 		}
         if (is_array($results)) {
             // Then fill it with the known data
             foreach ($results as $entry) {
-                $data[$entry['date']] = $entry['count'];
+                $data[formatDate(DateTimeImmutable::createFromFormat("Y-m-d", $entry['date']))] = $entry['count'];
             }
         }
         return $data;
@@ -6867,13 +7341,13 @@ class Analytics
         $data = array();
 		// First create the empty array
 		while ($curDate <= $endDate) {
-			$data[$curDate->format("Y-m-d")] = 0;
+			$data[formatDate($curDate)] = 0;
 			$curDate->modify("+1 day");
 		}
         if (is_array($results)) {
             // Then fill it with the known data
             foreach ($results as $entry) {
-                $data[$entry['date']] += $entry['count'];
+                $data[formatDate(DateTimeImmutable::createFromFormat("Y-m-d", $entry['date']))] += $entry['count'];
             }
         }
         return $data;
@@ -7718,74 +8192,276 @@ class LanguageRedirect {
 class Notifier 
 {
     public $siteTitle;
-    public $siteImage;
 
     private $publicKey;
     private $privateKey;
-    private $serverUrl;
     private $siteUrl;
+
+    private $db;
+    private $dbPrefix;
 
     /**
      * Create a new notifier that uses the provided keys
      *  
      * @param string $siteUrl     This site url
-     * @param string $serverUrl
-     * @param string $privateKey
-     * @param string $publicKey
+     * @param string $privateKey  VAPID private key
+     * @param string $publicKey   VAPID public key
      */
-    public function __construct($siteUrl, $serverUrl, $privateKey, $publicKey)
+    public function __construct($siteUrl, $privateKey, $publicKey)
     {
         $this->publicKey = $publicKey;
         $this->privateKey = $privateKey;
-        $this->serverUrl = trim($serverUrl, "/") . "/";
         $this->siteUrl = $siteUrl;
         $this->siteTitle = "";
-        $this->siteImage = "";
+    }
+
+    /**
+     * Setup the db connection.
+     * This method is only available in the **Professional edition**.
+     *
+     * @param {string} $host
+     * @param {string} $username
+     * @param {string} $password
+     * @param {string} $dbname
+     * @param {string} $dbprefix
+     *
+     * @return {Void}
+     */
+    public function setDBData($db, $dbprefix)
+    {
+        $this->db = $db;
+        if ($this->db->testConnection()) {
+            $this->dbPrefix = $dbprefix;
+            return $this->db;
+        }
+        die("Unable to connect to DB");
+    }
+
+    /**
+     * Create the notifications configuration
+     *
+     * @return object
+     */
+    public function getConfiguration()
+    {
+        return array(
+            "VAPID" => array(
+                "subject" => $this->siteUrl,
+                "publicKey" => $this->publicKey,
+                "privateKey" => $this->privateKey
+            )
+        );
+    }
+
+    /**
+     * Save notifications user permission
+     * 
+     * @param  object $permission   The permission object
+     * @param  object $user         The logged in user
+     * 
+     * @return void
+     */
+    public function savePermission($permission, $user)
+    {
+        $this->db->createTable($this->dbPrefix . "permissions", array(
+            "id" => array( 'type' => 'INT(11)', 'primary' => true, 'auto_increment' => true),
+            "uid" => array( 'type' => 'VARCHAR(16)' ),
+            "permission" => array( 'type' => 'VARCHAR(1024)' )
+        ));
+        $data = array(
+            "uid" => $user['uid'],
+            "permission" => base64_encode(json_encode($permission))
+        );
+        $select = $this->db->select(array(
+            "from" => $this->dbPrefix . "permissions",
+            "where" => $data
+        ));
+        if (is_bool($select) || count($select) === 0) {
+            $this->db->insert(array(
+                "into" => $this->dbPrefix . "permissions",
+                "values" => $data
+            ));
+        }
+    }
+
+    /**
+     * Remove notifications user permission
+     * 
+     * @param  object $permission   The permission object
+     * 
+     * @return void
+     */
+    public function removePermission($permission)
+    {
+        $this->db->delete(array(
+            "from" => $this->dbPrefix . "permissions",
+            "where" => array(
+                "permission" => base64_encode(json_encode($permission))
+            )
+        ));
+    }
+
+    /**
+     * Load notifications user settings
+     *
+     * @param  object $user     The logged in user
+     *
+     * @return object
+     */
+    public function loadSettings($user)
+    {
+        $select = $this->db->select(array(
+            "select" => array("settings"),
+            "from" => $this->dbPrefix . "settings",
+            "where" => array("uid" => $user['uid'])
+        ));
+        if (!is_bool($select) && count($select) === 1 && isset($select[0]['settings'])) {
+            return json_decode(base64_decode($select[0]['settings']), true);
+        }
+        return array();
+    }
+
+    /**
+     * Save notifications user settings
+     * 
+     * @param  object $settings     The settigns object
+     * @param  object $user         The logged in user
+     * 
+     * @return void
+     */
+    public function saveSettings($settings, $user)
+    {
+        $this->db->createTable($this->dbPrefix . "settings", array(
+            "uid" => array( 'type' => 'VARCHAR(16)', 'primary' => true ),
+            "settings" => array( 'type' => 'VARCHAR(1024)' )
+        ));
+        $select = $this->db->select(array(
+            "from" => $this->dbPrefix . "settings",
+            "where" => array("uid" => $user['uid'])
+        ));
+        if (!is_bool($select) && count($select) === 1) {
+            $this->db->update(array(
+                "update" => $this->dbPrefix . "settings",
+                "set" => array("settings" => base64_encode(json_encode($settings))),
+                "where" => array("uid" => $user['uid'])
+            ));
+        }
+        else {
+            $this->db->insert(array(
+                "into" => $this->dbPrefix . "settings",
+                "values" => array(
+                    "uid" => $user['uid'],
+                    "settings" => base64_encode(json_encode($settings))
+                )
+            ));
+        }
+    }
+
+    /**
+     * Get Users that activated nofitication type
+     * 
+     * @param  string $type The notification type
+     * 
+     * @return array 
+     */
+    private function getRecipients($type)
+    {
+        $select = $this->db->select(array(
+            "from" => $this->dbPrefix . "settings"
+        ));
+        $users = array();
+        if (!is_bool($select)) {
+            foreach ($select as $user) {
+                $settings = array();
+                try {
+                    $settings = json_decode(base64_decode($user['settings']), true);
+                }
+                catch (\Exception $ex) {}
+                if (isset($settings[$type]) && $settings[$type] == true) {
+                    $users[] = $user['uid'];
+                }
+            }
+        }
+        return $users;
+    }
+
+    /**
+     * Get Subscriptions for the Recipients
+     * 
+     * @param  array $recipients The recipients
+     * 
+     * @return array 
+     */
+    private function getPermissions($recipients)
+    {
+        if (!is_array($recipients) || count($recipients) === 0) return array();
+        $select = $this->db->select(array(
+            "from" => $this->dbPrefix . "permissions",
+            "where" => array("uid" => $recipients)
+        ));
+        $permissions = array();
+        if (!is_bool($select)) {
+            foreach ($select as $permission) {
+                try {
+                    $permissions[] = json_decode(base64_decode($permission['permission']), true);
+                }
+                catch (\Exception $ex) {}
+            }
+        }
+        return $permissions;
     }
 
     /**
      * Send a notification to the server
-     * 
+     *
      * @param  string $type     The notification type
-     * @param  string $extra    The extra data to send (JSON)
-     * 
+     * @param  string $title    The notification title
+     * @param  string $body     The body of the notification
+     * @param  string $url      The url to open on notification selection
+     *
      * @return void
      */
-    public function sendNotification($type, $extra)
+    public function sendNotification($type, $title, $body, $url)
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->serverUrl . "notify");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Key: " . $this->signUrl("notify")));
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // To avoid echoing the response
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-            "url"   => $this->siteUrl,
-            "type"  => $type,
-            "title" => $this->siteTitle,
-            "image" => $this->siteImage,
-            "extra" => $extra
-        ));
-        curl_exec($ch);
-        curl_close($ch);
-    }
-
-    /**
-     * Sign an url given the public and the private keys
-     * 
-     * @param  string $url        The url that should be signed
-     * 
-     * @return string             The url signature
-     */
-    private function signUrl($url) {
-        $uriChunks = explode('/', $url);
-        $chunks_md5s = "";
-        foreach ($uriChunks as $uri_chunk) {
-            if ($uri_chunk != '') {
-                $chunks_md5s .= md5($uri_chunk);
+        $recipients = $this->getRecipients($type);
+        $permissions = $this->getPermissions($recipients);
+        if (count($permissions) > 0) {
+            $payload = array();
+            if ($title !== null && $title !== "") {
+                $payload['title'] = $title;
             }
+            if ($body !== null && $body !== "") {
+                $payload['body'] = $body;
+            }
+            if ($url !== null && $url !== "") {
+                $payload['data'] = array(
+                    'url' => $url
+                );
+            }
+            require_once('phar://' . __DIR__ . '/web-push.phar/autoload.php');
+            $auth = array(
+                'VAPID' => array(
+                    'subject' => $this->siteUrl,
+                    'publicKey' => $this->publicKey,
+                    'privateKey' => $this->privateKey
+                )
+            );
+            $webpush = new Minishlink\WebPush\WebPush($auth);
+            foreach ($permissions as $permission) {
+                $report = $webpush->sendOneNotification(
+                    Minishlink\WebPush\Subscription::create($permission),
+                    json_encode($payload)
+                );
+                try {
+                    $statusCode = $report->getResponse()->getStatusCode();
+                    if ($statusCode === 404 || $statusCode === 410) {
+                        $this->removePermission($permission);
+                    }
+                }
+                catch (\Exception $ex) {}
+            }
+
         }
-        $chunks_signature = md5($chunks_md5s . $this->privateKey);
-        return $this->publicKey . substr($chunks_signature, 16);
     }
 }
 
@@ -7820,6 +8496,7 @@ class imPrivateArea
     private $salt;
     private $db = false;
     private $db_table;
+    private $data_db_table;
 
     function __construct()
     {
@@ -8162,6 +8839,11 @@ class imPrivateArea
         $imSettings = Configuration::getSettings();
         if (isset($imSettings['access']['users'][$username])) {
             $user = $imSettings['access']['users'][$username];
+            $email = isset($user['email']) ? $user['email'] : $username;
+            $firstname = isset($user['firstname']) ? $user['firstname'] : '';
+            $lastname = isset($user['lastname']) ? $user['lastname'] : '';
+            $password = isset($user['password']) ? $user['password'] : '';
+            $crypt_encoding = isset($user['crypt_encoding']) ? $user['crypt_encoding'] : '';
             return array(
                 'user_type' => '1',
                 'db_stored' => $user['db_stored'],
@@ -8169,18 +8851,18 @@ class imPrivateArea
                 "ts"        => "",
                 "ip"        => "",
                 "username"  => $username,
-                "email"     => $username,
-                "password"  => $user['password'],
-                "orderscount" => Configuration::getCart()->getOrdersCountByEmail($user['email']),
-                "firstname" => $user['firstname'],
-                "lastname"  => $user['lastname'],
+                "email"     => $email,
+                "password"  => $password,
+                "orderscount" => Configuration::getCart()->getOrdersCountByEmail($email),
+                "firstname" => $firstname,
+                "lastname"  => $lastname,
                 // Compatibility mode for old code snippets
-                "realname"  => isset($user['realname']) ? $user['realname'] : trim($user['firstname'] . " " . $user['lastname']),
+                "realname"  => isset($user['realname']) ? $user['realname'] : trim($firstname . " " . $lastname),
                 "key"       => "",
                 "validated" => true,
                 "groups"    => $user['groups'],
-                "hash"      => self::_getUserHash($username, $user['password']),
-                "crypt_encoding" => $user['crypt_encoding']
+                "hash"      => self::_getUserHash($username, $password),
+                "crypt_encoding" => $crypt_encoding
             );
         }
         return null;
@@ -8386,11 +9068,12 @@ class imPrivateArea
      *
      * @return {Void}
      */
-    public function setDBData($db, $dbtable)
+    public function setDBData($db, $dbtable, $datadbtable)
     {
         $this->db = $db;
         if ($this->db->testConnection()) {
             $this->db_table = $dbtable;
+            $this->data_db_table = $datadbtable;
             $this->createUsersTable();
             return $this->db;
         }
@@ -8524,6 +9207,148 @@ class imPrivateArea
     }
 
     /**
+     * Get the logged user data value for the given key.
+     * This method is only available in the **Professional edition**.
+     *
+     * @param  string $key
+     *
+     * @return string The value
+     */
+    public function getUserData($key, $default)
+    {
+        $user = $this->whoIsLogged();
+        if (!$user || !$this->db) {
+            return $default;
+        }
+
+        $value = $this->db->select(array('select' => 'value', 'from' => $this->data_db_table, 'where' => array('user_email' => strval($user['email']), 'key' => $key)));
+        if (!is_bool($value) && count($value))
+            return $value[0]['value'];
+        return $default;
+    }
+
+    /**
+     * Get the data value for the given user and key.
+     * This method is only available in the **Professional edition**.
+     *
+     * @param  string $user
+     * @param  string $key
+     *
+     * @return string The value
+     */
+    public function getRawUserData($user, $key, $default)
+    {
+        if (!$this->db) {
+            return $default;
+        }
+
+        $value = $this->db->select(array('select' => 'value', 'from' => $this->data_db_table, 'where' => array('user_email' => $user, 'key' => $key)));
+        if (!is_bool($value) && count($value))
+            return $value[0]['value'];
+        return $default;
+    }
+
+    /**
+     * Set the logged user data value for the given key.
+     * This method is only available in the **Professional edition**.
+     *
+     * @param  string $key
+     * @param  string $value
+     */
+    public function setUserData($key, $value)
+    {
+        $user = $this->whoIsLogged();
+        if (!$user || !$this->db) {
+            return;
+        }
+
+        $current_value = $this->getUserData($key, null);
+        if ($current_value == null) {
+            if (!$this->db->tableExists($this->data_db_table)) {
+                $this->createUsersDataTable();
+            }
+            $this->db->insert(array(
+                'into' => $this->data_db_table,
+                'values' => array(
+                    'user_email' => strval($user['email']),
+                    'key' => $key,
+                    'value' => $value
+                )
+            ));
+        } else {
+            $this->db->update(array(
+                'update' => $this->data_db_table,
+                'set' => array(
+                    'value' => $value
+                ),
+                'where' => array('user_email' => strval($user['email']), 'key' => $key)
+            ));
+        }
+    }
+
+    /**
+     * Set the data value for the given user and key.
+     * This method is only available in the **Professional edition**.
+     *
+     * @param  string $user
+     * @param  string $key
+     * @param  string $value
+     */
+    public function setRawUserData($user, $key, $value)
+    {
+        if (!$this->db) {
+            return;
+        }
+
+        $current_value = $this->getRawUserData($user, $key, null);
+        if ($current_value == null) {
+            if (!$this->db->tableExists($this->data_db_table)) {
+                $this->createUsersDataTable();
+            }
+            $this->db->insert(array(
+                'into' => $this->data_db_table,
+                'values' => array(
+                    'user_email' => $user,
+                    'key' => $key,
+                    'value' => $value
+                )
+            ));
+        } else {
+            $this->db->update(array(
+                'update' => $this->data_db_table,
+                'set' => array(
+                    'value' => $value
+                ),
+                'where' => array('user_email' => $user, 'key' => $key)
+            ));
+        }
+    }
+
+    /**
+     * Find the touples of users and data values for the given key.
+     * This method is only available in the **Professional edition**.
+     *
+     * @param  string $key
+     *
+     * @return string The value
+     */
+    public function findRawUserData($key)
+    {
+        if (!$this->db) {
+            return array();
+        }
+
+        $values = $this->db->select(array('select' => array('user_email', 'value'), 'from' => $this->data_db_table, 'where' => array('key' => $key)));
+        $result = array();
+        if (!is_bool($values) && count($values)) {
+            foreach ($values as $value) {
+                $result[$value['user_email']] = $value['value'];
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Create the users table if it doesn't exist
      * This method is only available in the **Professional edition**.
      *
@@ -8555,6 +9380,26 @@ class imPrivateArea
             if (is_array($col) && count($col)) {
                 $this->db->query("ALTER TABLE `" . $this->db->table($this->db_table) . "` CHANGE `realname` `realname` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL");
             }
+        }
+    }
+
+    /**
+     * Create the users data table if it doesn't exist
+     * This method is only available in the **Professional edition**.
+     *
+     * @return void
+     */
+    public function createUsersDataTable()
+    {
+        if ($this->db) {
+            $this->db->createTable(
+                $this->data_db_table,
+                array(
+                    "user_email" => array('type' => 'TEXT'),
+                    "key"     => array('type' => 'TEXT'),
+                    "value"   => array('type' => 'TEXT')
+                )
+            );
         }
     }
 
@@ -8676,7 +9521,7 @@ class imPrivateArea
         $html .= "<b>" . l10n("private_area_username", "Username") . ":</b> " . $user['username'] . "<br />\n";
         $html .= "<b>" . l10n("private_area_email", "Email") . ":</b> " . $user['email'] . "<br />\n";
         $html .= "<b>" . l10n("private_area_ip", "IP") . ":</b> " . $user['ip'] . "<br />\n";
-        $html .= "<b>" . l10n("private_area_ts", "Time") . ":</b> " . $user['ts'] . "<br />\n";
+        $html .= "<b>" . l10n("private_area_ts", "Time") . ":</b> " . formatDate(DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $user['ts']), false, true, true) . "<br />\n";
 
         $ImMailer->send($from, $replyTo, $this->admin_email, $subject, strip_tags($html), $html);
     }
@@ -9254,7 +10099,7 @@ class imSearch {
                         $minpos = $filelen;
                         $word = "";
                         foreach ($queries as $query) {
-                            if ($ap < $filelen && ($pos = imstrpos(imstrtoupper($file), imstrtoupper($query), $ap)) !== false) {
+                            if ($ap < $filelen && ($pos = imstrpos(imstrtolower($file), imstrtolower($query), $ap)) !== false) {
                                 if ($pos < $minpos) {
                                     $minpos = $pos;
                                     $word = $query;
@@ -9414,7 +10259,7 @@ class imSearch {
                         $minpos = $filelen;
                         $word = "";
                         foreach ($queries as $query) {
-                            if ($ap < $filelen && ($pos = imstrpos(imstrtoupper($file), imstrtoupper($query), $ap)) !== false) {
+                            if ($ap < $filelen && ($pos = imstrpos(imstrtolower($file), imstrtolower($query), $ap)) !== false) {
                                 if ($pos < $minpos) {
                                     $minpos = $pos;
                                     $word = $query;
@@ -9926,6 +10771,7 @@ class ImSendEmail
     /**
      * Send an email
      *
+     * @param string $sender      Envelope sender address
      * @param string $from        Self explanatory
      * @param string $to          Self explanatory
      * @param string $subject     Self explanatory
@@ -9935,8 +10781,9 @@ class ImSendEmail
      *
      * @return boolean
      */
-    function send($from = "", $replyTo = "", $to = "", $subject = "", $text = "", $html = "", $attachments = array())
+    function send($sender = "", $from = "", $to = "", $subject = "", $text = "", $html = "", $attachments = array())
     {
+        global $imSettings;
         /*
         |--------------
         |  PHPMailer
@@ -9961,11 +10808,23 @@ class ImSendEmail
             // Meta
             $email->CharSet = 'UTF-8'; // WSXELE-1067: Force UTF-8
             $email->Subject = $subject;
-            $email->From = addressFromEmail($from);
-            $email->FromName = nameFromEmail($from);
-            $replyTo = addressFromEmail($replyTo);
-            if (strlen($replyTo) !== 0 && $email->From !== $replyTo) {
-                $email->addReplyTo($replyTo);
+
+            if ($from != null && $from != "") {
+                if (isset($imSettings['general']['enable_sender_header']) && $imSettings['general']['enable_sender_header']) {
+                    $email->From = addressFromEmail($from);
+                    $email->FromName = nameFromEmail($from);
+                    $email->Sender = $sender;
+                }
+                else {
+                    $email->From = addressFromEmail($sender);
+                    $email->FromName = nameFromEmail($sender);
+                    if (addressFromEmail($sender) !== addressFromEmail($from)) {
+                        $email->addReplyTo($from);
+                    }
+                }
+            }
+            else {
+                $email->From = $sender;
             }
 
             // WSXELE-1120: Split the email addresses if necessary
@@ -9997,7 +10856,7 @@ class ImSendEmail
         |--------------
          */
 
-        $email = new imEMail($from, $replyTo, $to, $subject, "utf-8");
+        $email = new imEMail($sender, $from, $to, $subject, "utf-8", isset($imSettings['general']['enable_sender_header']) && $imSettings['general']['enable_sender_header']);
         $email->setExpose($this->exposeWsx5);
         $email->setText($text);
         $email->setHTML($this->header . $this->styleHTML($html) . $this->footer);
@@ -10837,13 +11696,9 @@ class ImTopic
             $i = 0;
             foreach ( $c as $comment ) {
                 if ( isset($comment['body']) && $comment['approved'] == "1" ) {
-                    //format date to  d-m-Y (es. '12 June 2020')
+                    //format date to extended format set by user
                     $createDate = new DateTime($comment['timestamp']);
-                    $formatDate = $createDate->format('d-m-Y');
-                    $text = l10n('date_months');
-                    $formatDate = explode('-', $formatDate);
-                    $formatDate[1] = $text[$formatDate[1] - 1];
-                    $formatDate = implode(' ', $formatDate);
+                    $formatDate = formatDate($createDate, true);
 
                     //check to make sure that the text does not exceed the maximum font size. If it passes I cut the text
                     $body = $comment['body'];
@@ -11645,7 +12500,7 @@ if (!function_exists('json_encode')) {
 function checkJsAndSpam($expectedValue = "")
 {
     // Spam!
-    if ($_POST['prt'] != "") {
+    if (isset($_POST['prt']) && $_POST['prt'] != "") {
         return false;
     }
 
@@ -11784,6 +12639,54 @@ function imRequestHeaders()
     }
 
     return $headers;
+}
+
+/**
+ * Format a DateTime using normal or extended format, as configured by user in step 2 (default styles)
+ *
+ * @param  DateTime $date      The date to format
+ * @param  boolean  $extended  true to use extended format, false otherwise
+ * @param  boolean  $showDay   true to show day number and/or name, false to show only month and year
+ * @param  boolean  $showTime  true to show time in hh:mm:ss format
+ *
+ * @return String              The formatted date
+ */
+function formatDate($date, $extended = false, $showDay = true, $showTime = false) {
+    global $imSettings;
+
+    $varName = 'date_format';
+    if (!$showDay) $varName .= '_no_day';
+    if ($extended) $varName .= '_ext';
+    $format = $imSettings['general'][$varName];
+    
+    $date_full_months = l10n('date_full_months');
+    $date_months = l10n('date_months');
+    $date_full_days = l10n('date_full_days');
+    $date_days = l10n('date_days');
+
+    $month = $date->format('n');
+    $dayOfWeek = $date->format('w') - 1;  // 'w' is Sunday to Saturday, while date_full_days and date_days are Monday to Sunday
+	if ($dayOfWeek == -1) $dayOfWeek = 6;
+
+    $format = str_replace('yyyy', $date->format('Y'),            $format);
+    $format = str_replace('yy',   $date->format('y'),            $format);
+    $format = str_replace('MMMM', '$$$$',                        $format);
+    $format = str_replace('MMM',  '$$$',                         $format);
+    $format = str_replace('MM',   $date->format('m'),            $format);
+    $format = str_replace('M',    $month,                        $format);
+    $format = str_replace('dddd', '§§§§',                        $format);
+    $format = str_replace('ddd',  '§§§',                         $format);
+    $format = str_replace('dd',   $date->format('d'),            $format);
+    $format = str_replace('d',    $date->format('j'),            $format);
+    $format = str_replace('$$$$', $date_full_months[$month - 1], $format);
+    $format = str_replace('$$$',  $date_months[$month - 1],      $format);
+    $format = str_replace('§§§§', $date_full_days[$dayOfWeek],   $format);
+    $format = str_replace('§§§',  $date_days[$dayOfWeek],        $format);
+
+    if ($showTime)
+        $format .= ' ' . $date->format('H:i:s');
+
+    return $format;
 }
 
 $imSettings = Array();

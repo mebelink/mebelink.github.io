@@ -22,7 +22,7 @@
 			<td class="no-phone"><?php echo $user['email'] ?></td>
 			<td class="no-phone"><?php echo $user['realname'] ?></td>
 			<td class="no-phone no-tablet"><?php echo $user['ip'] ?></td>
-			<td><?php echo $user['ts'] ?></td>
+			<td><?php echo formatDate(DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $user['ts']), false, true, true) ?></td>
 			<?php if ($user['validated']): ?>
 			<td class="green no-phone no-tablet"><?php echo l10n("private_area_status_validated", "Validated") ?></td>
 			<?php else: ?>

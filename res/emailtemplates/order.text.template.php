@@ -100,8 +100,13 @@ if (isset($orderData['products']) && is_array($orderData['products'])) {
         break;
     }
     // Coupon
-    if (isset($orderData['coupon']) && $orderData['coupon'] !== "" && $orderData['rawCouponDiscount'] > 0) {
-        echo "\n" . $l10n->get('cart_coupon_code', "Coupon Code")  . " (" . $orderData['coupon'] . "): -" . $orderData['couponDiscount'] . "\n";
+    if ((isset($orderData['coupon']) && $orderData['coupon'] !== "" && $orderData['rawCouponDiscount'] > 0) || (isset($orderData['rawOrderTotalDiscount']) && $orderData['rawOrderTotalDiscount'] !== "" && $orderData['rawOrderTotalDiscount'] > 0)) {
+        if (isset($orderData['coupon']) && $orderData['coupon'] !== "" && $orderData['rawCouponDiscount'] > 0) {
+            echo "\n" . $l10n->get('cart_coupon_code', "Coupon Code") . " (" . $orderData['coupon'] . "): -" . $orderData['couponDiscount'] . "\n";
+        }
+        if (isset($orderData['rawOrderTotalDiscount']) && $orderData['rawOrderTotalDiscount'] !== "" && $orderData['rawOrderTotalDiscount'] > 0) {
+            echo "\n" . $l10n->get('cart_order_total_discount', "Order Total Discount") . ": -" . $orderData['orderTotalDiscount'] . "\n";
+        }
         echo "\n" . $l10n->get('cart_grand_total', "Grand total") . ": " . $orderData['totalToPay'] . "\n";
     }
     else if (isset($orderData['coupon']) && $orderData['coupon'] !== "") {

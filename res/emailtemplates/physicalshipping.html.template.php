@@ -33,7 +33,7 @@
                         <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder];"><?php echo $value["name"] ?><br /><?php echo $value["description"] ?></td>
                         <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;"><?php echo $value["quantity"] ?></td>
                         <?php if (isset($value['image'])): ?>
-                            <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder];"><br /><img src="<?php echo $baseurl . $value['image'] ?>" alt="<?php echo $value['name'] ?>" style="max-width: 250px;" /></td>
+                            <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder];"><br /><img src="<?php echo $baseurl . $value['image'] ?>" alt="" style="max-width: 250px;" /></td>
                         <?php endif; ?>
                     </tr>
                     <?php $i++; ?>
@@ -92,7 +92,7 @@
         </td>
     </tr>
     <!-- Tracking Info -->
-        <?php if ($shippingData['enable_tracking'] === true && $orderData['order']['tracking_code'] !== null) : ?>
+        <?php if (isset($shippingData['tracking_type']) && isset($orderData['order']['tracking_code']) && $shippingData['tracking_type'] === 'url' && $orderData['order']['tracking_code'] !== null) : ?>
     <?php echo $separator ?>
     <tr>
         <td colspan="2" style="[email:contentFontFamily] padding: 5px 0 0 0;">

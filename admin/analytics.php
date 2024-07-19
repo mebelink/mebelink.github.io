@@ -69,6 +69,7 @@ $contentT->content .= $tabsT->render();
 
 // Load the dates selector
 $datePickerT = new Template("templates/common/date-picker.php");
+$datePickerT->format = $imSettings['general']['date_format_ext'];
 $datePickerT->baseUrl = "analytics.php?type=$type&";
 $contentT->content .= $datePickerT->render();
 

@@ -17,12 +17,6 @@
 		<td class="border-bottom border-mute-light"><?php echo (strlen($obj['ObjectTitle']) ? $obj['ObjectTitle'] : $obj['ObjectId']) ?></td>
 		<td class="no-phone border-bottom border-mute-light text-ellipsis"><?php echo Configuration::getDynamicObject($obj['FileId'])->getContent() ?></td>
 		<td class="border-right border-bottom border-mute-light text-right">
-			<?php
-				// App redirect code
-				if (Configuration::getControlPanel()->isWsx5Manager()) {
-					$redirectJs = " onclick=\"parent.postMessage('{&quot;code&quot;: 301, &quot;location&quot;: &quot;" . $obj['Page'] . "#" . $obj['ObjectId'] . "&quot;}', '*'); return false;\"";
-				}
-			?>
 			<a href="<?php echo $obj['Page'] . "#" . $obj['ObjectId'] ?>"<?php echo isset($redirectJs) ? $redirectJs : "" ?> target="_blank" class="fa icon-large fa-search fore-mute"></a>
 		</td>
 	</tr>

@@ -22,7 +22,7 @@
                         <td style="[email:contentFontFamily]">
                             <?php echo $value['name'] ?>
                             <?php if (isset($value['image'])): ?>
-                            <img src="<?php echo $baseurl . $value['image'] ?>" alt="<?php echo $value['name'] ?>" style="max-width: 250px;" />
+                            <img src="<?php echo $baseurl . $value['image'] ?>" alt="" style="max-width: 250px;" />
                             <?php endif; ?>
                         </td>
                         <td style="[email:contentFontFamily]"><a href="<?php echo $url ?>"><?php echo $url ?></a></td>

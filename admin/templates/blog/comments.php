@@ -69,7 +69,7 @@
     <!-- Desktop Row -->
     <tr class="no-phone comment <?php echo $cssClass ?>">
         <td class="text-small border-left border-mute-light border-bottom">
-            <div class="margin-bottom"><?php echo $comment['timestamp'] ?></div>
+            <div class="margin-bottom"><?php echo formatDate(DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $comment['timestamp']), false, true, true) ?></div>
             <div class="margin-bottom"><?php echo $user ?></div>
             <?php echo $rating; ?>
             <div>IP: <?php echo $comment['ip'] ?></div>
@@ -92,7 +92,7 @@
         <td colspan="4">
             <div class="margin-bottom float-left"><?php echo $user ?></div>
             <div class="margin-bottom float-right">
-                <?php echo date("Y-m-d", strtotime($comment['timestamp'])) ?>
+                <?php echo formatDate(DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $comment['timestamp'])) ?>
                 <span class="no-small-phone"><?php echo date("H:i", strtotime($comment['timestamp'])) ?></span>
             </div>
             <?php if (strlen($rating)): ?>

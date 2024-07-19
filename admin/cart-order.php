@@ -25,14 +25,36 @@ $tabsT->unselectedBgColorClass = "background-mute";
 $tabsT->status = '';
 $contentT->content .= $tabsT->render();
 
+$evadeResultContent = "";
+
 if (isset($_GET['id'])) {
 
 	// Evade the order
 	if (isset($_GET['evade'])) {
 		$tracking_code = (isset($_GET['track_code']) && $_GET['track_code'] !== '') ? $_GET['track_code'] : null;
-		$ecommerce->evadeOrder($_GET['id'], '', $tracking_code);
-		header('Location: cart-order.php?id=' . $_GET['id']);
-		exit();
+		$force = false;
+		if ( isset( $_GET['force'] ) && $_GET['force'] == true ) {
+			$force = true;
+		}
+		$evadeResult = $ecommerce->evadeOrder ($_GET['id'], '', $tracking_code, $force );
+
+
+		if ( $evadeResult != null && strlen ( trim ( $evadeResult ) ) > 0 ) {
+
+			$evadeResultContent = "<script> ";
+			$evadeResultContent .= "console.log( '" . $evadeResult. "' ); ";
+			$evadeResultContent .= "if ( confirm ( '" . l10n( "cart_evade_order_error_generic", "Error occured. Continue with order evasion?" ) . "' ) ) { ";
+			$evadeResultContent .= "window.location.href += '&force=true';";
+			$evadeResultContent .= "} ";
+			$evadeResultContent .= "</script>";
+
+		} else {
+
+			header('Location: cart-order.php?id=' . $_GET['id']);
+			exit();
+
+		}
+
 	}
 
 	// Export the CSV file
@@ -98,6 +120,8 @@ if (isset($_GET['id'])) {
 		$contentT->content .= $orderT->render();
 	}
 }
+
+$contentT->content .= $evadeResultContent;
 
 $mainT->content = $contentT->render();
 

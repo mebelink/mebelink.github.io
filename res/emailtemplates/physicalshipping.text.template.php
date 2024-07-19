@@ -32,7 +32,7 @@ if ($shippingAddress && is_array($shippingAddress)) {
 if (isset($shippingData) && is_array($shippingData)) {
     echo str_replace("\\n", "\n", $l10n->get('cart_shipping') . "\n" . $shippingData['name'] .  "\n" . $shippingData['email_text']) . "\n\n";
     // Tracking Info 
-    if ($shippingData['enable_tracking'] === true && $orderData['order']['tracking_code'] !== null) {
+    if (isset($shippingData['tracking_type']) && isset($orderData['order']['tracking_code']) && $shippingData['tracking_type'] === 'url' && $orderData['order']['tracking_code'] !== null) {
         echo $l10n->get('email_tracking_info');
         echo "\n";
         if ($shippingData['tracking_url'] !== '') {

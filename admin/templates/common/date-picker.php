@@ -13,20 +13,24 @@
 	x5engine.boot.push(function() {
 		var from = x5engine.imDatePicker( $("#from"), {
 			"icon"       : false,
+			"format"     : "<?php echo $format ?>",
 			"date"       : new Date(<?php echo isset($_GET['from']) ? $_GET['from'] : date("U", strtotime("-1 month")) . " * 1000" ?>),
 			"setInitial" : true,
 			"onChange"   : function () {
 				if (from.date() < to.date()) {
+					to.date().setHours(23, 59, 59);
 					location.href="<?php echo $baseUrl ?>from=" + from.date().getTime() + "&to=" + to.date().getTime();
 				}
 			}
 		});
 		var to = x5engine.imDatePicker( $("#to"), {
 			"icon"       : false,
+			"format"     : "<?php echo $format ?>",
 			"date"       : new Date(<?php echo isset($_GET['to']) ? $_GET['to'] : "" ?>),
 			"setInitial" : true,
 			"onChange"   : function () {
 				if (to.date() > from.date()) { 
+					to.date().setHours(23, 59, 59);
 					location.href="<?php echo $baseUrl ?>from=" + from.date().getTime() + "&to=" + to.date().getTime();
 				}
 			}

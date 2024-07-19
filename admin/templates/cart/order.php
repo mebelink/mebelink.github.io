@@ -56,10 +56,10 @@
 			}
 			?>
 			<td class="border-left border-right border-mute-light"><span class="text-big"><?php echo l10n($order_status_loc) ?></span></td>
-			<td class="border-right border-mute-light border-right"><span class="text-big"><?php echo date("Y/m/d", strtotime($order['ts'])) ?></span></td>
+			<td class="border-right border-mute-light border-right"><span class="text-big"><?php echo formatDate(DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $order['ts'])) ?></span></td>
 			<?php if ($order['status'] === 'evaded'): ?>
 				<?php if ($order['evaded_ts'] !== null): ?>
-				<td class="border-right border-mute-light"><span class="text-big"><?php echo date("Y/m/d", strtotime($order['evaded_ts'])) ?></span></td>
+				<td class="border-right border-mute-light"><span class="text-big"><?php echo formatDate(DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $order['evaded_ts'])) ?></span></td>
 				<?php endif; ?>
 				<?php if ($order['tracking_code'] !== null && $order['tracking_code'] !== ''): ?>
 				<td class="border-right border-mute-light "><span class="text-big"><?php echo $order['tracking_code'] ?></span></td>
@@ -270,16 +270,26 @@ case "none":?>
 <? break; ?>
 <?php } ?>
 <!-- Coupon Code and grandtotal -->
-<?php if (isset($order['coupon']) && $order['coupon'] != "" && $order['coupon_value'] > 0): ?>
+
+<?php if ( ( isset($order['coupon']) && $order['coupon'] != "" && $order['coupon_value'] > 0 ) || ( isset($order['total_discount_value']) && $order['total_discount_value'] != "" && $order['total_discount_value'] > 0 ) ): ?>
+<?php if ( isset($order['coupon']) && $order['coupon'] != "" && $order['coupon_value'] > 0 ): ?>
 	<tr>
 		<td colspan="<?php echo $order['vat_type'] != 'none' ? '5' : '4' ?>"></td>
 		<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo l10n('cart_coupon_code', "Coupon Code") ?></td>
 		<td class="border-bottom border-right border-mute-light text-left print-text-right"><b>-<?php echo Configuration::getCart()->toCurrency($order['coupon_value'], ' ' . $order['currency']) . ' (' . $order['coupon'] . ')' ?></b></td>
 	</tr>
+<?php endif; ?>
+<?php if ( isset($order['total_discount_value']) && $order['total_discount_value'] != "" && $order['total_discount_value'] > 0 ): ?>
+	<tr>
+		<td colspan="<?php echo $order['vat_type'] != 'none' ? '5' : '4' ?>"></td>
+		<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo l10n('cart_order_total_discount', "Order Total Discount") ?></td>
+		<td class="border-bottom border-right border-mute-light text-left print-text-right"><b>-<?php echo Configuration::getCart()->toCurrency($order['total_discount_value'], ' ' . $order['currency']) ?></b></td>
+	</tr>
+<?php endif; ?>
 	<tr>
 		<td colspan="<?php echo $order['vat_type'] != 'none' ? '5' : '4' ?>"></td>
 		<td class="border-bottom border-left border-mute-light fore-color-1 text-left"><?php echo l10n('cart_grand_total', "Grand total") ?></td>
-		<td class="border-bottom border-right border-mute-light text-left print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['price_plus_vat'] - $order['coupon_value'], ' ' . $order['currency']) ?></b></td>
+		<td class="border-bottom border-right border-mute-light text-left print-text-right"><b><?php echo Configuration::getCart()->toCurrency($order['price_plus_vat'] - $order['coupon_value'] - $order['total_discount_value'], ' ' . $order['currency']) ?></b></td>
 	</tr>
 <?php elseif (isset($order['coupon']) && $order['coupon'] != ""): ?>
 	<tr>
@@ -380,10 +390,8 @@ case "none":?>
 	<div class="noprint text-center float-right ">
 		<a class="button background-color-1 fore-white no-phone no-tablet" href="#" onclick="window.print(); return false;"><?php echo l10n('cart_print', "Print") ?></a>
 		<?php if ($order['status'] == 'inbox'): ?>
-			<a class="button background-color-1 fore-white" onclick="return orders.evadeOrder(this);" data-enable-tracking="<?php echo (isset($orderArray['shipping_data']['enable_tracking']) && $orderArray['shipping_data']['enable_tracking'] == true) ? 'true' : 'false' ?>" href="cart-order.php?id=<?php echo $order['id'] ?>&amp;evade=true"><?php echo l10n('cart_evade', "Evade") ?></a>
+			<a class="button background-color-1 fore-white" onclick="return orders.evadeOrder(this);" data-enable-tracking="<?php echo (isset($orderArray['shipping_data']['tracking_type']) && $orderArray['shipping_data']['tracking_type'] == 'url') ? 'true' : 'false' ?>" href="cart-order.php?id=<?php echo $order['id'] ?>&amp;evade=true"><?php echo l10n('cart_evade', "Evade") ?></a>
 		<?php endif; ?>
-		<?php if (!Configuration::getControlPanel()->isWsx5Manager()): ?>
 		<a class="button background-color-1 fore-white" href="cart-order.php?id=<?php echo $order['id'] ?>&amp;exportcsv=true"><?php echo l10n('cart_export', "Export") ?></a>
-		<?php endif; ?>
 	</div>
 	<div class="clearfix"></div>

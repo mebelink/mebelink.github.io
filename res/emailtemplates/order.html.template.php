@@ -215,11 +215,19 @@
                         <?php break;
                     }
                     // Coupon code and grandtotal
-                    if (isset($orderData['coupon']) && $orderData['coupon'] !== "" && $orderData['rawCouponDiscount'] > 0): ?>
+                    if ( ( isset($orderData['coupon']) && $orderData['coupon'] !== "" && $orderData['rawCouponDiscount'] > 0 ) || (isset($orderData['rawOrderTotalDiscount']) && $orderData['rawOrderTotalDiscount'] !== "" && $orderData['rawOrderTotalDiscount'] > 0) ): ?>
+                        <?php if ( isset($orderData['coupon']) && $orderData['coupon'] !== "" && $orderData['rawCouponDiscount'] > 0 ): ?>
                         <tr>
                             <td colspan="<?php echo $colspan ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo $l10n->get('cart_coupon_code', "Coupon Code") . " (" . $orderData['coupon'] . ")" ?></td>
                             <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;">-<?php echo $orderData['couponDiscount'] ?></td>
                         </tr>
+		        <?php endif; ?>
+                        <?php if ( isset($orderData['rawOrderTotalDiscount']) && $orderData['rawOrderTotalDiscount'] !== "" && $orderData['rawOrderTotalDiscount'] > 0 ): ?>
+                        <tr>
+                            <td colspan="<?php echo $colspan ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo $l10n->get('cart_order_total_discount', "Order Total Discount") ?></td>
+                            <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;">-<?php echo $orderData['orderTotalDiscount'] ?></td>
+                        </tr>
+		        <?php endif; ?>
                         <tr>
                             <td colspan="<?php echo $colspan ?>" style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right; font-weight: bold;"><?php echo $l10n->get('cart_grand_total', "Grand total") ?></td>
                             <td style="[email:contentFontFamily] border: 1px solid [email:bodyBackgroundBorder]; text-align: right;"><?php echo $orderData['totalToPay'] ?></td>

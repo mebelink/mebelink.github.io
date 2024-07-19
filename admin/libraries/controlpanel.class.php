@@ -153,12 +153,12 @@ class ControlPanel {
                 "selected" => isset($_SERVER['PHP_SELF']) && basename($_SERVER['PHP_SELF']) == "dynamicobjects.php"
             );
         }
-        if (!Configuration::getControlPanel()->isWsx5Manager()) {
+        if (isset($settings['admin']) && isset($settings['admin']['enable_notifications']) && $settings['admin']['enable_notifications'] === true) {
             $menu[] = array(
-                "url" => "wsx5-manager.php",
-                "image" => "images/manager_white.png",
-                "text" => $loc->get("admin_app_name", "App Login"),
-                "selected" => isset($_SERVER['PHP_SELF']) && basename($_SERVER['PHP_SELF']) == "wsx5-manager.php"
+                "url" => "notifications.php",
+                "image" => "images/notifications_white.png",
+                "text" => $loc->get("notifications_name", "Notifications"),
+                "selected" => isset($_SERVER['PHP_SELF']) && basename($_SERVER['PHP_SELF']) == "notifications.php"
             );
         }
         if (isset($settings['analytics']) && $settings['analytics']['type'] == "wsx5analytics") {
@@ -224,24 +224,5 @@ class ControlPanel {
         $template->logo = $this->siteLogo;
 
         return $template;
-    }
-
-    /**
-     * Report the login with the WSX5 Manager
-     * 
-     * @return Void
-     */
-    public function loginWsx5Manager()
-    {
-        $_SESSION['is_wsx5_manager'] = true;
-    }
-
-    /**
-     * Return true if this site is being loaded in the WSX5 Manager app
-     * 
-     * @return boolean
-     */
-    public function isWsx5Manager() {
-        return isset($_SESSION['is_wsx5_manager']) && $_SESSION['is_wsx5_manager'];
     }
 }

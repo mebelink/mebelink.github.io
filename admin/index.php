@@ -18,6 +18,29 @@ $main->stylesheets = array("css/dashboard.css");
 $main->content = "";
 
 
+// -----------------
+// Notifications Ads
+// -----------------
+
+if (isset($imSettings['admin']) && isset($imSettings['admin']['enable_notifications']) && $imSettings['admin']['enable_notifications'] === true) {
+    $notificationsT = new Template("templates/common/box.php");
+    $notificationsT->cssClass = "dashboard-notifications-bar";
+    $notificationsT->content = "";
+    $notificationsAdT = new Template("templates/notifications/ad.php");
+    $notificationsAdT->title = l10n('admin_notifications_ad_title', 'Turn on the Notifications');
+    $notificationsAdT->body = l10n('admin_notifications_ad_body', 'Set up push notifications and never miss an important update from your website.');
+    $notificationsAdT->cta = l10n('admin_notifications_ad_cta', 'Go to Notifications');
+    $notificationsT->content .= $notificationsAdT->render();
+    $main->content .= $notificationsT->render();
+}
+
+
+// ---------------
+// Boxes Container
+// ---------------
+$main->content .= "<div class=\"dashboard-boxes-container\">";
+
+
 // ----------
 // Statistics
 // ----------
@@ -401,24 +424,6 @@ if ($count > 0) {
     $main->content .= $boxT->render();
 }
 
-// -----------------
-// WSX5 Manager Ads
-// -----------------
-
-if (Configuration::getControlPanel()->isWsx5Manager() == false) {
-    $boxT = new Template("templates/dashboard/box.php");
-    $boxT->title = l10n("wsx5manager_title", "WebSite X5 Manager");
-    $boxT->url = "wsx5-manager.php";
-    $boxT->content = "";
-    $boxT->dismissid = "manager-ads";
-    $boxT->image = "images/manager_black.png";
-
-    $contentT = new Template("templates/dashboard/manager-ads.php");
-    $boxT->content = $contentT->render();
-
-    $main->content .= $boxT->render();
-}
-
 // ----------------------
 // Optional Objects boxes
 // ----------------------
@@ -437,5 +442,10 @@ foreach ($settings['admin']['extra-dashboard'] as $key => $item) {
     // Append the box to the main template
     $main->content .= $boxT->render();
 }
+
+// ---------------
+// Boxes Container
+// ---------------
+$main->content .= "</div>";
 
 echo $main->render();

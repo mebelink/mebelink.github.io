@@ -15,21 +15,22 @@
 		<meta property="og:image:type" content="image/png">
 		<meta property="og:image:width" content="744">
 		<meta property="og:image:height" content="450">
+		<meta name="twitter:card" content="summary_large_image">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link rel="stylesheet" href="style/reset.css?2023-1-5-0" media="screen,print" />
-		<link rel="stylesheet" href="style/print.css?2023-1-5-0" media="print" />
-		<link rel="stylesheet" href="style/style.css?2023-1-5-0" media="screen,print" />
-		<link rel="stylesheet" href="style/template.css?2023-1-5-0" media="screen" />
-		<link rel="stylesheet" href="pcss/imsearch.css?2023-1-5-0-638443259658331711" media="screen,print" />
-		<script src="res/jquery.js?2023-1-5-0"></script>
-		<script src="res/x5engine.js?2023-1-5-0" data-files-version="2023-1-5-0"></script>
+		<link rel="stylesheet" href="style/reset.css?2024-2-7-1" media="screen,print" />
+		<link rel="stylesheet" href="style/print.css?2024-2-7-1" media="print" />
+		<link rel="stylesheet" href="style/style.css?2024-2-7-1" media="screen,print" />
+		<link rel="stylesheet" href="style/template.css?2024-2-7-1" media="screen" />
+		<link rel="stylesheet" href="pcss/imsearch.css?2024-2-7-1-638570300479399808" media="screen,print" />
+		<script src="res/jquery.js?2024-2-7-1"></script>
+		<script src="res/x5engine.js?2024-2-7-1" data-files-version="2024-2-7-1"></script>
 		<script>
 			window.onload = function(){ checkBrowserCompatibility('Ваш браузер не поддерживает функции, требуемые для визуализации этого Сайта.','Возможно, Ваш браузер не поддерживает функции, требуемые для визуализации этого Сайта.','[1]Обновите Ваш браузер[/1] или [2]продолжите процедуру [/2].','http://outdatedbrowser.com/'); };
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.ico?2023-1-5-0-638443259658072606" type="image/vnd.microsoft.icon" />
+		<link rel="icon" href="favicon.ico?2024-2-7-1-638570300479364707" type="image/vnd.microsoft.icon" />
 		<style>
 		h1, h2, h3, h4, h5, h6 {
 		    font-weight: normal;

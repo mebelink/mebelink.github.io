@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title><?php echo $pagetitle ?> - <?php echo $sitetitle ?></title>
+    <link rel="manifest" href="manifest.json"/>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=cyrillic,greek" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="../style/reset.css?v=<?php echo md5($imSettings['general']['version']) ?>"/>
@@ -37,12 +38,6 @@
                 <img class="logo" src="<?php echo $logo ?>" alt="<?php echo $sitetitle ?>">
                 <?php endif; ?>
                 <div class="text">
-                    <?php
-                        // App redirect code
-                        if (Configuration::getControlPanel()->isWsx5Manager()) {
-                            $redirectJs = " onclick=\"parent.postMessage('{&quot;code&quot;: 301, &quot;location&quot;: &quot;" . $imSettings['general']['url'] . "&quot;}', '*'); return false;\"";
-                        }
-                    ?>
                     <div class="site-title text-extralarge">
                         <a href="<?php echo $imSettings['general']['url'] ?>"<?php echo isset($redirectJs) ? $redirectJs : "" ?> class="fore-color-inherit" target="_blank"><?php echo $sitetitle ?></a>
                     </div>
@@ -51,9 +46,7 @@
                     </div>
                     <div class="separator fore-color-1"></div>
                     <div class="username semibold"><?php echo $username ?></div>
-<?php if (!Configuration::getControlPanel()->isWsx5Manager()): ?>
                     <a href="login.php?logout" class="logout button fore-white background-color-1"><?php echo strtoupper(l10n("admin_logout", "Logout")) ?></a>
-<?php endif; ?>
                 </div>
             </div>
             <ul class="menu">
