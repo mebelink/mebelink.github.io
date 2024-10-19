@@ -2,10 +2,10 @@
 	<thead>
 		<tr>
 			<th class="border-bottom-2 border-mute-light fore-color-1 no-phone"></th>
-			<th class="border-bottom-2 border-mute-light fore-color-1 no-phone"><?php echo l10n("private_area_email", "Email") ?></th>
+			<th class="border-bottom-2 border-mute-light fore-color-1"><?php echo l10n("private_area_email", "Email") ?></th>
 			<th class="border-bottom-2 border-mute-light fore-color-1 no-phone"><?php echo l10n("private_area_realname", "Full name") ?></th>
 			<th class="border-bottom-2 border-mute-light fore-color-1 no-phone no-tablet"><?php echo l10n("private_area_ip", "IP Address") ?></th>
-			<th class="border-bottom-2 border-mute-light fore-color-1"><?php echo l10n("private_area_ts", "Registration date") ?></th>
+			<th class="border-bottom-2 border-mute-light fore-color-1 no-phone"><?php echo l10n("private_area_ts", "Registration date") ?></th>
 			<th class="border-bottom-2 border-mute-light fore-color-1 no-phone no-tablet"><?php echo l10n("private_area_status", "Status") ?></th>
 			<th class="border-bottom-2 border-mute-light fore-color-1"></th>
 		</tr>
@@ -19,10 +19,10 @@
 	<?php $i = 0; foreach ($users as $user): $i++ ?>
 		<tr id="id_<?php echo $user['id']?>" class="<?php echo $i % 2 == 0 ? 'background-blue-light' : '' ?>">
 			<td class="no-phone"><?php echo $user['orderscount'] > 0 ? '<i class="fa fa-shopping-cart fore-color-1 icon-large"></i>' : "" ?></td>
-			<td class="no-phone"><?php echo $user['email'] ?></td>
+			<td><?php echo $user['email'] ?></td>
 			<td class="no-phone"><?php echo $user['realname'] ?></td>
 			<td class="no-phone no-tablet"><?php echo $user['ip'] ?></td>
-			<td><?php echo formatDate(DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $user['ts']), false, true, true) ?></td>
+			<td class="no-phone"><?php echo formatDate(DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $user['ts']), false, true, true) ?></td>
 			<?php if ($user['validated']): ?>
 			<td class="green no-phone no-tablet"><?php echo l10n("private_area_status_validated", "Validated") ?></td>
 			<?php else: ?>

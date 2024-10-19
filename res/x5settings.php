@@ -11,7 +11,7 @@ $imSettings['general'] = array(
 	'url' => 'https://mebelink.github.io/',
 	'homepage_url' => 'https://mebelink.github.io/index.html',
 	'icon' => 'https://mebelink.github.io/favImage.png',
-	'version' => '2024.3.2.0',
+	'version' => '2024.3.4.0',
 	'sitename' => 'Студия мебели «Mebelink»',
 	'lang_code' => 'ru',
 	'public_folder' => '',
@@ -41,8 +41,8 @@ $imSettings['password_policy'] = array(
 |	Captcha
 |-------------------------------
 */ImTopic::$captcha_code = "		<div class=\"x5captcha-wrap\">
-			<label for=\"mz8bwuql-imCpt\">Проверочное слово:</label><br />
-			<input type=\"text\" id=\"mz8bwuql-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
+			<label for=\"x31ct88m-imCpt\">Проверочное слово:</label><br />
+			<input type=\"text\" id=\"x31ct88m-imCpt\" class=\"imCpt\" name=\"imCpt\" maxlength=\"5\" />
 		</div>
 ";
 
